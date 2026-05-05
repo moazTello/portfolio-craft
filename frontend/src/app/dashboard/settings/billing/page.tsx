@@ -1,0 +1,361 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { toast } from "sonner";
+import { LoadingSkeleton } from "@/components/shared/LoadingSpinner";
+import { usePortfolioGuard } from "@/hooks/usePortfolioGuard";
+import { api } from "@/lib/api";
+import { ShamCashModal } from "@/components/dashboard/ShamCashModal";
+// function getToken() {
+//   return localStorage.getItem("token") ?? "";
+// }
+
+const plans = [
+  {
+    id: "FREE",
+    name: "Free",
+    price: "$0",
+    period: "forever",
+    features: [
+      "Public portfolio page",
+      "Up to 3 projects",
+      "Basic analytics",
+      "PortfolioCraft subdomain",
+    ],
+    cta: "Current Plan",
+    // disabled: true,
+    level: 0,
+  },
+  {
+    id: "PRO",
+    name: "Pro",
+    price: "$9",
+    period: "per month",
+    features: [
+      "Everything in Free",
+      "Unlimited projects",
+      "Advanced analytics",
+      "Custom domain",
+      "Remove branding",
+      "Priority support",
+    ],
+    cta: "Upgrade to Pro",
+    // disabled: false,
+    highlighted: true,
+    level: 1,
+  },
+  {
+    id: "BUSINESS",
+    name: "Business",
+    price: "$19",
+    period: "per month",
+    features: [
+      "Everything in Pro",
+      "AI bio generator",
+      "Booking system",
+      "PDF export",
+      "Blog system",
+      "Team collaboration",
+    ],
+    cta: "Upgrade to Business",
+    // disabled: false,
+    level: 2,
+  },
+];
+
+export default function BillingPage() {
+  const ready = usePortfolioGuard();
+  const searchParams = useSearchParams();
+  const [subscription, setSubscription] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const [checkoutLoading, setCheckoutLoading] = useState<string | null>(null);
+  const [shamCashPlan, setShamCashPlan] = useState<"PRO" | "BUSINESS" | null>(
+    null,
+  );
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+
+    if (params.get("paypal") === "success") {
+      const orderId = params.get("token");
+      const plan = params.get("plan");
+      if (orderId) capturePaypal(orderId);
+    }
+    if (params.get("paypal") === "cancelled") {
+      toast.error("PayPal payment cancelled");
+    }
+    if (searchParams.get("success") === "true") {
+      toast.success("Subscription activated! 🎉");
+    }
+    if (searchParams.get("cancelled") === "true") {
+      toast.error("Checkout cancelled");
+    }
+
+    // fetch("http://localhost:3001/v1/billing/subscription", {
+    //   headers: { Authorization: `Bearer ${getToken()}` },
+    // })
+    api
+      .get("/billing/subscription")
+      .then((res) => res.json())
+      .then((data) => {
+        setSubscription(data);
+        setLoading(false);
+      });
+  }, []);
+  async function capturePaypal(orderId: string) {
+    try {
+      const res = await api.post("/billing/paypal/capture", { orderId });
+      const data = await res.json();
+      if (data.success) {
+        toast.success("Payment successful! 🎉");
+        window.location.href = "/dashboard/settings/billing";
+      }
+    } catch {
+      toast.error("Payment verification failed");
+    }
+  }
+
+  async function handlePaypalUpgrade(planId: string) {
+    setCheckoutLoading(`paypal-${planId}`);
+    try {
+      const res = await api.post("/billing/paypal/create", { plan: planId });
+      const data = await res.json();
+      if (data.approvalUrl) window.location.href = data.approvalUrl;
+    } catch {
+      toast.error("Something went wrong");
+    } finally {
+      setCheckoutLoading(null);
+    }
+  }
+
+  async function handleUpgrade(planId: string) {
+    setCheckoutLoading(planId);
+    try {
+      // const res = await fetch("http://localhost:3001/v1/billing/checkout", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //     Authorization: `Bearer ${getToken()}`,
+      //   },
+      //   body: JSON.stringify({ plan: planId }),
+      // });
+      const res = await api.post("/billing/checkout", { plan: planId });
+      const data = await res.json();
+      if (data.url) window.location.href = data.url;
+    } catch (err: any) {
+      toast.error(err.message);
+    } finally {
+      setCheckoutLoading(null);
+    }
+  }
+
+  async function handleManage() {
+    try {
+      // const res = await fetch("http://localhost:3001/v1/billing/portal", {
+      //   method: "POST",
+      //   headers: { Authorization: `Bearer ${getToken()}` },
+      // });
+      const res = await api.post("/billing/portal");
+      const data = await res.json();
+      if (data.url) window.location.href = data.url;
+    } catch {
+      toast.error("Something went wrong");
+    }
+  }
+
+  //   if (loading) return <div className="text-gray-400 text-sm">Loading...</div>;
+  // if (loading)
+  //   return (
+  //     <div>
+  //       <LoadingSkeleton rows={4} />
+  //     </div>
+  //   );
+  if (!ready) return <LoadingSkeleton rows={3} />;
+  if (loading) return <LoadingSkeleton rows={3} />;
+  const currentPlan = subscription?.plan ?? "FREE";
+  const currentPlanData = plans.find((p) => p.id === currentPlan);
+  console.log(subscription);
+  return (
+    <div>
+      {/* Header */}
+      <div className="mb-8">
+        <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">
+          Billing
+        </h1>
+        <p className="text-sm text-gray-500 mt-1">Manage your subscription</p>
+      </div>
+
+      {/* Current Plan Banner */}
+      <div className="bg-indigo-50 dark:bg-indigo-950 border border-indigo-100 dark:border-indigo-900 rounded-xl p-5 mb-8 flex items-center justify-between">
+        <div>
+          <p className="text-sm text-indigo-600 dark:text-indigo-400 font-medium">
+            Current Plan
+          </p>
+          <p className="text-xl font-semibold text-indigo-900 dark:text-indigo-100 mt-0.5">
+            {currentPlan.charAt(0) + currentPlan.slice(1).toLowerCase()}
+          </p>
+        </div>
+        {currentPlan !== "FREE" && subscription?.stripeSubscriptionId && (
+          <button
+            onClick={handleManage}
+            className="border border-indigo-200 dark:border-indigo-700 text-indigo-600 dark:text-indigo-400 px-4 py-2 rounded-lg text-sm hover:bg-indigo-100 dark:hover:bg-indigo-900 transition"
+          >
+            Manage Subscription
+          </button>
+        )}
+        {currentPlan !== "FREE" && !subscription?.stripeSubscriptionId && (
+          <a
+            href={`https://wa.me/963968767511?text=${encodeURIComponent("Hi! I want to manage my subscription on PortfolioCraft.")}`}
+            target="_blank"
+            className="border border-green-200 dark:border-green-800 text-green-600 dark:text-green-400 px-4 py-2 rounded-lg text-sm hover:bg-green-50 transition"
+          >
+            💬 Contact to Manage
+          </a>
+        )}
+      </div>
+
+      {/* Plans */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {plans.map((plan) => {
+          // const isCurrent = currentPlan === plan.id;
+
+          const isCurrent = currentPlan === plan.id;
+          const isUpgrade = plan.level > (currentPlanData?.level ?? 0);
+          const isDowngrade = plan.level < (currentPlanData?.level ?? 0);
+          return (
+            <div
+              key={plan.id}
+              className={`bg-white dark:bg-gray-900 rounded-xl border p-6 relative ${
+                isCurrent
+                  ? "border-indigo-500 dark:border-indigo-600 shadow-md"
+                  : plan.highlighted
+                    ? "border-indigo-300 dark:border-indigo-700 shadow-sm"
+                    : "border-gray-100 dark:border-gray-800"
+              }`}
+            >
+              {isCurrent && (
+                <span className="absolute top-4 right-4 text-xs bg-indigo-100 text-indigo-700 px-2 py-1 rounded-full">
+                  Current
+                </span>
+              )}
+              {/* {plan.highlighted && (
+                <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-indigo-600 text-white text-xs px-3 py-1 rounded-full">
+                  Most Popular
+                </span>
+              )} */}
+              {plan.highlighted && !isCurrent && (
+                <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-indigo-600 text-white text-xs px-3 py-1 rounded-full">
+                  Most Popular
+                </span>
+              )}
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                {plan.name}
+              </h3>
+              <div className="mt-2 mb-6">
+                <span className="text-3xl font-bold text-gray-900 dark:text-white">
+                  {plan.price}
+                </span>
+                <span className="text-sm text-gray-400 ml-1">
+                  {plan.period}
+                </span>
+              </div>
+
+              <ul className="space-y-2.5 mb-6">
+                {plan.features.map((feature) => (
+                  <li
+                    key={feature}
+                    className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400"
+                  >
+                    <span className="text-indigo-500">✓</span>
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+
+              <button
+                onClick={() =>
+                  !isCurrent &&
+                  // !plan.disabled &&
+                  plan.id !== "FREE" &&
+                  handleUpgrade(plan.id)
+                }
+                disabled={
+                  isCurrent ||
+                  //  || plan.disabled
+                  checkoutLoading === plan.id ||
+                  plan.id === "FREE"
+                }
+                // className={`w-full py-2.5 rounded-lg text-sm font-medium transition ${
+                //   isCurrent
+                //     ? // ? "bg-gray-100 dark:bg-gray-800 text-gray-400 cursor-default"
+                //       "bg-indigo-50 border-indigo-300 text-indigo-700"
+                //     : plan.highlighted
+                //       ? "bg-indigo-600 text-white hover:bg-indigo-700"
+                //       : "border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800"
+
+                //     } disabled:opacity-50
+                // `}
+                className={`w-full py-2.5 rounded-lg text-sm font-medium transition ${
+                  isCurrent
+                    ? "bg-indigo-50 dark:bg-indigo-950 border border-indigo-300 dark:border-indigo-700 text-indigo-700 dark:text-indigo-300 cursor-not-allowed"
+                    : plan.highlighted
+                      ? "bg-indigo-600 text-white hover:bg-indigo-700"
+                      : isUpgrade
+                        ? "bg-indigo-600 text-white hover:bg-indigo-700"
+                        : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700"
+                  //  "border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800"
+                } disabled:opacity-50`}
+              >
+                {checkoutLoading === plan.id
+                  ? "Loading..."
+                  : isCurrent
+                    ? "Current Plan"
+                    : plan.id === "FREE"
+                      ? "Downgrade to Free"
+                      : isUpgrade
+                        ? `Upgrade to ${plan.name}`
+                        : `Switch to ${plan.name}`}
+              </button>
+              {/* {!isCurrent && plan.id !== "FREE" && ( */}
+              {!isCurrent && plan.id !== "FREE" && (
+                <div className="mt-2">
+                  <p className="text-xs text-gray-400 text-center mb-2">
+                    or pay with
+                  </p>
+                  <button
+                    onClick={() => handlePaypalUpgrade(plan.id)}
+                    disabled={checkoutLoading === `paypal-${plan.id}`}
+                    className="w-full py-2 rounded-lg text-sm font-medium border border-gray-200 dark:border-gray-700 bg-[#FFC439] text-[#003087] hover:bg-[#FFB800] transition disabled:opacity-50"
+                  >
+                    {checkoutLoading === `paypal-${plan.id}`
+                      ? "Loading..."
+                      : "🅿 PayPal"}
+                  </button>
+                </div>
+              )}
+
+              {!isCurrent && plan.id !== "FREE" && (
+                <div className="mt-2">
+                  <button
+                    onClick={() =>
+                      setShamCashPlan(plan.id as "PRO" | "BUSINESS")
+                    }
+                    className="w-full py-2 rounded-lg text-sm font-medium border border-green-200 dark:border-green-800 bg-green-50 dark:bg-green-950 text-green-700 dark:text-green-400 hover:bg-green-100 transition"
+                  >
+                    Pay with ShamCash
+                  </button>
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+      {shamCashPlan && (
+        <ShamCashModal
+          plan={shamCashPlan}
+          onClose={() => setShamCashPlan(null)}
+        />
+      )}
+    </div>
+  );
+}
