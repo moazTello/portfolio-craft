@@ -1,0 +1,32 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Environment files
+.env
+.env.local
+.env.production
+.env.development
+**/.env
+**/.env.local
+**/.env.production
+
+# Build outputs
+dist/
+.next/
+**/dist/
+**/.next/
+
+# Logs
+*.log
+**/logs/
+
+# OS files
+.DS_Store
+**/.DS_Store
+
+# Secrets
+secrets.txt
+
+# Prisma
+backend/prisma/migrations/dev.db

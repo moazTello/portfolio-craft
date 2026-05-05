@@ -1,0 +1,394 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+// ─────────────────────────────────────────────
+// ENUMS
+// ─────────────────────────────────────────────
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum Plan {
+  FREE
+  PRO
+  BUSINESS
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+}
+
+enum PortfolionProfession {
+  DEVELOPER
+  DESIGNER
+  LAWYER
+  DOCTOR
+  CONSULTANT
+  MARKETER
+  WRITER
+  PHOTOGRAPHER
+  OTHER
+}
+
+// ─────────────────────────────────────────────
+// USERS
+// ─────────────────────────────────────────────
+
+model User {
+  id              String    @id @default(uuid())
+  email           String    @unique
+  passwordHash    String?   // nullable for OAuth-only users
+  name            String
+  role            Role      @default(USER)
+  emailVerified   Boolean   @default(false)
+  avatarUrl       String?
+  oauthProvider   String?   // "google" | "github"
+  oauthId         String?
+
+  portfolio       Portfolio?
+  blogPosts       BlogPost[]
+  bookings        Booking[]  @relation("ReceivedBookings")
+
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  @@index([email])
+
+  plan            Plan      @default(FREE)
+  stripeCustomerId String?  @unique
+  stripeSubscriptionId String? @unique
+  planExpiresAt   DateTime?
+
+  verificationToken   String?
+  resetPasswordToken  String?
+  resetPasswordExpiry DateTime?
+
+  telegramChatId String?
+}
+
+// ─────────────────────────────────────────────
+// PORTFOLIO
+// ─────────────────────────────────────────────
+
+model Portfolio {
+  id              String              @id @default(uuid())
+  userId          String              @unique
+  user            User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  username        String              @unique  // e.g. "janedoe" → janedoe.portfoliocraft.com
+  profession      PortfolionProfession @default(DEVELOPER)
+  published       Boolean             @default(false)
+
+  // Hero
+  heroTitle       String?
+  heroSubtitle    String?
+  heroImage       String?
+
+  // About
+  aboutText       String?             @db.Text
+  aboutImage      String?
+
+  // Contact
+  email           String?
+  phone           String?
+  location        String?
+  linkedin        String?
+  github          String?
+  twitter         String?
+  website         String?
+
+  // Theming
+  themePreset     String?             // "minimal" | "bold" | "elegant" | "dark"
+  customColors    Json?               // { primary, accent, background, surface, text }
+  customFonts     Json?               // { heading, body }
+  darkModeDefault Boolean             @default(false)
+
+  // Domains
+  customDomain    String?             @unique
+
+  // SEO
+  seoTitle        String?
+  seoDescription  String?
+  ogImage         String?
+
+  // Booking settings (for doctors, lawyers, consultants)
+  bookingEnabled  Boolean             @default(false)
+  bookingDuration Int?                // minutes per slot
+  bookingBuffer   Int?                // minutes between slots
+
+  // i18n
+  defaultLocale   String              @default("en")
+
+  // Relations
+  projects        Project[]
+  experiences     Experience[]
+  skills          Skill[]
+  certificates    Certificate[]
+  testimonials    Testimonial[]
+  clients         Client[]
+  achievements    Achievement[]
+  services        Service[]
+  analyticsEvents AnalyticsEvent[]
+  pdfTemplate String? @default("modern")
+  messages    Message[]
+  gallery     GalleryImage[]
+  createdAt       DateTime            @default(now())
+  updatedAt       DateTime            @updatedAt
+  availability    Availability[]
+  
+  @@index([username])
+  @@index([customDomain])
+}
+
+// ─────────────────────────────────────────────
+// PORTFOLIO SECTIONS
+// ─────────────────────────────────────────────
+
+model Project {
+  id            String    @id @default(uuid())
+  portfolioId   String
+  portfolio     Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+
+  title         String
+  description   String?   @db.Text
+  tags          String[]  // ["React", "TypeScript", "AWS"]
+  images        String[]  // S3 URLs
+  liveUrl       String?
+  repoUrl       String?
+  caseStudyUrl  String?
+  displayOrder  Int       @default(0)
+  featured      Boolean   @default(false)
+
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@index([portfolioId])
+}
+
+model Experience {
+  id            String    @id @default(uuid())
+  portfolioId   String
+  portfolio     Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+
+  company       String
+  role          String
+  logoUrl       String?
+  location      String?
+  startDate     DateTime
+  endDate       DateTime?
+  current       Boolean   @default(false)
+  description   String?   @db.Text
+  highlights    String[]  // bullet points
+  displayOrder  Int       @default(0)
+
+  createdAt     DateTime  @default(now())
+}
+
+model Skill {
+  id            String    @id @default(uuid())
+  portfolioId   String
+  portfolio     Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+
+  name          String
+  category      String    // "Frontend" | "Backend" | "Design" | "Soft Skills"
+  proficiency   Int       @default(80)  // 0–100
+  iconUrl       String?
+  displayOrder  Int       @default(0)
+}
+
+model Certificate {
+  id            String    @id @default(uuid())
+  portfolioId   String
+  portfolio     Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+
+  title         String
+  issuer        String
+  issueDate     DateTime
+  expiryDate    DateTime?
+  credentialUrl String?
+  imageUrl      String?
+  displayOrder  Int       @default(0)
+}
+
+model Testimonial {
+  id            String    @id @default(uuid())
+  portfolioId   String
+  portfolio     Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+
+  authorName    String
+  authorTitle   String?
+  authorCompany String?
+  authorImage   String?
+  content       String    @db.Text
+  rating        Int?      // 1–5
+  featured      Boolean   @default(false)
+  displayOrder  Int       @default(0)
+
+  createdAt     DateTime  @default(now())
+}
+
+model Client {
+  id            String    @id @default(uuid())
+  portfolioId   String
+  portfolio     Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+
+  name          String
+  logoUrl       String?
+  websiteUrl    String?
+  displayOrder  Int       @default(0)
+}
+
+model Achievement {
+  id            String    @id @default(uuid())
+  portfolioId   String
+  portfolio     Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+
+  title         String
+  description   String?
+  date          DateTime?
+  imageUrl      String?
+  displayOrder  Int       @default(0)
+}
+
+model Service {
+  id            String    @id @default(uuid())
+  portfolioId   String
+  portfolio     Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+
+  title         String
+  description   String?   @db.Text
+  iconUrl       String?
+  price         String?   // "From $500" — free text for flexibility
+  featured      Boolean   @default(false)
+  displayOrder  Int       @default(0)
+}
+
+// ─────────────────────────────────────────────
+// BLOG
+// ─────────────────────────────────────────────
+
+model BlogPost {
+  id            String    @id @default(uuid())
+  userId        String
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  title         String
+  slug          String
+  excerpt       String?
+  content       String    @db.Text  // Markdown / MDX
+  coverImage    String?
+  tags          String[]
+  published     Boolean   @default(false)
+  publishedAt   DateTime?
+  readTime      Int?      // minutes, calculated on save
+
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@unique([userId, slug])
+  @@index([userId])
+}
+
+// ─────────────────────────────────────────────
+// BOOKINGS
+// ─────────────────────────────────────────────
+
+model Booking {
+  id              String        @id @default(uuid())
+  userId          String
+  user            User          @relation("ReceivedBookings", fields: [userId], references: [id], onDelete: Cascade)
+
+  clientName      String
+  clientEmail     String
+  clientPhone     String?
+  bookedAt        DateTime
+  durationMinutes Int
+  status          BookingStatus @default(PENDING)
+  notes           String?       @db.Text
+  meetLink        String?       // Google Meet URL generated on confirm
+
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  @@index([userId])
+  @@index([bookedAt])
+}
+
+// ─────────────────────────────────────────────
+// ANALYTICS
+// ─────────────────────────────────────────────
+
+model AnalyticsEvent {
+  id            String    @id @default(uuid())
+  portfolioId   String
+  portfolio     Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+
+  eventType     String    // "page_view" | "contact_click" | "project_view" | "download_cv"
+  section       String?   // which section was interacted with
+  referrer      String?
+  userAgent     String?
+  country       String?
+  city          String?
+  sessionId     String?
+
+  occurredAt    DateTime  @default(now())
+
+  @@index([portfolioId, occurredAt])
+  @@index([portfolioId, eventType])
+}
+
+model Message {
+  id          String   @id @default(uuid())
+  portfolioId String
+  portfolio   Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+
+  senderName  String
+  senderEmail String
+  subject     String?
+  content     String   @db.Text
+  read        Boolean  @default(false)
+
+  createdAt   DateTime @default(now())
+
+  @@index([portfolioId])
+}
+
+model GalleryImage {
+  id          String    @id @default(uuid())
+  portfolioId String
+  portfolio   Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+
+  imageUrl    String    @db.Text
+  caption     String?
+  category    String?
+  displayOrder Int      @default(0)
+
+  createdAt   DateTime  @default(now())
+
+  @@index([portfolioId])
+}
+
+model Availability {
+  id          String    @id @default(uuid())
+  portfolioId String
+  portfolio   Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+
+  dayOfWeek   Int       // 0=Sunday, 1=Monday, ... 6=Saturday
+  startTime   String    // "09:00"
+  endTime     String    // "17:00"
+  isActive    Boolean   @default(true)
+
+  @@index([portfolioId])
+}
