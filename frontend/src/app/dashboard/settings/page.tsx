@@ -43,9 +43,7 @@ type PasswordValues = z.infer<typeof passwordSchema>;
 export default function SettingsPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<"profile" | "password" | "danger">(
-    "profile",
-  );
+  const [activeTab, setActiveTab] = useState<'profile' | 'password' | 'username' | 'telegram' | 'domain' | 'danger'>('profile')
   const [avatar, setAvatar] = useState<string | null>(null);
 
   const [username, setUsername] = useState("");
