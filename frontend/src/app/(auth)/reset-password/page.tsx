@@ -7,7 +7,7 @@ import { toast } from "sonner";
 import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { Suspense } from "react";
-
+import { api } from "@/lib/api";
 const schema = z
   .object({
     newPassword: z.string().min(8, "Min 8 characters"),
@@ -35,12 +35,15 @@ function ResetPasswordContent() {
 
   async function onSubmit(values: FormValues) {
     try {
-      const res = await fetch("http://localhost:3001/v1/auth/reset-password", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ token, newPassword: values.newPassword }),
+      // const res = await fetch("http://localhost:3001/v1/auth/reset-password", {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify({ token, newPassword: values.newPassword }),
+      // });
+      const res = await api.post("/auth/reset-password", {
+        token,
+        newPassword: values.newPassword,
       });
-
       if (!res.ok) throw new Error();
       toast.success("Password reset successfully!");
       router.push("/login");

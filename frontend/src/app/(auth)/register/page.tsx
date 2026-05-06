@@ -6,7 +6,7 @@ import { z } from "zod";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-
+import { api } from "@/lib/api";
 const schema = z.object({
   name: z.string().min(2, "Name is required"),
   email: z.string().email("Invalid email"),
@@ -27,11 +27,12 @@ export default function RegisterPage() {
 
   async function onSubmit(values: FormValues) {
     try {
-      const res = await fetch("http://localhost:3001/v1/auth/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
-      });
+      // const res = await fetch("http://localhost:3001/v1/auth/register", {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify(values),
+      // });
+      const res = await api.post("/auth/register", values);
 
       const data = await res.json();
       if (!res.ok) throw new Error(data.message);

@@ -2,7 +2,7 @@
 
 import { useEffect, useState, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-
+import { api } from "@/lib/api";
 function VerifyEmailContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -17,7 +17,8 @@ function VerifyEmailContent() {
       return;
     }
 
-    fetch(`http://localhost:3001/v1/auth/verify-email?token=${token}`)
+    // fetch(`http://localhost:3001/v1/auth/verify-email?token=${token}`)
+    api.get(`/auth/verify-email?token=${token}`)
       .then((res) => res.json())
       .then((data) => {
         if (data.accessToken) {

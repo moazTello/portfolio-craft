@@ -6,7 +6,7 @@ import { z } from "zod";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-
+import { api } from "@/lib/api";
 const schema = z.object({
   email: z.string().email("Invalid email"),
   password: z.string().min(8, "Min 8 characters"),
@@ -26,11 +26,13 @@ export default function LoginPage() {
 
   async function onSubmit(values: FormValues) {
     try {
-      const res = await fetch("http://localhost:3001/v1/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
-      });
+      // const res = await fetch("http://localhost:3001/v1/auth/login", {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify(values),
+      // });
+      const res = await api.post("/auth/login", values)
+  
 
       const data = await res.json();
 
