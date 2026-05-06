@@ -57,7 +57,8 @@ import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
 import { PrismaService } from '../../database/prisma.service';
 import * as bcrypt from 'bcrypt';
-import { v4 as uuid } from 'uuid';
+// import { v4 as uuid } from 'uuid';
+import { randomUUID } from 'crypto'
 import { ConfigService } from '@nestjs/config';
 
 @Injectable()
@@ -75,7 +76,8 @@ export class AuthService {
     if (existing) throw new ConflictException('Email already in use');
 
     const passwordHash = await bcrypt.hash(dto.password, 12);
-    const verificationToken = uuid();
+    // const verificationToken = uuid();
+    const verificationToken = randomUUID();
 
     const user = await this.users.create({
       name: dto.name,
@@ -134,7 +136,8 @@ export class AuthService {
         message: 'If this email exists, you will receive a reset link.',
       };
 
-    const token = uuid();
+    // const token = uuid();
+    const token = randomUUID();
     const expiry = new Date(Date.now() + 60 * 60 * 1000); // 1 hour
 
     await this.prisma.user.update({
