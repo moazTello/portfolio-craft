@@ -1,32 +1,32 @@
-'use client'
+"use client";
 
-import { useEffect } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useEffect, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 
-export default function OAuthCallbackPage() {
-  const router = useRouter()
-  const searchParams = useSearchParams()
+function OAuthCallbackContent() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
   useEffect(() => {
-    const token = searchParams.get('token')
-    const refresh = searchParams.get('refresh')
+    const token = searchParams.get("token");
+    const refresh = searchParams.get("refresh");
 
     if (!token) {
-      router.push('/login?error=oauth_failed')
-      return
+      router.push("/login?error=oauth_failed");
+      return;
     }
 
     // احفظ في localStorage
-    localStorage.setItem('token', token)
-    if (refresh) localStorage.setItem('refreshToken', refresh)
+    localStorage.setItem("token", token);
+    if (refresh) localStorage.setItem("refreshToken", refresh);
 
     // احفظ في cookie عشان الـ middleware يشوفه
-    document.cookie = `token=${token}; path=/; max-age=${7 * 24 * 60 * 60}; SameSite=Lax`
+    document.cookie = `token=${token}; path=/; max-age=${7 * 24 * 60 * 60}; SameSite=Lax`;
 
     setTimeout(() => {
-      router.push('/dashboard')
-    }, 300)
-  }, [])
+      router.push("/dashboard");
+    }, 300);
+  }, []);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-950">
@@ -35,5 +35,18 @@ export default function OAuthCallbackPage() {
         <p className="text-gray-500 text-sm">Signing you in...</p>
       </div>
     </div>
-  )
+  );
+}
+export default function OAuthCallbackPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex items-center justify-center">
+          <div className="w-8 h-8 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin" />
+        </div>
+      }
+    >
+      <OAuthCallbackContent />
+    </Suspense>
+  );
 }
