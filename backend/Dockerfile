@@ -13,4 +13,4 @@ RUN npm run build
 
 EXPOSE 3001
 
-CMD ["sh", "-c", "printenv && node dist/main"]
+CMD ["node", "dist/main"]
