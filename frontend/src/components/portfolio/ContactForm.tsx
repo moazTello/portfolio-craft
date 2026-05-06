@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { toast } from "sonner";
-
+import { api } from "@/lib/api";
 const schema = z.object({
   senderName: z.string().min(2, "Name is required"),
   senderEmail: z.string().email("Invalid email"),
@@ -29,11 +29,12 @@ export function ContactForm({ portfolioId }: { portfolioId: string }) {
 
   async function onSubmit(values: FormValues) {
     try {
-      const res = await fetch("http://localhost:3001/v1/messages/send", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...values, portfolioId }),
-      });
+      // const res = await fetch("http://localhost:3001/v1/messages/send", {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify({ ...values, portfolioId }),
+      // });
+      const res = await api.post("/messages/send", { ...values, portfolioId });
 
       if (!res.ok) throw new Error();
       setSent(true);

@@ -2,11 +2,11 @@
 
 import { useState } from "react";
 import { toast } from "sonner";
+import { api } from "@/lib/api";
 
-function getToken() {
-  return localStorage.getItem("token") ?? "";
-}
-
+// function getToken() {
+//   return localStorage.getItem("token") ?? "";
+// }
 interface Props {
   currentAvatar?: string | null;
   name: string;
@@ -112,13 +112,16 @@ export function AvatarUploader({ currentAvatar, name, onUpdate }: Props) {
 
       console.log(`Compressed: ${originalSize}KB → ${compressedSize}KB`);
 
-      const res = await fetch("http://localhost:3001/v1/users/me/avatar", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${getToken()}`,
-        },
-        body: JSON.stringify({ base64 }),
+      // const res = await fetch("http://localhost:3001/v1/users/me/avatar", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //     Authorization: `Bearer ${getToken()}`,
+      //   },
+      //   body: JSON.stringify({ base64 }),
+      // });
+      const res = await api.post("/users/me/avatar", {
+        base64,
       });
 
       if (!res.ok) throw new Error();

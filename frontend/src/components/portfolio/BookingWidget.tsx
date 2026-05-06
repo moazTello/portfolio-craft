@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
-
+import { api } from "@/lib/api";
 interface Props {
   username: string;
 }
@@ -25,8 +25,11 @@ export function BookingWidget({ username }: Props) {
   async function fetchSlots(date: string) {
     setLoadingSlots(true);
     try {
-      const res = await fetch(
-        `http://localhost:3001/v1/public/booking/${username}/slots?date=${date}`,
+      // const res = await fetch(
+      //   `http://localhost:3001/v1/public/booking/${username}/slots?date=${date}`,
+      // );
+      const res = await api.get(
+        `/public/booking/${username}/slots?date=${date}`,
       );
       const data = await res.json();
       setSlots(data.slots ?? []);
@@ -46,21 +49,29 @@ export function BookingWidget({ username }: Props) {
     }
     setSubmitting(true);
     try {
-      const res = await fetch(
-        `http://localhost:3001/v1/public/booking/${username}`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            clientName: name,
-            clientEmail: email,
-            clientPhone: phone || undefined,
-            date: selectedDate,
-            time: selectedSlot,
-            notes: notes || undefined,
-          }),
-        },
-      );
+      // const res = await fetch(
+      //   `http://localhost:3001/v1/public/booking/${username}`,
+      //   {
+      //     method: "POST",
+      //     headers: { "Content-Type": "application/json" },
+      //     body: JSON.stringify({
+      //       clientName: name,
+      //       clientEmail: email,
+      //       clientPhone: phone || undefined,
+      //       date: selectedDate,
+      //       time: selectedSlot,
+      //       notes: notes || undefined,
+      //     }),
+      //   },
+      // );
+      const res = await api.post(`/public/booking/${username}`, {
+        clientName: name,
+        clientEmail: email,
+        clientPhone: phone || undefined,
+        date: selectedDate,
+        time: selectedSlot,
+        notes: notes || undefined,
+      });
       if (!res.ok) {
         const data = await res.json();
         throw new Error(data.message);

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-
+import { api } from "@/lib/api";
 function getToken() {
   return localStorage.getItem("token") ?? "";
 }
@@ -25,9 +25,11 @@ export default function AdminPage() {
 
   useEffect(() => {
     // Check if admin
-    fetch("http://localhost:3001/v1/auth/me", {
-      headers: { Authorization: `Bearer ${getToken()}` },
-    })
+    // fetch("http://localhost:3001/v1/auth/me", {
+    //   headers: { Authorization: `Bearer ${getToken()}` },
+    // })
+    api
+      .get("/auth/me")
       .then((res) => res.json())
       .then((data) => {
         if (data.role !== "ADMIN") {
@@ -44,9 +46,10 @@ export default function AdminPage() {
   }, [page, search]);
 
   async function fetchStats() {
-    const res = await fetch("http://localhost:3001/v1/admin/stats", {
-      headers: { Authorization: `Bearer ${getToken()}` },
-    });
+    // const res = await fetch("http://localhost:3001/v1/admin/stats", {
+    //   headers: { Authorization: `Bearer ${getToken()}` },
+    // });
+    const res = await api.get("/admin/stats");
     const data = await res.json();
     setStats(data);
   }
@@ -58,9 +61,10 @@ export default function AdminPage() {
       limit: "15",
       ...(search && { search }),
     });
-    const res = await fetch(`http://localhost:3001/v1/admin/users?${params}`, {
-      headers: { Authorization: `Bearer ${getToken()}` },
-    });
+    // const res = await fetch(`http://localhost:3001/v1/admin/users?${params}`, {
+    //   headers: { Authorization: `Bearer ${getToken()}` },
+    // });
+    const res = await api.get(`/admin/users?${params}`);
     const data = await res.json();
     setUsers(data.users ?? []);
     setTotal(data.total ?? 0);
@@ -71,17 +75,21 @@ export default function AdminPage() {
     if (!planModal) return;
     setUpdatingId(planModal.id);
     try {
-      const res = await fetch(
-        `http://localhost:3001/v1/admin/users/${planModal.id}/plan`,
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${getToken()}`,
-          },
-          body: JSON.stringify({ plan: selectedPlan, months: selectedMonths }),
-        },
-      );
+      // const res = await fetch(
+      //   `http://localhost:3001/v1/admin/users/${planModal.id}/plan`,
+      //   {
+      //     method: "PATCH",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //       Authorization: `Bearer ${getToken()}`,
+      //     },
+      //     body: JSON.stringify({ plan: selectedPlan, months: selectedMonths }),
+      //   },
+      // );
+      const res = await api.patch(`/admin/users/${planModal.id}/plan`, {
+        plan: selectedPlan,
+        months: selectedMonths,
+      });
       if (!res.ok) throw new Error();
       toast.success(
         `Plan updated to ${selectedPlan} for ${selectedMonths} month(s)`,
@@ -99,10 +107,11 @@ export default function AdminPage() {
   async function verifyUser(id: string, name: string) {
     setUpdatingId(id);
     try {
-      await fetch(`http://localhost:3001/v1/admin/users/${id}/verify`, {
-        method: "PATCH",
-        headers: { Authorization: `Bearer ${getToken()}` },
-      });
+      // await fetch(`http://localhost:3001/v1/admin/users/${id}/verify`, {
+      //   method: "PATCH",
+      //   headers: { Authorization: `Bearer ${getToken()}` },
+      // });
+      await api.patch(`/admin/users/${id}/verify`);
       toast.success(`${name} verified!`);
       fetchUsers();
     } catch {
@@ -116,10 +125,11 @@ export default function AdminPage() {
     if (!confirm(`Suspend ${name}?`)) return;
     setUpdatingId(id);
     try {
-      await fetch(`http://localhost:3001/v1/admin/users/${id}/suspend`, {
-        method: "PATCH",
-        headers: { Authorization: `Bearer ${getToken()}` },
-      });
+      // await fetch(`http://localhost:3001/v1/admin/users/${id}/suspend`, {
+      //   method: "PATCH",
+      //   headers: { Authorization: `Bearer ${getToken()}` },
+      // });
+      await api.patch(`/admin/users/${id}/suspend`);
       toast.success(`${name} suspended`);
       fetchUsers();
     } catch {
@@ -133,10 +143,11 @@ export default function AdminPage() {
     if (!confirm(`Delete ${name} permanently? This cannot be undone!`)) return;
     setUpdatingId(id);
     try {
-      await fetch(`http://localhost:3001/v1/admin/users/${id}`, {
-        method: "DELETE",
-        headers: { Authorization: `Bearer ${getToken()}` },
-      });
+      // await fetch(`http://localhost:3001/v1/admin/users/${id}`, {
+      //   method: "DELETE",
+      //   headers: { Authorization: `Bearer ${getToken()}` },
+      // });
+      await api.delete(`/admin/users/${id}`);
       toast.success(`${name} deleted`);
       fetchUsers();
       fetchStats();

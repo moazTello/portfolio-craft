@@ -1,12 +1,16 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3001/v1'
 async function getPost(username: string, slug: string) {
   try {
+    // const res = await fetch(
+    //   `http://localhost:3001/v1/public/blog/${username}/${slug}`,
+    //  { next: { revalidate: 60 } },
+    // );
     const res = await fetch(
-      `http://localhost:3001/v1/public/blog/${username}/${slug}`,
-      { next: { revalidate: 60 } },
-    );
+      `${API_URL}/public/blog/${username}/${slug}`,
+      { next: { revalidate: 60 } }
+    )
     if (!res.ok) return null;
     return res.json();
   } catch {

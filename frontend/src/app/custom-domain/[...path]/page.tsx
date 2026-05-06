@@ -1,10 +1,14 @@
 import { redirect } from 'next/navigation'
 import { headers } from 'next/headers'
-
+import { api } from '@/lib/api'
 async function getPortfolioByDomain(domain: string) {
   try {
-    const res = await fetch(
-      `http://localhost:3001/v1/portfolios/by-domain/${domain}`,
+    // const res = await fetch(
+    //   `http://localhost:3001/v1/portfolios/by-domain/${domain}`,
+    //   { cache: 'no-store' }
+    // )
+    const res = await api.post(
+      `/portfolios/by-domain/${domain}`,
       { cache: 'no-store' }
     )
     if (!res.ok) return null

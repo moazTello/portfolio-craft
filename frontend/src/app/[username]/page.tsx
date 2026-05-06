@@ -827,12 +827,18 @@ import { PortfolioThemeProvider } from "@/components/portfolio/ThemeProvider";
 import { getThemeById } from "@/components/portfolio/themes";
 import Link from "next/link";
 import { BookingWidget } from "@/components/portfolio/BookingWidget";
+import { api } from "@/lib/api";
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3001/v1'
 async function getPortfolio(username: string) {
   try {
-    const res = await fetch(
-      `http://localhost:3001/v1/portfolios/public/${username}`,
-      { next: { revalidate: 60 } },
-    );
+    // const res = await fetch(
+    //   `http://localhost:3001/v1/portfolios/public/${username}`,
+    //   { next: { revalidate: 60 } },
+    // );
+     const res = await fetch(
+      `${API_URL}/portfolios/public/${username}`,
+      { next: { revalidate: 60 } }
+    )
     if (!res.ok) return null;
     return res.json();
   } catch {
@@ -885,16 +891,23 @@ export default async function PortfolioPage({
   if (!portfolio) notFound();
 
   // Track page view
-  await fetch("http://localhost:3001/v1/analytics/event", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
+  // await fetch("http://localhost:3001/v1/analytics/event", {
+  //   method: "POST",
+  //   headers: { "Content-Type": "application/json" },
+  //   body: JSON.stringify({
+  //     portfolioId: portfolio.id,
+  //     eventType: "page_view",
+  //     referrer: "",
+  //   }),
+  // }).catch(() => {});
+
+  await api
+    .post("/v1/analytics/event", {
       portfolioId: portfolio.id,
       eventType: "page_view",
       referrer: "",
-    }),
-  }).catch(() => {});
-
+    })
+    .catch(() => {});
   const theme = getThemeById(portfolio.themePreset ?? "default");
 
   return (

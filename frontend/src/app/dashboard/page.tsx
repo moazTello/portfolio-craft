@@ -26,9 +26,11 @@ export default function DashboardPage() {
       return;
     }
 
-    fetch("http://localhost:3001/v1/auth/me", {
-      headers: { Authorization: `Bearer ${token}` },
-    })
+    // fetch("http://localhost:3001/v1/auth/me", {
+    //   headers: { Authorization: `Bearer ${token}` },
+    // })
+    api
+      .get("/auth/me")
       .then((res) => {
         if (!res.ok) throw new Error();
         return res.json();
@@ -36,9 +38,7 @@ export default function DashboardPage() {
       .then((userData) => {
         setUser(userData);
         // Check if portfolio exists
-        return fetch("http://localhost:3001/v1/portfolios/mine", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        return api.get("/portfolios/mine");
       })
       .then((res) => {
         if (res.status === 404) {
@@ -54,13 +54,15 @@ export default function DashboardPage() {
 
         // Fetch stats
         return Promise.all([
-          fetch("http://localhost:3001/v1/analytics/mine/summary", {
-            headers: { Authorization: `Bearer ${getToken()}` },
-          }).then((r) => (r.ok ? r.json() : null)),
-
-          fetch("http://localhost:3001/v1/portfolios/mine/projects", {
-            headers: { Authorization: `Bearer ${getToken()}` },
-          }).then((r) => (r.ok ? r.json() : [])),
+          // fetch("http://localhost:3001/v1/analytics/mine/summary", {
+          //   headers: { Authorization: `Bearer ${getToken()}` },
+          // }).then((r) => (r.ok ? r.json() : null)),
+          api
+            .get("/analytics/mine/summary")
+            .then((r) => (r.ok ? r.json() : null)),
+          api
+            .get("/portfolios/mine/projects")
+            .then((r) => (r.ok ? r.json() : [])),
         ]).then(([summaryData, projectsData]) => {
           setStats({
             views: summaryData?.totalViews ?? 0,
@@ -77,10 +79,11 @@ export default function DashboardPage() {
   async function createPortfolio() {
     setCreating(true);
     try {
-      const res = await fetch("http://localhost:3001/v1/portfolios", {
-        method: "POST",
-        headers: { Authorization: `Bearer ${getToken()}` },
-      });
+      // const res = await fetch("http://localhost:3001/v1/portfolios", {
+      //   method: "POST",
+      //   headers: { Authorization: `Bearer ${getToken()}` },
+      // });
+      const res = await api.post("/portfolios");
       if (!res.ok) throw new Error();
       const data = await res.json();
       setPortfolio(data);

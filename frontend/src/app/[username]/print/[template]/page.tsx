@@ -1,10 +1,14 @@
 import { notFound } from "next/navigation";
 import { getPdfTemplateById } from "@/components/portfolio/pdf-templates";
-
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3001/v1'
 async function getPortfolio(username: string) {
   try {
-    const res = await fetch(
-      `http://localhost:3001/v1/portfolios/public/${username}`,
+    // const res = await fetch(
+    //   `http://localhost:3001/v1/portfolios/public/${username}`,
+    //   { cache: "no-store" },
+    // );
+     const res = await fetch(
+      `${API_URL}/portfolios/public/${username}`,
       { cache: "no-store" },
     );
     if (!res.ok) return null;

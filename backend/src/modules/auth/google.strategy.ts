@@ -13,11 +13,12 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
     super({
       clientID: config.get('GOOGLE_CLIENT_ID')!,
       clientSecret: config.get('GOOGLE_CLIENT_SECRET')!,
-      callbackURL: `${config.get('BACKEND_URL') ?? 'http://localhost:3001'}/v1/auth/google/callback`,
+    //   callbackURL: `${config.get('BACKEND_URL') ?? 'http://localhost:3001'}/v1/auth/google/callback`,
+      callbackURL: `${config.get('BACKEND_URL')}/v1/auth/google/callback`,
       scope: ['email', 'profile'],
     });
   }
-  
+
   async validate(
     accessToken: string,
     refreshToken: string,
