@@ -13,4 +13,4 @@ RUN npm run build
 
 EXPOSE 3001
 
-CMD ["sh", "-c", "echo URL=$DATABASE_URL && node dist/main"]
+CMD ["sh", "-c", "printenv && node dist/main"]
