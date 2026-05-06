@@ -12,11 +12,18 @@ async function bootstrap() {
     exclude: ['api', 'api-json'],
   });
 
+  // app.enableCors({
+  //   origin: ['http://localhost:3000'],
+  //   credentials: true,
+  // });
   app.enableCors({
-    origin: ['http://localhost:3000'],
+    origin: [
+      'http://localhost:3000',
+      'https://portfoliocraft.vercel.app',
+      process.env.FRONTEND_URL ?? '',
+    ],
     credentials: true,
   });
-
   const config = new DocumentBuilder()
     .setTitle('PortfolioCraft API')
     .setDescription('API documentation')
@@ -33,7 +40,8 @@ async function bootstrap() {
       transform: true,
     }),
   );
-  await app.listen(3001);
+  // await app.listen(3001);
+  await app.listen(process.env.PORT ?? 3001)
 }
 
 bootstrap();
