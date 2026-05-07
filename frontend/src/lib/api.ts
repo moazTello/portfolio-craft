@@ -150,19 +150,19 @@
 import { toast } from "sonner";
 
 // const API_URL = "http://localhost:3001/v1";
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3001/v1'
+// const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3001/v1'
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 const TIMEOUT = 8000;
 
 function getToken() {
   return localStorage.getItem("token") ?? "";
 }
 
-let isRefreshing = false; // منع طلبات refresh متعددة بنفس الوقت
+let isRefreshing = false;
 
 async function fetchWithTimeout(url: string, options: RequestInit = {}) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), TIMEOUT);
-
   try {
     const res = await fetch(url, {
       ...options,
@@ -175,12 +175,10 @@ async function fetchWithTimeout(url: string, options: RequestInit = {}) {
     });
     clearTimeout(timeout);
     window.dispatchEvent(new Event("server-online"));
-
     if (res.status === 429) {
       toast.error("Too many requests. Please slow down!");
       throw new Error("Too many requests");
     }
-
     if (res.status === 401) {
       // حاول تجدد الـ token
       const refreshToken = localStorage.getItem("refreshToken");
@@ -212,7 +210,6 @@ async function fetchWithTimeout(url: string, options: RequestInit = {}) {
         window.location.href = "/login";
       }, 1500);
     }
-
     return res;
   } catch (err: any) {
     clearTimeout(timeout);
@@ -223,6 +220,7 @@ async function fetchWithTimeout(url: string, options: RequestInit = {}) {
     throw new Error("Unable to connect to server. Please try again.");
   }
 }
+
 
 export const api = {
   get: (path: string) => fetchWithTimeout(`${API_URL}${path}`),
