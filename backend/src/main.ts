@@ -16,12 +16,20 @@ async function bootstrap() {
   //   origin: ['http://localhost:3000'],
   //   credentials: true,
   // });
+  // app.enableCors({
+  //   origin: [
+  //     'http://localhost:3000',
+  //     'https://portfolio-craft-pearl.vercel.app',
+  //     process.env.FRONTEND_URL ?? '',
+  //   ],
+  //   credentials: true,
+  // });
   app.enableCors({
     origin: [
       'http://localhost:3000',
-      'https://portfoliocraft.vercel.app',
+      'https://portfolio-craft-pearl.vercel.app',
       process.env.FRONTEND_URL ?? '',
-    ],
+    ].filter(Boolean),
     credentials: true,
   });
   const config = new DocumentBuilder()
@@ -41,7 +49,7 @@ async function bootstrap() {
     }),
   );
   // await app.listen(3001);
-  await app.listen(process.env.PORT ?? 3001)
+  await app.listen(process.env.PORT ?? 3001);
 }
 
 bootstrap();
