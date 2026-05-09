@@ -25,11 +25,20 @@ async function bootstrap() {
   //   credentials: true,
   // });
   app.enableCors({
-    origin: [
-      'http://localhost:3000',
-      'https://portfolio-craft-six.vercel.app/',
-      process.env.FRONTEND_URL ?? '',
-    ].filter(Boolean),
+    origin: (origin, callback) => {
+      const allowed = ['http://localhost:3000', process.env.FRONTEND_URL ?? ''];
+
+      // اقبل كل vercel.app subdomains
+      if (
+        !origin ||
+        allowed.includes(origin) ||
+        origin.endsWith('.vercel.app')
+      ) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
     credentials: true,
   });
   const config = new DocumentBuilder()
