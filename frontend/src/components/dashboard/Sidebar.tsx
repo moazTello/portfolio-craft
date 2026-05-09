@@ -195,14 +195,14 @@ const navItems = [
   { label: "Billing", href: "/dashboard/settings/billing", icon: "◈" },
   { label: "Settings", href: "/dashboard/settings", icon: "◌" },
   { label: "Messages", href: "/dashboard/messages", icon: "✉" },
-  { label: 'Gallery', href: '/dashboard/gallery', icon: '🖼' },
-  { label: 'Services', href: '/dashboard/services', icon: '🛠' },
-  { label: 'Clients', href: '/dashboard/clients', icon: '🤝' },
-  { label: 'Achievements', href: '/dashboard/achievements', icon: '🏆' },
-  { label: 'Blog', href: '/dashboard/blog', icon: '✍️' },
-  { label: 'Booking', href: '/dashboard/booking', icon: '📅' },
+  { label: "Gallery", href: "/dashboard/gallery", icon: "🖼" },
+  { label: "Services", href: "/dashboard/services", icon: "🛠" },
+  { label: "Clients", href: "/dashboard/clients", icon: "🤝" },
+  { label: "Achievements", href: "/dashboard/achievements", icon: "🏆" },
+  { label: "Blog", href: "/dashboard/blog", icon: "✍️" },
+  { label: "Booking", href: "/dashboard/booking", icon: "📅" },
 ];
-
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 export default function Sidebar() {
   const pathname = usePathname();
   const router = useRouter();
@@ -374,7 +374,7 @@ export default function Sidebar() {
             )}
             {published ? (
               <a
-                href={`http://localhost:3000/${username}`}
+                href={`http://${SITE_URL}/${username}`}
                 target="_blank"
                 className="flex items-center justify-center gap-2 w-full px-3 py-2 rounded-lg text-sm text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950 hover:bg-indigo-100 dark:hover:bg-indigo-900 transition font-medium"
               >

@@ -9,7 +9,7 @@ function getToken() {
 }
 
 const PLANS = ["FREE", "PRO", "BUSINESS"];
-
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'
 export default function AdminPage() {
   const router = useRouter();
   const [stats, setStats] = useState<any>(null);
@@ -279,7 +279,7 @@ export default function AdminPage() {
                     <td className="px-4 py-3">
                       {user.portfolio ? (
                         <a
-                          href={`http://localhost:3000/${user.portfolio.username}`}
+                          href={`http://${SITE_URL}/${user.portfolio.username}`}
                           target="_blank"
                           className="text-indigo-400 hover:underline text-xs"
                         >

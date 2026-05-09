@@ -11,7 +11,7 @@ import { api } from "@/lib/api";
 import { ExportPdfButton } from "@/components/dashboard/ExportPdfButton";
 import { themes, getThemesByPlan } from "@/components/portfolio/themes";
 import { pdfTemplates } from "@/components/portfolio/pdf-templates";
-
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'
 const schema = z.object({
   heroTitle: z.string().optional(),
   heroSubtitle: z.string().optional(),
@@ -177,11 +177,11 @@ export default function EditPortfolioPage() {
           <p className="text-sm text-gray-500 mt-1">
             Public URL:{" "}
             <a
-              href={`http://localhost:3000/${username}`}
+              href={`http://${SITE_URL}/${username}`}
               target="_blank"
               className="text-indigo-600 hover:underline"
             >
-              localhost:3000/{username}
+              {SITE_URL}/{username}
             </a>
           </p>
         </div>
@@ -481,7 +481,7 @@ export default function EditPortfolioPage() {
               {pdfTemplates.map((tmpl) => (
                 <a
                   key={tmpl.id}
-                  href={`http://localhost:3000/${username}/print/${tmpl.id}`}
+                  href={`http://${SITE_URL}/${username}/print/${tmpl.id}`}
                   target="_blank"
                   className={`text-xs px-3 py-1.5 rounded-lg border transition ${
                     selectedPdfTemplate === tmpl.id

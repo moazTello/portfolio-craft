@@ -15,7 +15,7 @@ import { useRef } from "react";
 //   name: z.string().min(2, "Name is required"),
 //   email: z.string().email("Invalid email"),
 // });
-
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 const profileSchema = z.object({
   name: z.string().min(2, "Name is required"),
   email: z.string().email("Invalid email"),
@@ -43,7 +43,9 @@ type PasswordValues = z.infer<typeof passwordSchema>;
 export default function SettingsPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<'profile' | 'password' | 'username' | 'telegram' | 'domain' | 'danger'>('profile')
+  const [activeTab, setActiveTab] = useState<
+    "profile" | "password" | "username" | "telegram" | "domain" | "danger"
+  >("profile");
   const [avatar, setAvatar] = useState<string | null>(null);
 
   const [username, setUsername] = useState("");
@@ -431,7 +433,7 @@ export default function SettingsPage() {
           <p className="text-xs text-gray-400 mb-6">
             Your portfolio URL:{" "}
             <span className="text-indigo-600">
-              localhost:3000/{usernameInput || username}
+              {SITE_URL}/{usernameInput || username}
             </span>
           </p>
 

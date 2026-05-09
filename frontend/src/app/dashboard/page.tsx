@@ -8,7 +8,7 @@ import { api } from "@/lib/api";
 function getToken() {
   return localStorage.getItem("token") ?? "";
 }
-
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'
 export default function DashboardPage() {
   // const ready = usePortfolioGuard();
   // if (!ready) return <LoadingSkeleton rows={4} />;
@@ -140,12 +140,12 @@ export default function DashboardPage() {
           <div>
             <p className="text-xs text-indigo-500 mb-0.5">Your portfolio URL</p>
             <p className="text-sm font-medium text-indigo-700 dark:text-indigo-300">
-              localhost:3000/{portfolio.username}
+              {SITE_URL}/{portfolio.username}
             </p>
           </div>
           <div className="flex gap-2">
             <a
-              href={`http://localhost:3000/${portfolio.username}`}
+              href={`http://${SITE_URL}/${portfolio.username}`}
               target="_blank"
               className="text-xs bg-white dark:bg-gray-900 border border-indigo-200 dark:border-indigo-700 text-indigo-600 px-3 py-1.5 rounded-lg hover:bg-indigo-50 transition"
             >
