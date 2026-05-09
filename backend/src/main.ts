@@ -27,7 +27,7 @@ async function bootstrap() {
   app.enableCors({
     origin: [
       'http://localhost:3000',
-      'https://portfolio-craft-pearl.vercel.app',
+      'https://portfolio-craft-six.vercel.app/',
       process.env.FRONTEND_URL ?? '',
     ].filter(Boolean),
     credentials: true,
