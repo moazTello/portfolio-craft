@@ -145,7 +145,7 @@ export default function DashboardPage() {
           </div>
           <div className="flex gap-2">
             <a
-              href={`http://${SITE_URL}/${portfolio.username}`}
+              href={`${SITE_URL}/${portfolio.username}`}
               target="_blank"
               className="text-xs bg-white dark:bg-gray-900 border border-indigo-200 dark:border-indigo-700 text-indigo-600 px-3 py-1.5 rounded-lg hover:bg-indigo-50 transition"
             >
