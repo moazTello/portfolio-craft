@@ -4,17 +4,17 @@ const nextConfig: NextConfig = {
   async rewrites() {
     return [
       {
-        source: "/:path*",
+        source: '/:path*',
         has: [
           {
-            type: "host",
-            value: "(?!localhost|portfoliocraft\\.com)(?<domain>.*)",
+            type: 'host',
+            value: '(?!localhost|portfolio-craft-swain\\.vercel\\.app)(?<domain>.*)',
           },
         ],
-        destination: "/custom-domain/:path*",
+        destination: '/custom-domain/:path*',
       },
-    ];
+    ]
   },
-};
+}
 
 export default nextConfig;
