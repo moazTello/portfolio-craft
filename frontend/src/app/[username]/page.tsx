@@ -902,7 +902,7 @@ export default async function PortfolioPage({
   // }).catch(() => {});
 
   await api
-    .post("/v1/analytics/event", {
+    .post("/analytics/event", {
       portfolioId: portfolio.id,
       eventType: "page_view",
       referrer: "",

@@ -78,7 +78,6 @@ export default function AnalyticsPage() {
           Track your portfolio performance
         </p>
       </div>
-
       {/* Stats */}
       <div className="grid grid-cols-3 gap-4 mb-8">
         <div className="bg-white border border-gray-100 rounded-xl p-5">
@@ -103,7 +102,6 @@ export default function AnalyticsPage() {
           <p className="text-xs text-gray-400 mt-1">All time</p>
         </div>
       </div>
-
       {/* Chart */}
       <div className="bg-white border border-gray-100 rounded-xl p-6 mb-6">
         <div className="flex items-center justify-between mb-6">
@@ -130,7 +128,6 @@ export default function AnalyticsPage() {
           </div>
         )}
       </div>
-
       {/* Top Sections */}
       {summary?.topSections?.length > 0 && (
         <div className="bg-white border border-gray-100 rounded-xl p-6">
@@ -154,7 +151,6 @@ export default function AnalyticsPage() {
           </div>
         </div>
       )}
-
       {/* Empty state */}
       {summary?.totalViews === 0 && (
         <div className="bg-indigo-50 border border-indigo-100 rounded-xl p-6 mt-6">

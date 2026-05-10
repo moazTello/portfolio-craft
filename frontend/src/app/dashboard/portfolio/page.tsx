@@ -11,7 +11,7 @@ import { api } from "@/lib/api";
 import { ExportPdfButton } from "@/components/dashboard/ExportPdfButton";
 import { themes, getThemesByPlan } from "@/components/portfolio/themes";
 import { pdfTemplates } from "@/components/portfolio/pdf-templates";
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 const schema = z.object({
   heroTitle: z.string().optional(),
   heroSubtitle: z.string().optional(),
@@ -139,25 +139,23 @@ export default function EditPortfolioPage() {
   //   }
   // }
   async function togglePublish() {
-    const endpoint = published ? "unpublish" : "publish";
-    try {
-      const res = await api.post(`/portfolios/mine/${endpoint}`);
-      if (res.ok) {
-        setPublished(!published);
-        toast.success(
-          published ? "Portfolio unpublished" : "Portfolio published!",
-        );
-        // أضف هذا السطر
-        window.dispatchEvent(
-          new CustomEvent("portfolio-status-changed", {
-            detail: { published: !published },
-          }),
-        );
-      }
-    } catch (err: any) {
-      toast.error(err.message);
+  const endpoint = published ? "unpublish" : "publish";
+  try {
+    const res = await api.post(`/portfolios/mine/${endpoint}`);
+    console.log('Status:', res.status, 'OK:', res.ok)
+    if (res.ok) {
+      setPublished(!published);
+      toast.success(published ? "Portfolio unpublished" : "Portfolio published!");
+    } else {
+      const data = await res.json()
+      console.log('Error data:', data)
+      toast.error('Failed to update')
     }
+  } catch (err: any) {
+    console.log('Catch error:', err)
+    toast.error(err.message);
   }
+}
   // if (loading) return <div className="text-gray-400 text-sm">Loading...</div>;
   // if (loading)
   //   return (

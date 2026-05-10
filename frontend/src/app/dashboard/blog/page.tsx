@@ -12,12 +12,10 @@ export default function BlogPage() {
   const router = useRouter();
   const [posts, setPosts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     if (!ready) return;
     fetchPosts();
   }, [ready]);
-
   async function fetchPosts() {
     try {
       const res = await api.get("/blog");
@@ -29,7 +27,6 @@ export default function BlogPage() {
       setLoading(false);
     }
   }
-
   async function deletePost(id: string) {
     if (!confirm("Delete this post?")) return;
     try {
@@ -40,7 +37,6 @@ export default function BlogPage() {
       toast.error(err.message);
     }
   }
-
   async function togglePublish(post: any) {
     try {
       await api.patch(`/blog/${post.id}`, { published: !post.published });
@@ -50,9 +46,7 @@ export default function BlogPage() {
       toast.error(err.message);
     }
   }
-
   if (!ready || loading) return <LoadingSkeleton rows={4} />;
-
   return (
     <div>
       {/* Header */}
@@ -70,7 +64,6 @@ export default function BlogPage() {
           + New Post
         </button>
       </div>
-
       {/* Posts */}
       {posts.length === 0 ? (
         <div className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-xl p-12 text-center">
@@ -137,7 +130,6 @@ export default function BlogPage() {
                   </span>
                 </div>
               </div>
-
               <div className="flex gap-2 shrink-0">
                 <button
                   onClick={() => togglePublish(post)}

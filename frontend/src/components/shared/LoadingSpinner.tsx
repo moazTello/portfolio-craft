@@ -3,7 +3,7 @@ export function LoadingSpinner() {
     <div className="flex items-center justify-center min-h-[200px]">
       <div className="w-8 h-8 border-2 border-indigo-200 border-t-indigo-600 rounded-full animate-spin" />
     </div>
-  )
+  );
 }
 
 export function LoadingPage() {
@@ -14,7 +14,7 @@ export function LoadingPage() {
         <p className="text-sm text-gray-400">Loading...</p>
       </div>
     </div>
-  )
+  );
 }
 
 export function LoadingCard() {
@@ -24,7 +24,7 @@ export function LoadingCard() {
       <div className="h-3 bg-gray-100 dark:bg-gray-800 rounded w-1/2 mb-2" />
       <div className="h-3 bg-gray-100 dark:bg-gray-800 rounded w-2/3" />
     </div>
-  )
+  );
 }
 
 export function LoadingSkeleton({ rows = 3 }: { rows?: number }) {
@@ -34,5 +34,5 @@ export function LoadingSkeleton({ rows = 3 }: { rows?: number }) {
         <LoadingCard key={i} />
       ))}
     </div>
-  )
+  );
 }

@@ -16,9 +16,7 @@ const schema = z.object({
 });
 
 type FormValues = z.infer<typeof schema>;
-
 const ICONS = ["🏆", "🥇", "🎖️", "🌟", "🎯", "🚀", "💡", "🔥", "⭐", "🏅"];
-
 export default function AchievementsPage() {
   const ready = usePortfolioGuard();
   const [achievements, setAchievements] = useState<any[]>([]);
@@ -26,7 +24,6 @@ export default function AchievementsPage() {
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [selectedIcon, setSelectedIcon] = useState("🏆");
-
   const {
     register,
     handleSubmit,
@@ -35,12 +32,10 @@ export default function AchievementsPage() {
   } = useForm<FormValues>({
     resolver: zodResolver(schema),
   });
-
   useEffect(() => {
     if (!ready) return;
     fetchAchievements();
   }, [ready]);
-
   async function fetchAchievements() {
     try {
       const res = await api.get("/portfolios/mine/achievements");
@@ -52,7 +47,6 @@ export default function AchievementsPage() {
       setLoading(false);
     }
   }
-
   async function onSubmit(values: FormValues) {
     try {
       const payload = Object.fromEntries(
@@ -77,7 +71,6 @@ export default function AchievementsPage() {
       toast.error(err.message || "Something went wrong");
     }
   }
-
   async function deleteAchievement(id: string) {
     if (!confirm("Delete this achievement?")) return;
     try {
@@ -88,7 +81,6 @@ export default function AchievementsPage() {
       toast.error(err.message);
     }
   }
-
   function startEdit(achievement: any) {
     setEditingId(achievement.id);
     setSelectedIcon(achievement.imageUrl ?? "🏆");
@@ -99,9 +91,7 @@ export default function AchievementsPage() {
     });
     setShowForm(true);
   }
-
   if (!ready || loading) return <LoadingSkeleton rows={3} />;
-
   return (
     <div>
       {/* Header */}
@@ -126,7 +116,6 @@ export default function AchievementsPage() {
           + Add Achievement
         </button>
       </div>
-
       {/* Form */}
       {showForm && (
         <div className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-xl p-6 mb-6">
@@ -156,7 +145,6 @@ export default function AchievementsPage() {
                 ))}
               </div>
             </div>
-
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
@@ -184,7 +172,6 @@ export default function AchievementsPage() {
                 />
               </div>
             </div>
-
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 Description
@@ -196,7 +183,6 @@ export default function AchievementsPage() {
                 className="w-full border border-gray-200 dark:border-gray-700 dark:bg-gray-800 dark:text-white rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
             </div>
-
             <div className="flex gap-3">
               <button
                 type="submit"
@@ -224,7 +210,6 @@ export default function AchievementsPage() {
           </form>
         </div>
       )}
-
       {/* Achievements List */}
       {achievements.length === 0 ? (
         <div className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-xl p-12 text-center">

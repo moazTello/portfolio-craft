@@ -1,7 +1,13 @@
-export function JsonLd({ portfolio, username }: { portfolio: any; username: string }) {
+export function JsonLd({
+  portfolio,
+  username,
+}: {
+  portfolio: any;
+  username: string;
+}) {
   const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Person',
+    "@context": "https://schema.org",
+    "@type": "Person",
     name: portfolio.heroTitle,
     jobTitle: portfolio.heroSubtitle,
     description: portfolio.aboutText,
@@ -15,16 +21,18 @@ export function JsonLd({ portfolio, username }: { portfolio: any; username: stri
       portfolio.website,
     ].filter(Boolean),
     knowsAbout: portfolio.skills?.map((s: any) => s.name) ?? [],
-    worksFor: portfolio.experiences?.[0] ? {
-      '@type': 'Organization',
-      name: portfolio.experiences[0].company,
-    } : undefined,
-  }
+    worksFor: portfolio.experiences?.[0]
+      ? {
+          "@type": "Organization",
+          name: portfolio.experiences[0].company,
+        }
+      : undefined,
+  };
 
   return (
     <script
       type="application/ld+json"
       dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
     />
-  )
+  );
 }
