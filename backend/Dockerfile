@@ -1,6 +1,8 @@
 FROM node:18-alpine
 
-RUN apk add --no-cache openssl
+RUN apk add --no-cache openssl chromium
+ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 
 WORKDIR /app
 
@@ -10,7 +12,6 @@ RUN npm install --production=false
 COPY . .
 RUN npx prisma generate
 RUN npm run build
-RUN ls -la dist/
 
 EXPOSE 3001
 
