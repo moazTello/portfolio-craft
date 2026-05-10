@@ -828,6 +828,7 @@ import { getThemeById } from "@/components/portfolio/themes";
 import Link from "next/link";
 import { BookingWidget } from "@/components/portfolio/BookingWidget";
 import { api } from "@/lib/api";
+export const dynamic = 'force-dynamic'
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3001/v1'
 async function getPortfolio(username: string) {
   try {
