@@ -7,7 +7,7 @@ export function JsonLd({ portfolio, username }: { portfolio: any; username: stri
     description: portfolio.aboutText,
     email: portfolio.email,
     telephone: portfolio.phone,
-    url: `https://${username}.portfoliocraft.com`,
+    url: `https://${username}.portfolio-craft-swain.vercel.app`,
     sameAs: [
       portfolio.linkedin,
       portfolio.github,

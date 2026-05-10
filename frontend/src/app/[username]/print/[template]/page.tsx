@@ -712,7 +712,7 @@ function ModernTemplate({
               Portfolio Gallery
             </p>
             <a
-              href={`https://portfoliocraft.com/${username}#gallery`}
+              href={`https://portfolio-craft-swain.vercel.app/${username}#gallery`}
               style={{ fontSize: "11px", color: accent }}
             >
               portfoliocraft.com/{username}#gallery
@@ -1259,7 +1259,7 @@ function ExecutiveTemplate({
                   Portfolio Gallery
                 </p>
                 <a
-                  href={`https://portfoliocraft.com/${username}#gallery`}
+                  href={`https://portfolio-craft-swain.vercel.app/${username}#gallery`}
                   style={{ fontSize: "11px", color: accent }}
                 >
                   portfoliocraft.com/{username}#gallery
@@ -1813,7 +1813,7 @@ function MinimalTemplate({
             Gallery
           </h2>
           <a
-            href={`https://portfoliocraft.com/${username}#gallery`}
+            href={`https://portfolio-craft-swain.vercel.app/${username}#gallery`}
             style={{ fontSize: "11px", color: accent, display: "block" }}
           >
             portfoliocraft.com/{username}#gallery
@@ -2379,7 +2379,7 @@ function CreativeTemplate({
                 Portfolio Gallery
               </p>
               <a
-                href={`https://portfoliocraft.com/${username}#gallery`}
+                href={`https://portfolio-craft-swain.vercel.app/${username}#gallery`}
                 style={{ fontSize: "11px", color: accent }}
               >
                 portfoliocraft.com/{username}#gallery
@@ -2939,7 +2939,7 @@ function ElegantTemplate({
                 Portfolio Gallery
               </p>
               <a
-                href={`https://portfoliocraft.com/${username}#gallery`}
+                href={`https://portfolio-craft-swain.vercel.app/${username}#gallery`}
                 style={{ fontSize: "11px", color: accent }}
               >
                 portfoliocraft.com/{username}#gallery

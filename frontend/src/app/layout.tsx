@@ -131,7 +131,7 @@ export const metadata: Metadata = {
     template: "%s | PortfolioCraft",
   },
   description: "Build your professional portfolio in minutes",
-  metadataBase: new URL("https://portfoliocraft.com"),
+  metadataBase: new URL("https://portfolio-craft-swain.vercel.app"),
   openGraph: {
     siteName: "PortfolioCraft",
     type: "website",

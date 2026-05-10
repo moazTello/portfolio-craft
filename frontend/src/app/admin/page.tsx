@@ -279,7 +279,7 @@ export default function AdminPage() {
                     <td className="px-4 py-3">
                       {user.portfolio ? (
                         <a
-                          href={`http://${SITE_URL}/${user.portfolio.username}`}
+                          href={`${SITE_URL}/${user.portfolio.username}`}
                           target="_blank"
                           className="text-indigo-400 hover:underline text-xs"
                         >
