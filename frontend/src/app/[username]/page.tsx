@@ -830,23 +830,35 @@ import { BookingWidget } from "@/components/portfolio/BookingWidget";
 import { api } from "@/lib/api";
 export const dynamic = 'force-dynamic'
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3001/v1'
+// async function getPortfolio(username: string) {
+//   try {
+//     // const res = await fetch(
+//     //   `http://localhost:3001/v1/portfolios/public/${username}`,
+//     //   { next: { revalidate: 60 } },
+//     // );
+//      const res = await fetch(
+//       `${API_URL}/portfolios/public/${username}`,
+//       { next: { revalidate: 60 } }
+//     )
+//     if (!res.ok) return null;
+//     return res.json();
+//   } catch {
+//     return null;
+//   }
+// }
 async function getPortfolio(username: string) {
   try {
-    // const res = await fetch(
-    //   `http://localhost:3001/v1/portfolios/public/${username}`,
-    //   { next: { revalidate: 60 } },
-    // );
-     const res = await fetch(
-      `${API_URL}/portfolios/public/${username}`,
-      { next: { revalidate: 60 } }
-    )
-    if (!res.ok) return null;
-    return res.json();
-  } catch {
-    return null;
+    const url = `${API_URL}/portfolios/public/${username}`
+    console.log('Fetching:', url) // للـ debug
+    const res = await fetch(url, { cache: 'no-store' })
+    console.log('Status:', res.status)
+    if (!res.ok) return null
+    return res.json()
+  } catch (e) {
+    console.log('Error:', e)
+    return null
   }
 }
-
 export async function generateMetadata({
   params,
 }: {
