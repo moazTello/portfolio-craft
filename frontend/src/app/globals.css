@@ -220,3 +220,7 @@
   .min-h-screen { min-height: unset !important; }
   body { margin: 0 !important; padding: 0 !important; }
 }
+@media print {
+  .print\:hidden { display: none !important; }
+  body { margin: 0; }
+}

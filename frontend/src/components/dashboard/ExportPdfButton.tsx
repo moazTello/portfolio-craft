@@ -10,6 +10,43 @@ import { api } from "@/lib/api";
 export function ExportPdfButton({ plan }: { plan: string }) {
   const [loading, setLoading] = useState(false);
 
+  // async function handleExport() {
+  //   if (plan !== "BUSINESS") {
+  //     toast.error(
+  //       "PDF export is available on Business plan only. Upgrade to Business!",
+  //     );
+  //     return;
+  //   }
+
+  //   setLoading(true);
+  //   try {
+  //     // const res = await fetch('http://localhost:3001/v1/export/pdf', {
+  //     //   method: 'POST',
+  //     //   headers: { Authorization: `Bearer ${getToken()}` },
+  //     // })
+  //     const res = await api.post("/export/pdf");
+  //     if (!res.ok) {
+  //       const data = await res.json();
+  //       throw new Error(data.message);
+  //     }
+
+  //     // Download the PDF
+  //     const blob = await res.blob();
+  //     const url = URL.createObjectURL(blob);
+  //     const a = document.createElement("a");
+  //     a.href = url;
+  //     a.download = "portfolio.pdf";
+  //     a.click();
+  //     URL.revokeObjectURL(url);
+
+  //     toast.success("PDF exported successfully!");
+  //   } catch (err: any) {
+  //     toast.error(err.message || "Something went wrong");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // }
+
   async function handleExport() {
     if (plan !== "BUSINESS") {
       toast.error(
@@ -20,26 +57,17 @@ export function ExportPdfButton({ plan }: { plan: string }) {
 
     setLoading(true);
     try {
-      // const res = await fetch('http://localhost:3001/v1/export/pdf', {
-      //   method: 'POST',
-      //   headers: { Authorization: `Bearer ${getToken()}` },
-      // })
       const res = await api.post("/export/pdf");
       if (!res.ok) {
         const data = await res.json();
         throw new Error(data.message);
       }
 
-      // Download the PDF
-      const blob = await res.blob();
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "portfolio.pdf";
-      a.click();
-      URL.revokeObjectURL(url);
-
-      toast.success("PDF exported successfully!");
+      const data = await res.json();
+      if (data.printUrl) {
+        window.open(data.printUrl, "_blank");
+        toast.success("PDF page opened — use Ctrl+P or Cmd+P to save as PDF!");
+      }
     } catch (err: any) {
       toast.error(err.message || "Something went wrong");
     } finally {

@@ -1,4 +1,4 @@
-import { Injectable, ForbiddenException } from '@nestjs/common';
+import { Injectable, ForbiddenException, NotFoundException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PrismaService } from '../../database/prisma.service';
 import puppeteer from 'puppeteer';
@@ -53,6 +53,27 @@ export class ExportService {
   //       await browser.close();
   //     }
   //   }
+
+  async getPrintUrl(userId: string) {
+    const user = await this.prisma.user.findUnique({ where: { id: userId } });
+    if (user?.plan !== 'BUSINESS') {
+      throw new ForbiddenException(
+        'PDF export is available on Business plan only',
+      );
+    }
+
+    const portfolio = await this.prisma.portfolio.findUnique({
+      where: { userId },
+      select: { username: true, pdfTemplate: true },
+    });
+    if (!portfolio) throw new NotFoundException('Portfolio not found');
+
+    const template = portfolio.pdfTemplate ?? 'modern';
+    const frontendUrl = this.config.get('FRONTEND_URL');
+    return {
+      printUrl: `${frontendUrl}/${portfolio.username}/print/${template}`,
+    };
+  }
   async exportPdf(userId: string) {
     const user = await this.prisma.user.findUnique({ where: { id: userId } });
     if (user?.plan !== 'BUSINESS') {

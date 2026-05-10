@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { getPdfTemplateById } from "@/components/portfolio/pdf-templates";
+import { PrintButton } from "@/components/portfolio/PrintButton"
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001/v1";
 
 async function getPortfolio(username: string) {
@@ -18,79 +19,111 @@ async function getPortfolio(username: string) {
   }
 }
 
-export default async function PrintTemplatePage({
-  params,
-}: {
-  params: Promise<{ username: string; template: string }>;
+// export default async function PrintTemplatePage({
+//   params,
+// }: {
+//   params: Promise<{ username: string; template: string }>;
+// }) {
+//   const { username, template } = await params;
+//   const portfolio = await getPortfolio(username);
+//   if (!portfolio) notFound();
+
+//   const tmpl = getPdfTemplateById(template);
+
+//   const githubUsername = portfolio.github?.replace("https://github.com/", "");
+//   const linkedinUsername = portfolio.linkedin
+//     ?.replace("https://www.linkedin.com/in/", "")
+//     .replace("https://linkedin.com/in/", "")
+//     .replace(/\/$/, "");
+//   if (template === "modern")
+//     return (
+//       <ModernTemplate
+//         portfolio={portfolio}
+//         username={username}
+//         accent={tmpl.accentColor}
+//         githubUsername={githubUsername}
+//         linkedinUsername={linkedinUsername}
+//       />
+//     );
+//   if (template === "executive")
+//     return (
+//       <ExecutiveTemplate
+//         portfolio={portfolio}
+//         username={username}
+//         accent={tmpl.accentColor}
+//         githubUsername={githubUsername}
+//         linkedinUsername={linkedinUsername}
+//       />
+//     );
+//   if (template === "minimal")
+//     return (
+//       <MinimalTemplate
+//         portfolio={portfolio}
+//         username={username}
+//         accent={tmpl.accentColor}
+//         githubUsername={githubUsername}
+//         linkedinUsername={linkedinUsername}
+//       />
+//     );
+//   if (template === "creative")
+//     return (
+//       <CreativeTemplate
+//         portfolio={portfolio}
+//         username={username}
+//         accent={tmpl.accentColor}
+//         githubUsername={githubUsername}
+//         linkedinUsername={linkedinUsername}
+//       />
+//     );
+//   if (template === "elegant")
+//     return (
+//       <ElegantTemplate
+//         portfolio={portfolio}
+//         username={username}
+//         accent={tmpl.accentColor}
+//         githubUsername={githubUsername}
+//         linkedinUsername={linkedinUsername}
+//       />
+//     );
+//   return (
+//     <ModernTemplate
+//       portfolio={portfolio}
+//       username={username}
+//       accent={tmpl.accentColor}
+//       githubUsername={githubUsername}
+//       linkedinUsername={linkedinUsername}
+//     />
+//   );
+// }
+
+export default async function PrintTemplatePage({ params }: {
+  params: Promise<{ username: string; template: string }>
 }) {
-  const { username, template } = await params;
-  const portfolio = await getPortfolio(username);
-  if (!portfolio) notFound();
-  const tmpl = getPdfTemplateById(template);
-  const githubUsername = portfolio.github?.replace("https://github.com/", "");
+  const { username, template } = await params
+  const portfolio = await getPortfolio(username)
+  if (!portfolio) notFound()
+
+  const tmpl = getPdfTemplateById(template)
+
+  const githubUsername = portfolio.github?.replace("https://github.com/", "")
   const linkedinUsername = portfolio.linkedin
     ?.replace("https://www.linkedin.com/in/", "")
     .replace("https://linkedin.com/in/", "")
-    .replace(/\/$/, "");
-  if (template === "modern")
-    return (
-      <ModernTemplate
-        portfolio={portfolio}
-        username={username}
-        accent={tmpl.accentColor}
-        githubUsername={githubUsername}
-        linkedinUsername={linkedinUsername}
-      />
-    );
-  if (template === "executive")
-    return (
-      <ExecutiveTemplate
-        portfolio={portfolio}
-        username={username}
-        accent={tmpl.accentColor}
-        githubUsername={githubUsername}
-        linkedinUsername={linkedinUsername}
-      />
-    );
-  if (template === "minimal")
-    return (
-      <MinimalTemplate
-        portfolio={portfolio}
-        username={username}
-        accent={tmpl.accentColor}
-        githubUsername={githubUsername}
-        linkedinUsername={linkedinUsername}
-      />
-    );
-  if (template === "creative")
-    return (
-      <CreativeTemplate
-        portfolio={portfolio}
-        username={username}
-        accent={tmpl.accentColor}
-        githubUsername={githubUsername}
-        linkedinUsername={linkedinUsername}
-      />
-    );
-  if (template === "elegant")
-    return (
-      <ElegantTemplate
-        portfolio={portfolio}
-        username={username}
-        accent={tmpl.accentColor}
-        githubUsername={githubUsername}
-        linkedinUsername={linkedinUsername}
-      />
-    );
+    .replace(/\/$/, "")
+
+  const templateProps = { portfolio, username, accent: tmpl.accentColor, githubUsername, linkedinUsername }
+
   return (
-    <ModernTemplate
-      portfolio={portfolio}
-      username={username}
-      accent={tmpl.accentColor}
-      githubUsername={githubUsername}
-      linkedinUsername={linkedinUsername}
-    />
-  );
+    <>
+      <PrintButton />
+      {template === "modern" && <ModernTemplate {...templateProps} />}
+      {template === "executive" && <ExecutiveTemplate {...templateProps} />}
+      {template === "minimal" && <MinimalTemplate {...templateProps} />}
+      {template === "creative" && <CreativeTemplate {...templateProps} />}
+      {template === "elegant" && <ElegantTemplate {...templateProps} />}
+      {!["modern","executive","minimal","creative","elegant"].includes(template) && <ModernTemplate {...templateProps} />}
+    </>
+  )
 }
 // ─────────────────────────────────────────────────────────
 // SHARED TYPES
