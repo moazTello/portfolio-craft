@@ -828,8 +828,8 @@ import { getThemeById } from "@/components/portfolio/themes";
 import Link from "next/link";
 import { BookingWidget } from "@/components/portfolio/BookingWidget";
 import { api } from "@/lib/api";
-export const dynamic = 'force-dynamic'
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3001/v1'
+export const dynamic = "force-dynamic";
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001/v1";
 // async function getPortfolio(username: string) {
 //   try {
 //     // const res = await fetch(
@@ -848,15 +848,15 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3001/v1'
 // }
 async function getPortfolio(username: string) {
   try {
-    const url = `${API_URL}/portfolios/public/${username}`
-    console.log('Fetching:', url) // للـ debug
-    const res = await fetch(url, { cache: 'no-store' })
-    console.log('Status:', res.status)
-    if (!res.ok) return null
-    return res.json()
+    const url = `${API_URL}/portfolios/public/${username}`;
+    console.log("Fetching:", url); // للـ debug
+    const res = await fetch(url, { cache: "no-store" });
+    console.log("Status:", res.status);
+    if (!res.ok) return null;
+    return res.json();
   } catch (e) {
-    console.log('Error:', e)
-    return null
+    console.log("Error:", e);
+    return null;
   }
 }
 export async function generateMetadata({
@@ -914,15 +914,23 @@ export default async function PortfolioPage({
   //   }),
   // }).catch(() => {});
 
-  await api
-    .post("/analytics/event", {
+  // await api
+  //   .post("/analytics/event", {
+  //     portfolioId: portfolio.id,
+  //     eventType: "page_view",
+  //     referrer: "",
+  //   })
+  //   .catch(() => {});
+  await fetch(`${API_URL}/analytics/event`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
       portfolioId: portfolio.id,
       eventType: "page_view",
       referrer: "",
-    })
-    .catch(() => {});
+    }),
+  }).catch(() => {});
   const theme = getThemeById(portfolio.themePreset ?? "default");
-
   return (
     <PortfolioThemeProvider theme={theme}>
       <main
