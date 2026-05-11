@@ -34,18 +34,14 @@ export class BillingService {
 
   async getOrCreateCustomer(userId: string, email: string) {
     const user = await this.prisma.user.findUnique({ where: { id: userId } });
-
     if (user?.stripeCustomerId) {
       return user.stripeCustomerId;
     }
-
     const customer = await this.stripe.customers.create({ email });
-
     await this.prisma.user.update({
       where: { id: userId },
       data: { stripeCustomerId: customer.id },
     });
-
     return customer.id;
   }
 
@@ -55,12 +51,10 @@ export class BillingService {
     plan: 'PRO' | 'BUSINESS',
   ) {
     const customerId = await this.getOrCreateCustomer(userId, email);
-
     const priceId =
       plan === 'PRO'
         ? this.config.get('STRIPE_PRO_PRICE_ID')
         : this.config.get('STRIPE_BUSINESS_PRICE_ID');
-
     const session = await this.stripe.checkout.sessions.create({
       customer: customerId,
       payment_method_types: ['card'],
@@ -70,26 +64,22 @@ export class BillingService {
       cancel_url: `${this.config.get('FRONTEND_URL')}/dashboard/settings/billing?cancelled=true`,
       metadata: { userId, plan },
     });
-
     return { url: session.url };
   }
 
   async createPortalSession(userId: string) {
     const user = await this.prisma.user.findUnique({ where: { id: userId } });
     if (!user?.stripeCustomerId) throw new Error('No subscription found');
-
     const session = await this.stripe.billingPortal.sessions.create({
       customer: user.stripeCustomerId,
       return_url: `${this.config.get('FRONTEND_URL')}/dashboard/settings/billing`,
     });
-
     return { url: session.url };
   }
 
   async handleWebhook(payload: Buffer, signature: string) {
     const webhookSecret = this.config.get('STRIPE_WEBHOOK_SECRET')!;
     let event: ReturnType<typeof this.stripe.webhooks.constructEvent>;
-
     try {
       event = this.stripe.webhooks.constructEvent(
         payload,
@@ -99,7 +89,6 @@ export class BillingService {
     } catch {
       throw new Error('Invalid webhook signature');
     }
-
     switch (event.type) {
       case 'checkout.session.completed': {
         const session = event.data.object;
@@ -141,7 +130,7 @@ export class BillingService {
     return user;
   }
   async createPaypalOrder(userId: string, plan: 'PRO' | 'BUSINESS') {
-    const amount = plan === 'PRO' ? '9.00' : '19.00';
+    const amount = plan === 'PRO' ? '5.00' : '12.00';
     const frontendUrl = this.config.get('FRONTEND_URL');
 
     const request = new paypal.orders.OrdersCreateRequest();
@@ -166,12 +155,11 @@ export class BillingService {
       (l: any) => l.rel === 'approve',
     )?.href;
 
-    // Save pending order
-    await this.prisma.user.update({
-      where: { id: userId },
-      data: { stripeCustomerId: response.result.id }, // temp reuse field
-    });
-
+    // // Save pending order
+    // await this.prisma.user.update({
+    //   where: { id: userId },
+    //   data: { stripeCustomerId: response.result.id }, // temp reuse field
+    // });
     return { approvalUrl, orderId: response.result.id };
   }
 
