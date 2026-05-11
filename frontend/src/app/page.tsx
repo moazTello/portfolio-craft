@@ -447,7 +447,7 @@ export default function LandingPage() {
             gap: "16px",
           }}
         >
-          {[
+          {/* {[
             {
               name: "Free",
               price: "$0",
@@ -579,6 +579,213 @@ export default function LandingPage() {
                   </li>
                 ))}
               </ul>
+              <Link
+                href="/register"
+                style={{
+                  display: "block",
+                  width: "100%",
+                  padding: "11px",
+                  borderRadius: "10px",
+                  fontSize: "13px",
+                  fontWeight: "500",
+                  textAlign: "center",
+                  textDecoration: "none",
+                  background: plan.featured ? "#4F46E5" : "#fff",
+                  color: plan.featured ? "#fff" : "#333",
+                  border: plan.featured ? "none" : "1px solid #e5e5e5",
+                  boxSizing: "border-box",
+                }}
+              >
+                {plan.name === "Free"
+                  ? "Get started free"
+                  : `Upgrade to ${plan.name}`}
+              </Link>
+            </div>
+          ))} */}
+          {[
+            {
+              name: "Free",
+              price: "$0",
+              period: "forever",
+              annual: null,
+              saving: null,
+              desc: "Perfect for getting started",
+              features: [
+                "1 theme",
+                "6 gallery photos",
+                "portfoliocraft.com/you",
+                "Basic analytics",
+              ],
+              featured: false,
+            },
+            {
+              name: "Pro",
+              price: "$5",
+              period: "per month",
+              annual: "$48/year",
+              saving: "Save $12",
+              desc: "For freelancers & job seekers",
+              features: [
+                "6 premium themes",
+                "Custom domain",
+                "30 gallery photos",
+                "Blog system",
+              ],
+              featured: true,
+            },
+            {
+              name: "Business",
+              price: "$12",
+              period: "per month",
+              annual: "$99/year",
+              saving: "Save $45",
+              desc: "For growing professionals",
+              features: [
+                "All 12 themes",
+                "Booking system",
+                "PDF CV export",
+                "Unlimited gallery",
+              ],
+              featured: false,
+            },
+          ].map((plan) => (
+            <div
+              key={plan.name}
+              style={{
+                border: plan.featured ? "2px solid #4F46E5" : "1px solid #eee",
+                borderRadius: "16px",
+                padding: "28px 24px",
+                position: "relative",
+              }}
+            >
+              {plan.featured && (
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "-11px",
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                    background: "#4F46E5",
+                    color: "#fff",
+                    fontSize: "11px",
+                    padding: "3px 12px",
+                    borderRadius: "100px",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  Most popular
+                </div>
+              )}
+
+              <div
+                style={{
+                  fontSize: "13px",
+                  fontWeight: "500",
+                  color: "#888",
+                  marginBottom: "6px",
+                }}
+              >
+                {plan.name}
+              </div>
+
+              {/* Price */}
+              <div
+                style={{
+                  fontFamily: "Georgia, serif",
+                  fontSize: "36px",
+                  color: "#0f0f0f",
+                  marginBottom: "2px",
+                }}
+              >
+                {plan.price}{" "}
+                <span
+                  style={{
+                    fontFamily: "sans-serif",
+                    fontSize: "14px",
+                    color: "#999",
+                  }}
+                >
+                  / {plan.period}
+                </span>
+              </div>
+
+              {/* Annual hint */}
+              {plan.annual ? (
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "6px",
+                    marginBottom: "16px",
+                  }}
+                >
+                  <span style={{ fontSize: "12px", color: "#aaa" }}>or</span>
+                  <span
+                    style={{
+                      fontSize: "12px",
+                      fontWeight: "500",
+                      color: "#0f0f0f",
+                    }}
+                  >
+                    {plan.annual}
+                  </span>
+                  <span
+                    style={{
+                      fontSize: "11px",
+                      background: "#f0fdf4",
+                      color: "#16a34a",
+                      padding: "2px 8px",
+                      borderRadius: "100px",
+                      fontWeight: "500",
+                    }}
+                  >
+                    {plan.saving}
+                  </span>
+                </div>
+              ) : (
+                <div style={{ marginBottom: "16px", height: "22px" }} />
+              )}
+
+              <div
+                style={{
+                  fontSize: "13px",
+                  color: "#888",
+                  marginBottom: "20px",
+                  fontWeight: "300",
+                }}
+              >
+                {plan.desc}
+              </div>
+
+              <ul
+                style={{
+                  listStyle: "none",
+                  padding: "0",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "10px",
+                  marginBottom: "24px",
+                }}
+              >
+                {plan.features.map((f) => (
+                  <li
+                    key={f}
+                    style={{
+                      fontSize: "13px",
+                      color: "#555",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "8px",
+                    }}
+                  >
+                    <span style={{ color: "#4F46E5", fontWeight: "600" }}>
+                      ✓
+                    </span>{" "}
+                    {f}
+                  </li>
+                ))}
+              </ul>
+
               <Link
                 href="/register"
                 style={{
