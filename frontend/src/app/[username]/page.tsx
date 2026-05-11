@@ -942,7 +942,7 @@ export default async function PortfolioPage({
       >
         <JsonLd portfolio={portfolio} username={username} />
         {/* Nav */}
-        <nav
+        {/* <nav
           style={{
             borderBottom: "1px solid var(--p-border)",
             background: "var(--p-bg)",
@@ -950,7 +950,7 @@ export default async function PortfolioPage({
           className="flex justify-end px-6 py-4"
         >
           <DarkModeToggle />
-        </nav>
+        </nav> */}
         {/* Hero */}
         <section
           style={{
