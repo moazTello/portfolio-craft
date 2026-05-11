@@ -606,6 +606,7 @@ function ModernTemplate({
             </div>
           </section>
         )}
+      
         {portfolio.certificates?.length > 0 && (
           <section style={{ marginBottom: "20px" }}>
             <h2
