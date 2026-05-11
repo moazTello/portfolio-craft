@@ -15,8 +15,8 @@ const plans = [
   {
     id: "FREE",
     name: "Free",
-    price: "$0",
-    period: "forever",
+    price: { monthly: "$0", annual: "$0" },
+    period: { monthly: "forever", annual: "forever" },
     features: [
       "Public portfolio page",
       "1 theme",
@@ -31,8 +31,8 @@ const plans = [
   {
     id: "PRO",
     name: "Pro",
-    price: "$5",
-    period: "per month",
+    price: { monthly: "$5", annual: "$48" },
+    period: { monthly: "per month", annual: "per year" },
     features: [
       "Everything in Free",
       "6 premium themes",
@@ -50,8 +50,8 @@ const plans = [
   {
     id: "BUSINESS",
     name: "Business",
-    price: "$12",
-    period: "per month",
+    price: { monthly: "$12", annual: "$99" },
+    period: { monthly: "per month", annual: "per year" },
     features: [
       "Everything in Pro",
       "All 12 themes",
@@ -65,7 +65,7 @@ const plans = [
     cta: "Upgrade to Business",
     level: 2,
   },
-]
+];
 
 export default function BillingPage() {
   const ready = usePortfolioGuard();
@@ -76,6 +76,7 @@ export default function BillingPage() {
   const [shamCashPlan, setShamCashPlan] = useState<"PRO" | "BUSINESS" | null>(
     null,
   );
+  const [interval, setInterval] = useState<"monthly" | "annual">("monthly");
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
 
@@ -121,7 +122,10 @@ export default function BillingPage() {
   async function handlePaypalUpgrade(planId: string) {
     setCheckoutLoading(`paypal-${planId}`);
     try {
-      const res = await api.post("/billing/paypal/create", { plan: planId });
+      const res = await api.post("/billing/paypal/create", {
+        plan: planId,
+        interval: interval, // ← أضف
+      });
       const data = await res.json();
       if (data.approvalUrl) window.location.href = data.approvalUrl;
     } catch {
@@ -131,18 +135,34 @@ export default function BillingPage() {
     }
   }
 
+  // async function handleUpgrade(planId: string) {
+  //   setCheckoutLoading(planId);
+  //   try {
+  //     // const res = await fetch("http://localhost:3001/v1/billing/checkout", {
+  //     //   method: "POST",
+  //     //   headers: {
+  //     //     "Content-Type": "application/json",
+  //     //     Authorization: `Bearer ${getToken()}`,
+  //     //   },
+  //     //   body: JSON.stringify({ plan: planId }),
+  //     // });
+  //     const res = await api.post("/billing/checkout", { plan: planId });
+  //     const data = await res.json();
+  //     if (data.url) window.location.href = data.url;
+  //   } catch (err: any) {
+  //     toast.error(err.message);
+  //   } finally {
+  //     setCheckoutLoading(null);
+  //   }
+  // }
+
   async function handleUpgrade(planId: string) {
     setCheckoutLoading(planId);
     try {
-      // const res = await fetch("http://localhost:3001/v1/billing/checkout", {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //     Authorization: `Bearer ${getToken()}`,
-      //   },
-      //   body: JSON.stringify({ plan: planId }),
-      // });
-      const res = await api.post("/billing/checkout", { plan: planId });
+      const res = await api.post("/billing/checkout", {
+        plan: planId,
+        interval: interval,
+      });
       const data = await res.json();
       if (data.url) window.location.href = data.url;
     } catch (err: any) {
@@ -217,6 +237,32 @@ export default function BillingPage() {
         )}
       </div>
 
+      <div className="flex items-center justify-center gap-3 mb-8">
+        <button
+          onClick={() => setInterval("monthly")}
+          className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
+            interval === "monthly"
+              ? "bg-indigo-600 text-white"
+              : "border border-gray-200 text-gray-600"
+          }`}
+        >
+          Monthly
+        </button>
+        <button
+          onClick={() => setInterval("annual")}
+          className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
+            interval === "annual"
+              ? "bg-indigo-600 text-white"
+              : "border border-gray-200 text-gray-600"
+          }`}
+        >
+          Annual
+          <span className="ml-2 bg-green-100 text-green-700 text-xs px-2 py-0.5 rounded-full">
+            Save 20%
+          </span>
+        </button>
+      </div>
+
       {/* Plans */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {plans.map((plan) => {
@@ -256,10 +302,10 @@ export default function BillingPage() {
               </h3>
               <div className="mt-2 mb-6">
                 <span className="text-3xl font-bold text-gray-900 dark:text-white">
-                  {plan.price}
+                  {plan.price[interval]}
                 </span>
                 <span className="text-sm text-gray-400 ml-1">
-                  {plan.period}
+                  {plan.period[interval]}
                 </span>
               </div>
 

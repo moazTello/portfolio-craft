@@ -45,16 +45,45 @@ export class BillingService {
     return customer.id;
   }
 
+  // async createCheckoutSession(
+  //   userId: string,
+  //   email: string,
+  //   plan: 'PRO' | 'BUSINESS',
+  // ) {
+  //   const customerId = await this.getOrCreateCustomer(userId, email);
+  //   const priceId =
+  //     plan === 'PRO'
+  //       ? this.config.get('STRIPE_PRO_PRICE_ID')
+  //       : this.config.get('STRIPE_BUSINESS_PRICE_ID');
+  //   const session = await this.stripe.checkout.sessions.create({
+  //     customer: customerId,
+  //     payment_method_types: ['card'],
+  //     line_items: [{ price: priceId, quantity: 1 }],
+  //     mode: 'subscription',
+  //     success_url: `${this.config.get('FRONTEND_URL')}/dashboard/settings/billing?success=true`,
+  //     cancel_url: `${this.config.get('FRONTEND_URL')}/dashboard/settings/billing?cancelled=true`,
+  //     metadata: { userId, plan },
+  //   });
+  //   return { url: session.url };
+  // }
+
   async createCheckoutSession(
     userId: string,
     email: string,
     plan: 'PRO' | 'BUSINESS',
+    interval: 'monthly' | 'annual' = 'monthly',
   ) {
     const customerId = await this.getOrCreateCustomer(userId, email);
+
     const priceId =
       plan === 'PRO'
-        ? this.config.get('STRIPE_PRO_PRICE_ID')
-        : this.config.get('STRIPE_BUSINESS_PRICE_ID');
+        ? interval === 'annual'
+          ? this.config.get('STRIPE_PRO_ANNUAL_PRICE_ID')
+          : this.config.get('STRIPE_PRO_PRICE_ID')
+        : interval === 'annual'
+          ? this.config.get('STRIPE_BUSINESS_ANNUAL_PRICE_ID')
+          : this.config.get('STRIPE_BUSINESS_PRICE_ID');
+
     const session = await this.stripe.checkout.sessions.create({
       customer: customerId,
       payment_method_types: ['card'],
@@ -64,6 +93,7 @@ export class BillingService {
       cancel_url: `${this.config.get('FRONTEND_URL')}/dashboard/settings/billing?cancelled=true`,
       metadata: { userId, plan },
     });
+
     return { url: session.url };
   }
 
@@ -129,8 +159,20 @@ export class BillingService {
     });
     return user;
   }
-  async createPaypalOrder(userId: string, plan: 'PRO' | 'BUSINESS') {
-    const amount = plan === 'PRO' ? '5.00' : '12.00';
+  async createPaypalOrder(
+    userId: string,
+    plan: 'PRO' | 'BUSINESS',
+    interval: 'monthly' | 'annual' = 'monthly',
+  ) {
+    const amount =
+      plan === 'PRO'
+        ? interval === 'annual'
+          ? '48.00'
+          : '5.00'
+        : interval === 'annual'
+          ? '99.00'
+          : '12.00';
+
     const frontendUrl = this.config.get('FRONTEND_URL');
 
     const request = new paypal.orders.OrdersCreateRequest();
@@ -140,7 +182,7 @@ export class BillingService {
       purchase_units: [
         {
           amount: { currency_code: 'USD', value: amount },
-          description: `PortfolioCraft ${plan} Plan`,
+          description: `PortfolioCraft ${plan} ${interval} Plan`,
         },
       ],
       application_context: {
@@ -155,11 +197,6 @@ export class BillingService {
       (l: any) => l.rel === 'approve',
     )?.href;
 
-    // // Save pending order
-    // await this.prisma.user.update({
-    //   where: { id: userId },
-    //   data: { stripeCustomerId: response.result.id }, // temp reuse field
-    // });
     return { approvalUrl, orderId: response.result.id };
   }
 

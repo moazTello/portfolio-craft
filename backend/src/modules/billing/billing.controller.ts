@@ -124,30 +124,60 @@ import {
   Headers,
   Req,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiBearerAuth,
+  ApiProperty,
+  ApiPropertyOptional,
+} from '@nestjs/swagger';
+import { IsString, IsOptional } from 'class-validator';
 import { BillingService } from './billing.service';
 import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
 import { CurrentUser } from '../../common/decorators/current-user.decorator';
 import { Request } from 'express';
 import type { RawBodyRequest } from '@nestjs/common';
 
+class CreateCheckoutDto {
+  @ApiProperty()
+  @IsString()
+  plan: 'PRO' | 'BUSINESS';
+
+  @ApiPropertyOptional()
+  @IsString()
+  @IsOptional()
+  interval?: 'monthly' | 'annual';
+}
+
 @ApiTags('Billing')
 @Controller('billing')
 export class BillingController {
   constructor(private readonly billingService: BillingService) {}
 
+  // @Post('checkout')
+  // @UseGuards(JwtAuthGuard)
+  // @ApiBearerAuth()
+  // @ApiOperation({ summary: 'Create checkout session' })
+  // createCheckout(
+  //   @CurrentUser() user: any,
+  //   @Body() body: { plan: 'PRO' | 'BUSINESS' },
+  // ) {
+  //   return this.billingService.createCheckoutSession(
+  //     user.id,
+  //     user.email,
+  //     body.plan,
+  //   );
+  // }
   @Post('checkout')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Create checkout session' })
-  createCheckout(
-    @CurrentUser() user: any,
-    @Body() body: { plan: 'PRO' | 'BUSINESS' },
-  ) {
+  createCheckout(@CurrentUser() user: any, @Body() dto: CreateCheckoutDto) {
     return this.billingService.createCheckoutSession(
       user.id,
       user.email,
-      body.plan,
+      dto.plan,
+      dto.interval ?? 'monthly',
     );
   }
 
@@ -183,9 +213,13 @@ export class BillingController {
   @ApiOperation({ summary: 'Create PayPal order' })
   createPaypalOrder(
     @CurrentUser() user: any,
-    @Body() body: { plan: 'PRO' | 'BUSINESS' },
+    @Body() body: { plan: 'PRO' | 'BUSINESS'; interval?: 'monthly' | 'annual' },
   ) {
-    return this.billingService.createPaypalOrder(user.id, body.plan);
+    return this.billingService.createPaypalOrder(
+      user.id,
+      body.plan,
+      body.interval ?? 'monthly',
+    );
   }
 
   @Post('paypal/capture')
