@@ -9,7 +9,7 @@ interface Props {
   onClose: () => void;
 }
 
-const PRICES = { PRO: "$9", BUSINESS: "$19" };
+const PRICES = { PRO: "$5", BUSINESS: "$12" };
 const WHATSAPP = "963968767511";
 
 export function ShamCashModal({ plan, onClose }: Props) {
