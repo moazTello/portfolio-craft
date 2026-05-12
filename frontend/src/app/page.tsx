@@ -177,7 +177,6 @@ export default function LandingPage() {
           ))}
         </div>
       </section>
-
       {/* Features */}
       <section id="features" style={{ padding: "64px 40px" }}>
         <div
@@ -289,9 +288,7 @@ export default function LandingPage() {
       </section>
 
       <hr style={{ border: "none", borderTop: "1px solid #f0f0f0" }} />
-
       {/* Examples */}
-
       <section id="examples" style={{ padding: "64px 40px" }}>
         <div
           style={{
