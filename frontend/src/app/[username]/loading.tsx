@@ -2,7 +2,7 @@ export default function Loading() {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">
       {/* Hero skeleton */}
-      <div className="py-24 px-6 bg-gradient-to-br from-indigo-50 to-white dark:from-gray-900 dark:to-gray-950">
+      <div className="py-24 px-6 bg-linear-to-br from-indigo-50 to-white dark:from-gray-900 dark:to-gray-950">
         <div className="max-w-3xl mx-auto text-center animate-pulse">
           <div className="h-12 bg-gray-200 dark:bg-gray-800 rounded-xl w-64 mx-auto mb-4" />
           <div className="h-6 bg-gray-100 dark:bg-gray-700 rounded-lg w-48 mx-auto mb-6" />

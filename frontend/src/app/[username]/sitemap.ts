@@ -1,16 +1,32 @@
-import { MetadataRoute } from 'next'
+import { MetadataRoute } from "next";
 
-export default async function sitemap({
-  params,
-}: {
-  params: { username: string }
-}): Promise<MetadataRoute.Sitemap> {
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  "https://portfolio-craft-swain.vercel.app";
+
+export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: `https://${params.username}.portfoliocraft.com`,
+      url: SITE_URL,
       lastModified: new Date(),
-      changeFrequency: 'weekly',
+      changeFrequency: "weekly",
       priority: 1,
     },
-  ]
+    {
+      url: `${SITE_URL}/login`,
+      priority: 0.8,
+    },
+    {
+      url: `${SITE_URL}/register`,
+      priority: 0.8,
+    },
+    {
+      url: `${SITE_URL}/privacy`,
+      priority: 0.5,
+    },
+    {
+      url: `${SITE_URL}/terms`,
+      priority: 0.5,
+    },
+  ];
 }
