@@ -291,6 +291,7 @@ export default function LandingPage() {
       <hr style={{ border: "none", borderTop: "1px solid #f0f0f0" }} />
 
       {/* Examples */}
+
       <section id="examples" style={{ padding: "64px 40px" }}>
         <div
           style={{
@@ -332,33 +333,33 @@ export default function LandingPage() {
           }}
         >
           {[
-            [
-              "#0f172a",
-              "#7C3AED",
-              "white",
-              "Creative Dev",
-              "Sarah K.",
-              "Full-Stack Developer",
-            ],
-            [
-              "#f8f4ef",
-              "#1a1a1a",
-              "#1a1a1a",
-              "Designer",
-              "Moaz T.",
-              "UI/UX Designer",
-            ],
-            [
-              "#EEF2FF",
-              "#4338CA",
-              "#4338CA",
-              "Consultant",
-              "Ali H.",
-              "Business Consultant",
-            ],
-          ].map(([bg, accent, textColor, label, name, role]) => (
+            {
+              bg: "#0f172a",
+              accent: "#7C3AED",
+              label: "Creative Dev",
+              name: "Moaz T.",
+              role: "React Developer",
+              href: "https://portfolio-craft-swain.vercel.app/tellommt",
+            },
+            {
+              bg: "#f8f4ef",
+              accent: "#1a1a1a",
+              label: "Designer",
+              name: "Coming Soon",
+              role: "UI/UX Designer",
+              href: null,
+            },
+            {
+              bg: "#EEF2FF",
+              accent: "#4338CA",
+              label: "Consultant",
+              name: "Coming Soon",
+              role: "Business Consultant",
+              href: null,
+            },
+          ].map(({ bg, accent, label, name, role, href }) => (
             <div
-              key={name}
+              key={bg}
               style={{
                 border: "1px solid #eee",
                 borderRadius: "14px",
@@ -368,7 +369,7 @@ export default function LandingPage() {
               <div
                 style={{
                   height: "140px",
-                  background: bg as string,
+                  background: bg,
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -378,7 +379,7 @@ export default function LandingPage() {
                   style={{
                     fontFamily: "Georgia, serif",
                     fontSize: "18px",
-                    color: accent as string,
+                    color: accent,
                     fontStyle: "italic",
                   }}
                 >
@@ -386,27 +387,47 @@ export default function LandingPage() {
                 </span>
               </div>
               <div
-                style={{ padding: "14px 16px", borderTop: "1px solid #eee" }}
+                style={{
+                  padding: "14px 16px",
+                  borderTop: "1px solid #eee",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
               >
-                <div
-                  style={{
-                    fontSize: "13px",
-                    fontWeight: "500",
-                    color: "#1a1a1a",
-                  }}
-                >
-                  {name}
+                <div>
+                  <div
+                    style={{
+                      fontSize: "13px",
+                      fontWeight: "500",
+                      color: "#1a1a1a",
+                    }}
+                  >
+                    {name}
+                  </div>
+                  <div style={{ fontSize: "12px", color: "#999" }}>{role}</div>
                 </div>
-                <div style={{ fontSize: "12px", color: "#999" }}>{role}</div>
+                {href ? (
+                  <Link
+                    href={href}
+                    target="_blank"
+                    style={{
+                      fontSize: "12px",
+                      color: "#4F46E5",
+                      textDecoration: "none",
+                    }}
+                  >
+                    View →
+                  </Link>
+                ) : (
+                  <span style={{ fontSize: "11px", color: "#ccc" }}>Soon</span>
+                )}
               </div>
             </div>
           ))}
         </div>
       </section>
-
       <hr style={{ border: "none", borderTop: "1px solid #f0f0f0" }} />
-
-      {/* Pricing */}
       <section id="pricing" style={{ padding: "64px 40px" }}>
         <div
           style={{
