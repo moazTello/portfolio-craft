@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: '/dashboard/',
     },
-    sitemap: 'https://portfolio-craft-swain.vercel.app/sitemap.xml',
+    sitemap: 'https://www.portfolio-craft.com/sitemap.xml',
   }
 }

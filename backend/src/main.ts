@@ -26,7 +26,12 @@ async function bootstrap() {
   // });
   app.enableCors({
     origin: (origin, callback) => {
-      const allowed = ['http://localhost:3000', process.env.FRONTEND_URL ?? ''];
+      const allowed = [
+        'http://localhost:3000',
+        'https://portfolio-craft.com',
+        'https://www.portfolio-craft.com',
+        process.env.FRONTEND_URL ?? '',
+      ];
 
       // اقبل كل vercel.app subdomains
       if (

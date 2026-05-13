@@ -6,8 +6,7 @@ export function JsonLd({
   username: string;
 }) {
   const SITE_URL =
-    process.env.NEXT_PUBLIC_SITE_URL ??
-    "https://portfolio-craft-swain.vercel.app";
+    process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.portfolio-craft.com";
 
   const jsonLd = {
     "@context": "https://schema.org",

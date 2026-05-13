@@ -868,7 +868,7 @@ export async function generateMetadata({
   const portfolio = await getPortfolio(username)
   if (!portfolio) return { title: 'Portfolio Not Found' }
 
-  const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://portfolio-craft-swain.vercel.app'
+  const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.portfolio-craft.com'
   const portfolioUrl = `${SITE_URL}/${username}`
   const title = portfolio.seoTitle ?? `${portfolio.heroTitle} | ${portfolio.heroSubtitle}`
   const description = portfolio.seoDescription ?? portfolio.aboutText?.slice(0, 160)

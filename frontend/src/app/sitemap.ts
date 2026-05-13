@@ -1,26 +1,28 @@
 import { MetadataRoute } from 'next'
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.portfolio-craft.com'
+
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: 'https://portfolio-craft-swain.vercel.app',
+      url: SITE_URL,
       lastModified: new Date(),
       priority: 1,
     },
     {
-      url: 'https://portfolio-craft-swain.vercel.app/login',
+      url: `${SITE_URL}/login`,
       priority: 0.8,
     },
     {
-      url: 'https://portfolio-craft-swain.vercel.app/register',
+      url: `${SITE_URL}/register`,
       priority: 0.8,
     },
     {
-      url: 'https://portfolio-craft-swain.vercel.app/privacy',
+      url: `${SITE_URL}/privacy`,
       priority: 0.5,
     },
     {
-      url: 'https://portfolio-craft-swain.vercel.app/terms',
+      url: `${SITE_URL}/terms`,
       priority: 0.5,
     },
   ]

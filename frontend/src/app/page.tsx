@@ -151,7 +151,7 @@ export default function LandingPage() {
               label: "Creative Dev",
               name: "Moaz T.",
               role: "React Developer",
-              href: "https://portfolio-craft-swain.vercel.app/tellommt",
+              href: "https://www.portfolio-craft.com/tellommt",
             },
             {
               bg: "#f8f4ef",

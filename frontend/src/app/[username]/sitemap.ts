@@ -2,7 +2,7 @@ import { MetadataRoute } from "next";
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ??
-  "https://portfolio-craft-swain.vercel.app";
+  "https://www.portfolio-craft.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [

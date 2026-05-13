@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { getPdfTemplateById } from "@/components/portfolio/pdf-templates";
-import { PrintButton } from "@/components/portfolio/PrintButton"
+import { PrintButton } from "@/components/portfolio/PrintButton";
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001/v1";
 
 async function getPortfolio(username: string) {
@@ -96,22 +96,30 @@ async function getPortfolio(username: string) {
 //   );
 // }
 
-export default async function PrintTemplatePage({ params }: {
-  params: Promise<{ username: string; template: string }>
+export default async function PrintTemplatePage({
+  params,
+}: {
+  params: Promise<{ username: string; template: string }>;
 }) {
-  const { username, template } = await params
-  const portfolio = await getPortfolio(username)
-  if (!portfolio) notFound()
+  const { username, template } = await params;
+  const portfolio = await getPortfolio(username);
+  if (!portfolio) notFound();
 
-  const tmpl = getPdfTemplateById(template)
+  const tmpl = getPdfTemplateById(template);
 
-  const githubUsername = portfolio.github?.replace("https://github.com/", "")
+  const githubUsername = portfolio.github?.replace("https://github.com/", "");
   const linkedinUsername = portfolio.linkedin
     ?.replace("https://www.linkedin.com/in/", "")
     .replace("https://linkedin.com/in/", "")
-    .replace(/\/$/, "")
+    .replace(/\/$/, "");
 
-  const templateProps = { portfolio, username, accent: tmpl.accentColor, githubUsername, linkedinUsername }
+  const templateProps = {
+    portfolio,
+    username,
+    accent: tmpl.accentColor,
+    githubUsername,
+    linkedinUsername,
+  };
 
   return (
     <>
@@ -121,9 +129,11 @@ export default async function PrintTemplatePage({ params }: {
       {template === "minimal" && <MinimalTemplate {...templateProps} />}
       {template === "creative" && <CreativeTemplate {...templateProps} />}
       {template === "elegant" && <ElegantTemplate {...templateProps} />}
-      {!["modern","executive","minimal","creative","elegant"].includes(template) && <ModernTemplate {...templateProps} />}
+      {!["modern", "executive", "minimal", "creative", "elegant"].includes(
+        template,
+      ) && <ModernTemplate {...templateProps} />}
     </>
-  )
+  );
 }
 // ─────────────────────────────────────────────────────────
 // SHARED TYPES
@@ -606,7 +616,7 @@ function ModernTemplate({
             </div>
           </section>
         )}
-      
+
         {portfolio.certificates?.length > 0 && (
           <section style={{ marginBottom: "20px" }}>
             <h2
@@ -746,7 +756,7 @@ function ModernTemplate({
               Portfolio Gallery
             </p>
             <a
-              href={`https://portfolio-craft-swain.vercel.app/${username}#gallery`}
+              href={`https://www.portfolio-craft.com/${username}#gallery`}
               style={{ fontSize: "11px", color: accent }}
             >
               portfoliocraft.com/{username}#gallery
@@ -1293,7 +1303,7 @@ function ExecutiveTemplate({
                   Portfolio Gallery
                 </p>
                 <a
-                  href={`https://portfolio-craft-swain.vercel.app/${username}#gallery`}
+                  href={`https://www.portfolio-craft.com/${username}#gallery`}
                   style={{ fontSize: "11px", color: accent }}
                 >
                   portfoliocraft.com/{username}#gallery
@@ -1847,7 +1857,7 @@ function MinimalTemplate({
             Gallery
           </h2>
           <a
-            href={`https://portfolio-craft-swain.vercel.app/${username}#gallery`}
+            href={`https://www.portfolio-craft.com/${username}#gallery`}
             style={{ fontSize: "11px", color: accent, display: "block" }}
           >
             portfoliocraft.com/{username}#gallery
@@ -2413,7 +2423,7 @@ function CreativeTemplate({
                 Portfolio Gallery
               </p>
               <a
-                href={`https://portfolio-craft-swain.vercel.app/${username}#gallery`}
+                href={`https://www.portfolio-craft.com/${username}#gallery`}
                 style={{ fontSize: "11px", color: accent }}
               >
                 portfoliocraft.com/{username}#gallery
@@ -2973,7 +2983,7 @@ function ElegantTemplate({
                 Portfolio Gallery
               </p>
               <a
-                href={`https://portfolio-craft-swain.vercel.app/${username}#gallery`}
+                href={`https://www.portfolio-craft.com/${username}#gallery`}
                 style={{ fontSize: "11px", color: accent }}
               >
                 portfoliocraft.com/{username}#gallery

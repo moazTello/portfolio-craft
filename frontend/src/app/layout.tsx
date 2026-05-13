@@ -131,10 +131,11 @@ export const metadata: Metadata = {
     template: "%s | PortfolioCraft",
   },
   description: "Build your professional portfolio in minutes",
-  metadataBase: new URL("https://portfolio-craft-swain.vercel.app"),
+  metadataBase: new URL("https://www.portfolio-craft.com"),
   openGraph: {
     siteName: "PortfolioCraft",
     type: "website",
+    url: "https://www.portfolio-craft.com",
   },
   robots: {
     index: true,
