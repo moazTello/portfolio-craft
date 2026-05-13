@@ -1,1013 +1,201 @@
-import Link from "next/link";
+import Link from 'next/link'
 
 export default function LandingPage() {
   return (
-    <div
-      style={{
-        fontFamily: "DM Sans, sans-serif",
-        color: "#1a1a1a",
-        background: "#fff",
-      }}
-    >
+    <div className="font-sans text-gray-900 bg-white">
+
       {/* Nav */}
-      <nav
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          padding: "20px 40px",
-          borderBottom: "1px solid #f0f0f0",
-        }}
-      >
-        <div style={{ fontFamily: "Georgia, serif", fontSize: "20px" }}>
-          Portfolio<span style={{ color: "#4F46E5" }}>Craft</span>
+      <nav className="flex items-center justify-between px-6 md:px-10 py-5 border-b border-gray-100">
+        <div className="font-serif text-xl">
+          Portfolio<span className="text-indigo-600">Craft</span>
         </div>
-        <div style={{ display: "flex", gap: "28px" }}>
-          <a
-            href="#features"
-            style={{ fontSize: "13px", color: "#555", textDecoration: "none" }}
-          >
-            Features
-          </a>
-          <a
-            href="#examples"
-            style={{ fontSize: "13px", color: "#555", textDecoration: "none" }}
-          >
-            Examples
-          </a>
-          <a
-            href="#pricing"
-            style={{ fontSize: "13px", color: "#555", textDecoration: "none" }}
-          >
-            Pricing
-          </a>
-          <a
-            href="#faq"
-            style={{ fontSize: "13px", color: "#555", textDecoration: "none" }}
-          >
-            FAQ
-          </a>
+        <div className="hidden md:flex gap-7">
+          {['features', 'examples', 'pricing', 'faq'].map(s => (
+            <a key={s} href={`#${s}`} className="text-sm text-gray-500 hover:text-gray-900 transition capitalize">{s}</a>
+          ))}
         </div>
-        <Link
-          href="/register"
-          style={{
-            background: "#4F46E5",
-            color: "#fff",
-            padding: "8px 20px",
-            borderRadius: "8px",
-            fontSize: "13px",
-            fontWeight: "500",
-            textDecoration: "none",
-          }}
-        >
+        <Link href="/register" className="bg-indigo-600 text-white px-5 py-2 rounded-lg text-sm font-medium hover:bg-indigo-700 transition">
           Get started free
         </Link>
       </nav>
 
       {/* Hero */}
-      <section
-        style={{
-          padding: "80px 40px 60px",
-          textAlign: "center",
-          background: "linear-gradient(180deg, #f8f7ff 0%, #fff 100%)",
-          borderBottom: "1px solid #f0f0f0",
-        }}
-      >
-        <div
-          style={{
-            display: "inline-block",
-            background: "#EEF2FF",
-            color: "#4338CA",
-            fontSize: "11px",
-            fontWeight: "500",
-            padding: "4px 12px",
-            borderRadius: "100px",
-            marginBottom: "24px",
-            letterSpacing: "0.05em",
-            textTransform: "uppercase",
-          }}
-        >
+      <section className="px-6 md:px-10 py-20 text-center bg-gradient-to-b from-indigo-50 to-white border-b border-gray-100">
+        <div className="inline-block bg-indigo-100 text-indigo-700 text-xs font-medium px-3 py-1 rounded-full mb-6 uppercase tracking-wide">
           Used by 1,200+ professionals
         </div>
-        <h1
-          style={{
-            fontFamily: "Georgia, serif",
-            fontSize: "52px",
-            lineHeight: "1.1",
-            color: "#0f0f0f",
-            maxWidth: "600px",
-            margin: "0 auto 20px",
-          }}
-        >
-          Your portfolio,{" "}
-          <em style={{ fontStyle: "italic", color: "#4F46E5" }}>beautifully</em>{" "}
+        <h1 className="font-serif text-4xl md:text-6xl leading-tight text-gray-950 max-w-2xl mx-auto mb-5">
+          Your portfolio,{' '}
+          <em className="italic text-indigo-600">beautifully</em>{' '}
           crafted
         </h1>
-        <p
-          style={{
-            fontSize: "16px",
-            color: "#666",
-            maxWidth: "480px",
-            margin: "0 auto 36px",
-            lineHeight: "1.7",
-            fontWeight: "300",
-          }}
-        >
-          Build a stunning professional portfolio in minutes. No code needed.
-          Share your work, get hired, and grow your freelance business.
+        <p className="text-base md:text-lg text-gray-500 max-w-md mx-auto mb-9 font-light leading-relaxed">
+          Build a stunning professional portfolio in minutes. No code needed. Share your work, get hired, and grow your freelance business.
         </p>
-        <div style={{ display: "flex", gap: "12px", justifyContent: "center" }}>
-          <Link
-            href="/register"
-            style={{
-              background: "#4F46E5",
-              color: "#fff",
-              padding: "12px 28px",
-              borderRadius: "10px",
-              fontSize: "14px",
-              fontWeight: "500",
-              textDecoration: "none",
-            }}
-          >
+        <div className="flex flex-col sm:flex-row gap-3 justify-center">
+          <Link href="/register" className="bg-indigo-600 text-white px-7 py-3 rounded-xl text-sm font-medium hover:bg-indigo-700 transition">
             Start for free
           </Link>
-          <a
-            href="#examples"
-            style={{
-              background: "#fff",
-              color: "#333",
-              padding: "12px 28px",
-              borderRadius: "10px",
-              fontSize: "14px",
-              border: "1px solid #e5e5e5",
-              textDecoration: "none",
-            }}
-          >
+          <a href="#examples" className="bg-white text-gray-700 px-7 py-3 rounded-xl text-sm border border-gray-200 hover:bg-gray-50 transition">
             See examples →
           </a>
         </div>
-        <div
-          style={{
-            display: "flex",
-            gap: "40px",
-            justifyContent: "center",
-            marginTop: "48px",
-            paddingTop: "32px",
-            borderTop: "1px solid #eee",
-          }}
-        >
-          {[
-            ["1,200+", "Portfolios created"],
-            ["12", "Beautiful themes"],
-            ["5 min", "Setup time"],
-          ].map(([num, label]) => (
+        <div className="flex flex-wrap justify-center gap-10 mt-12 pt-8 border-t border-gray-100">
+          {[['1,200+', 'Portfolios created'], ['12', 'Beautiful themes'], ['5 min', 'Setup time']].map(([num, label]) => (
             <div key={label}>
-              <span
-                style={{
-                  fontFamily: "Georgia, serif",
-                  fontSize: "28px",
-                  color: "#0f0f0f",
-                  display: "block",
-                }}
-              >
-                {num}
-              </span>
-              <span style={{ fontSize: "12px", color: "#999" }}>{label}</span>
-            </div>
-          ))}
-        </div>
-      </section>
-      {/* Features */}
-      <section id="features" style={{ padding: "64px 40px" }}>
-        <div
-          style={{
-            fontSize: "11px",
-            fontWeight: "500",
-            color: "#4F46E5",
-            textTransform: "uppercase",
-            letterSpacing: "0.1em",
-            marginBottom: "10px",
-          }}
-        >
-          Features
-        </div>
-        <h2
-          style={{
-            fontFamily: "Georgia, serif",
-            fontSize: "36px",
-            color: "#0f0f0f",
-            marginBottom: "10px",
-          }}
-        >
-          Everything you need to stand out
-        </h2>
-        <p
-          style={{
-            fontSize: "15px",
-            color: "#777",
-            marginBottom: "40px",
-            fontWeight: "300",
-          }}
-        >
-          All the tools to build a professional online presence — in one place.
-        </p>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
-            gap: "20px",
-          }}
-        >
-          {[
-            [
-              "🎨",
-              "12 premium themes",
-              "From minimal to bold — choose a design that matches your personal brand.",
-            ],
-            [
-              "🌐",
-              "Custom domain",
-              "Connect your own domain like moaz.com for a truly professional look.",
-            ],
-            [
-              "📅",
-              "Booking system",
-              "Let clients book appointments directly from your portfolio page.",
-            ],
-            [
-              "📄",
-              "CV PDF export",
-              "Export your portfolio as a polished PDF resume in one click.",
-            ],
-            [
-              "📊",
-              "Analytics",
-              "See who's visiting your portfolio and track your growth over time.",
-            ],
-            [
-              "✍️",
-              "Built-in blog",
-              "Share your thoughts and expertise with a fully featured blog section.",
-            ],
-          ].map(([icon, title, desc]) => (
-            <div
-              key={title}
-              style={{
-                background: "#fafafa",
-                border: "1px solid #f0f0f0",
-                borderRadius: "14px",
-                padding: "24px",
-              }}
-            >
-              <div style={{ fontSize: "24px", marginBottom: "14px" }}>
-                {icon}
-              </div>
-              <h3
-                style={{
-                  fontSize: "15px",
-                  fontWeight: "500",
-                  color: "#1a1a1a",
-                  marginBottom: "6px",
-                }}
-              >
-                {title}
-              </h3>
-              <p
-                style={{
-                  fontSize: "13px",
-                  color: "#888",
-                  lineHeight: "1.6",
-                  fontWeight: "300",
-                }}
-              >
-                {desc}
-              </p>
+              <span className="font-serif text-3xl text-gray-950 block">{num}</span>
+              <span className="text-xs text-gray-400">{label}</span>
             </div>
           ))}
         </div>
       </section>
 
-      <hr style={{ border: "none", borderTop: "1px solid #f0f0f0" }} />
-      {/* Examples */}
-      <section id="examples" style={{ padding: "64px 40px" }}>
-        <div
-          style={{
-            fontSize: "11px",
-            fontWeight: "500",
-            color: "#4F46E5",
-            textTransform: "uppercase",
-            letterSpacing: "0.1em",
-            marginBottom: "10px",
-          }}
-        >
-          Examples
-        </div>
-        <h2
-          style={{
-            fontFamily: "Georgia, serif",
-            fontSize: "36px",
-            color: "#0f0f0f",
-            marginBottom: "10px",
-          }}
-        >
-          See what people build
-        </h2>
-        <p
-          style={{
-            fontSize: "15px",
-            color: "#777",
-            marginBottom: "40px",
-            fontWeight: "300",
-          }}
-        >
-          Real portfolios from real professionals across different fields.
-        </p>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
-            gap: "16px",
-          }}
-        >
+      {/* Features */}
+      <section id="features" className="px-6 md:px-10 py-16">
+        <p className="text-xs font-medium text-indigo-600 uppercase tracking-widest mb-2">Features</p>
+        <h2 className="font-serif text-3xl md:text-4xl text-gray-950 mb-3">Everything you need to stand out</h2>
+        <p className="text-gray-400 text-sm mb-10 font-light">All the tools to build a professional online presence — in one place.</p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {[
-            {
-              bg: "#0f172a",
-              accent: "#7C3AED",
-              label: "Creative Dev",
-              name: "Moaz T.",
-              role: "React Developer",
-              href: "https://portfolio-craft-swain.vercel.app/tellommt",
-            },
-            {
-              bg: "#f8f4ef",
-              accent: "#1a1a1a",
-              label: "Designer",
-              name: "Coming Soon",
-              role: "UI/UX Designer",
-              href: null,
-            },
-            {
-              bg: "#EEF2FF",
-              accent: "#4338CA",
-              label: "Consultant",
-              name: "Coming Soon",
-              role: "Business Consultant",
-              href: null,
-            },
+            ['🎨', '12 premium themes', 'From minimal to bold — choose a design that matches your personal brand.'],
+            ['🌐', 'Custom domain', 'Connect your own domain like moaz.com for a truly professional look.'],
+            ['📅', 'Booking system', 'Let clients book appointments directly from your portfolio page.'],
+            ['📄', 'CV PDF export', 'Export your portfolio as a polished PDF resume in one click.'],
+            ['📊', 'Analytics', "See who's visiting your portfolio and track your growth over time."],
+            ['✍️', 'Built-in blog', 'Share your thoughts and expertise with a fully featured blog section.'],
+          ].map(([icon, title, desc]) => (
+            <div key={title as string} className="bg-gray-50 border border-gray-100 rounded-2xl p-6">
+              <div className="text-2xl mb-3">{icon}</div>
+              <h3 className="text-sm font-medium text-gray-900 mb-2">{title}</h3>
+              <p className="text-xs text-gray-400 leading-relaxed font-light">{desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <hr className="border-gray-100" />
+
+      {/* Examples */}
+      <section id="examples" className="px-6 md:px-10 py-16">
+        <p className="text-xs font-medium text-indigo-600 uppercase tracking-widest mb-2">Examples</p>
+        <h2 className="font-serif text-3xl md:text-4xl text-gray-950 mb-3">See what people build</h2>
+        <p className="text-gray-400 text-sm mb-10 font-light">Real portfolios from real professionals across different fields.</p>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          {[
+            { bg: '#0f172a', accent: '#7C3AED', label: 'Creative Dev', name: 'Moaz T.', role: 'React Developer', href: 'https://portfolio-craft-swain.vercel.app/tellommt' },
+            { bg: '#f8f4ef', accent: '#1a1a1a', label: 'Designer', name: 'Coming Soon', role: 'UI/UX Designer', href: null },
+            { bg: '#EEF2FF', accent: '#4338CA', label: 'Consultant', name: 'Coming Soon', role: 'Business Consultant', href: null },
           ].map(({ bg, accent, label, name, role, href }) => (
-            <div
-              key={bg}
-              style={{
-                border: "1px solid #eee",
-                borderRadius: "14px",
-                overflow: "hidden",
-              }}
-            >
-              <div
-                style={{
-                  height: "140px",
-                  background: bg,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <span
-                  style={{
-                    fontFamily: "Georgia, serif",
-                    fontSize: "18px",
-                    color: accent,
-                    fontStyle: "italic",
-                  }}
-                >
-                  {label}
-                </span>
+            <div key={name} className="border border-gray-100 rounded-2xl overflow-hidden">
+              <div className="h-36 flex items-center justify-center" style={{ background: bg }}>
+                <span className="font-serif text-lg italic" style={{ color: accent }}>{label}</span>
               </div>
-              <div
-                style={{
-                  padding: "14px 16px",
-                  borderTop: "1px solid #eee",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
-              >
+              <div className="p-4 flex justify-between items-center">
                 <div>
-                  <div
-                    style={{
-                      fontSize: "13px",
-                      fontWeight: "500",
-                      color: "#1a1a1a",
-                    }}
-                  >
-                    {name}
-                  </div>
-                  <div style={{ fontSize: "12px", color: "#999" }}>{role}</div>
+                  <div className="text-sm font-medium text-gray-900">{name}</div>
+                  <div className="text-xs text-gray-400">{role}</div>
                 </div>
                 {href ? (
-                  <Link
-                    href={href}
-                    target="_blank"
-                    style={{
-                      fontSize: "12px",
-                      color: "#4F46E5",
-                      textDecoration: "none",
-                    }}
-                  >
-                    View →
-                  </Link>
+                  <Link href={href} target="_blank" className="text-xs text-indigo-500 hover:underline">View →</Link>
                 ) : (
-                  <span style={{ fontSize: "11px", color: "#ccc" }}>Soon</span>
+                  <span className="text-xs text-gray-300">Soon</span>
                 )}
               </div>
             </div>
           ))}
         </div>
       </section>
-      <hr style={{ border: "none", borderTop: "1px solid #f0f0f0" }} />
-      <section id="pricing" style={{ padding: "64px 40px" }}>
-        <div
-          style={{
-            fontSize: "11px",
-            fontWeight: "500",
-            color: "#4F46E5",
-            textTransform: "uppercase",
-            letterSpacing: "0.1em",
-            marginBottom: "10px",
-          }}
-        >
-          Pricing
-        </div>
-        <h2
-          style={{
-            fontFamily: "Georgia, serif",
-            fontSize: "36px",
-            color: "#0f0f0f",
-            marginBottom: "10px",
-          }}
-        >
-          Simple, transparent pricing
-        </h2>
-        <p
-          style={{
-            fontSize: "15px",
-            color: "#777",
-            marginBottom: "40px",
-            fontWeight: "300",
-          }}
-        >
-          Start free, upgrade when you're ready.
-        </p>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
-            gap: "16px",
-          }}
-        >
-          {/* {[
-            {
-              name: "Free",
-              price: "$0",
-              period: "forever",
-              desc: "Perfect for getting started",
-              features: [
-                "1 theme",
-                "6 gallery photos",
-                "portfoliocraft.com/you",
-                "Basic analytics",
-              ],
-              featured: false,
-            },
-            {
-              name: "Pro",
-              price: "$5",
-              period: "per month",
-              desc: "For freelancers & job seekers",
-              features: [
-                "6 premium themes",
-                "Custom domain",
-                "30 gallery photos",
-                "Blog system",
-              ],
-              featured: true,
-            },
-            {
-              name: "Business",
-              price: "$12",
-              period: "per month",
-              desc: "For growing professionals",
-              features: [
-                "All 12 themes",
-                "Booking system",
-                "PDF CV export",
-                "Unlimited gallery",
-              ],
-              featured: false,
-            },
-          ].map((plan) => (
-            <div
-              key={plan.name}
-              style={{
-                border: plan.featured ? "2px solid #4F46E5" : "1px solid #eee",
-                borderRadius: "16px",
-                padding: "28px 24px",
-                position: "relative",
-              }}
-            >
-              {plan.featured && (
-                <div
-                  style={{
-                    position: "absolute",
-                    top: "-11px",
-                    left: "50%",
-                    transform: "translateX(-50%)",
-                    background: "#4F46E5",
-                    color: "#fff",
-                    fontSize: "11px",
-                    padding: "3px 12px",
-                    borderRadius: "100px",
-                    whiteSpace: "nowrap",
-                  }}
-                >
-                  Most popular
-                </div>
-              )}
-              <div
-                style={{
-                  fontSize: "13px",
-                  fontWeight: "500",
-                  color: "#888",
-                  marginBottom: "6px",
-                }}
-              >
-                {plan.name}
-              </div>
-              <div
-                style={{
-                  fontFamily: "Georgia, serif",
-                  fontSize: "36px",
-                  color: "#0f0f0f",
-                  marginBottom: "4px",
-                }}
-              >
-                {plan.price}{" "}
-                <span
-                  style={{
-                    fontFamily: "sans-serif",
-                    fontSize: "14px",
-                    color: "#999",
-                  }}
-                >
-                  / {plan.period}
-                </span>
-              </div>
-              <div
-                style={{
-                  fontSize: "13px",
-                  color: "#888",
-                  marginBottom: "20px",
-                  fontWeight: "300",
-                }}
-              >
-                {plan.desc}
-              </div>
-              <ul
-                style={{
-                  listStyle: "none",
-                  padding: "0",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "10px",
-                  marginBottom: "24px",
-                }}
-              >
-                {plan.features.map((f) => (
-                  <li
-                    key={f}
-                    style={{
-                      fontSize: "13px",
-                      color: "#555",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "8px",
-                    }}
-                  >
-                    <span style={{ color: "#4F46E5" }}>✓</span> {f}
-                  </li>
-                ))}
-              </ul>
-              <Link
-                href="/register"
-                style={{
-                  display: "block",
-                  width: "100%",
-                  padding: "11px",
-                  borderRadius: "10px",
-                  fontSize: "13px",
-                  fontWeight: "500",
-                  textAlign: "center",
-                  textDecoration: "none",
-                  background: plan.featured ? "#4F46E5" : "#fff",
-                  color: plan.featured ? "#fff" : "#333",
-                  border: plan.featured ? "none" : "1px solid #e5e5e5",
-                  boxSizing: "border-box",
-                }}
-              >
-                {plan.name === "Free"
-                  ? "Get started free"
-                  : `Upgrade to ${plan.name}`}
-              </Link>
-            </div>
-          ))} */}
+
+      <hr className="border-gray-100" />
+
+      {/* Pricing */}
+      <section id="pricing" className="px-6 md:px-10 py-16">
+        <p className="text-xs font-medium text-indigo-600 uppercase tracking-widest mb-2">Pricing</p>
+        <h2 className="font-serif text-3xl md:text-4xl text-gray-950 mb-3">Simple, transparent pricing</h2>
+        <p className="text-gray-400 text-sm mb-10 font-light">Start free, upgrade when you're ready.</p>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {[
-            {
-              name: "Free",
-              price: "$0",
-              period: "forever",
-              annual: null,
-              saving: null,
-              desc: "Perfect for getting started",
-              features: [
-                "1 theme",
-                "6 gallery photos",
-                "portfoliocraft.com/you",
-                "Basic analytics",
-              ],
-              featured: false,
-            },
-            {
-              name: "Pro",
-              price: "$5",
-              period: "per month",
-              annual: "$48/year",
-              saving: "Save $12",
-              desc: "For freelancers & job seekers",
-              features: [
-                "6 premium themes",
-                "Custom domain",
-                "30 gallery photos",
-                "Blog system",
-              ],
-              featured: true,
-            },
-            {
-              name: "Business",
-              price: "$12",
-              period: "per month",
-              annual: "$99/year",
-              saving: "Save $45",
-              desc: "For growing professionals",
-              features: [
-                "All 12 themes",
-                "Booking system",
-                "PDF CV export",
-                "Unlimited gallery",
-              ],
-              featured: false,
-            },
-          ].map((plan) => (
-            <div
-              key={plan.name}
-              style={{
-                border: plan.featured ? "2px solid #4F46E5" : "1px solid #eee",
-                borderRadius: "16px",
-                padding: "28px 24px",
-                position: "relative",
-              }}
-            >
+            { name: 'Free', price: '$0', period: 'forever', annual: null, saving: null, desc: 'Perfect for getting started', features: ['1 theme', '6 gallery photos', 'portfoliocraft.com/you', 'Basic analytics'], featured: false },
+            { name: 'Pro', price: '$5', period: 'per month', annual: '$48/year', saving: 'Save $12', desc: 'For freelancers & job seekers', features: ['6 premium themes', 'Custom domain', '30 gallery photos', 'Blog system'], featured: true },
+            { name: 'Business', price: '$12', period: 'per month', annual: '$99/year', saving: 'Save $45', desc: 'For growing professionals', features: ['All 12 themes', 'Booking system', 'PDF CV export', 'Unlimited gallery'], featured: false },
+          ].map(plan => (
+            <div key={plan.name} className={`relative rounded-2xl p-6 ${plan.featured ? 'border-2 border-indigo-500' : 'border border-gray-100'}`}>
               {plan.featured && (
-                <div
-                  style={{
-                    position: "absolute",
-                    top: "-11px",
-                    left: "50%",
-                    transform: "translateX(-50%)",
-                    background: "#4F46E5",
-                    color: "#fff",
-                    fontSize: "11px",
-                    padding: "3px 12px",
-                    borderRadius: "100px",
-                    whiteSpace: "nowrap",
-                  }}
-                >
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-indigo-600 text-white text-xs px-3 py-1 rounded-full whitespace-nowrap">
                   Most popular
                 </div>
               )}
-
-              <div
-                style={{
-                  fontSize: "13px",
-                  fontWeight: "500",
-                  color: "#888",
-                  marginBottom: "6px",
-                }}
-              >
-                {plan.name}
+              <div className="text-xs font-medium text-gray-400 mb-1">{plan.name}</div>
+              <div className="font-serif text-4xl text-gray-950 mb-1">
+                {plan.price} <span className="font-sans text-sm text-gray-400">/ {plan.period}</span>
               </div>
-
-              {/* Price */}
-              <div
-                style={{
-                  fontFamily: "Georgia, serif",
-                  fontSize: "36px",
-                  color: "#0f0f0f",
-                  marginBottom: "2px",
-                }}
-              >
-                {plan.price}{" "}
-                <span
-                  style={{
-                    fontFamily: "sans-serif",
-                    fontSize: "14px",
-                    color: "#999",
-                  }}
-                >
-                  / {plan.period}
-                </span>
-              </div>
-
-              {/* Annual hint */}
               {plan.annual ? (
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "6px",
-                    marginBottom: "16px",
-                  }}
-                >
-                  <span style={{ fontSize: "12px", color: "#aaa" }}>or</span>
-                  <span
-                    style={{
-                      fontSize: "12px",
-                      fontWeight: "500",
-                      color: "#0f0f0f",
-                    }}
-                  >
-                    {plan.annual}
-                  </span>
-                  <span
-                    style={{
-                      fontSize: "11px",
-                      background: "#f0fdf4",
-                      color: "#16a34a",
-                      padding: "2px 8px",
-                      borderRadius: "100px",
-                      fontWeight: "500",
-                    }}
-                  >
-                    {plan.saving}
-                  </span>
+                <div className="flex items-center gap-2 mb-4">
+                  <span className="text-xs text-gray-400">or</span>
+                  <span className="text-xs font-medium text-gray-900">{plan.annual}</span>
+                  <span className="text-xs bg-green-50 text-green-700 px-2 py-0.5 rounded-full">{plan.saving}</span>
                 </div>
-              ) : (
-                <div style={{ marginBottom: "16px", height: "22px" }} />
-              )}
-
-              <div
-                style={{
-                  fontSize: "13px",
-                  color: "#888",
-                  marginBottom: "20px",
-                  fontWeight: "300",
-                }}
-              >
-                {plan.desc}
-              </div>
-
-              <ul
-                style={{
-                  listStyle: "none",
-                  padding: "0",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "10px",
-                  marginBottom: "24px",
-                }}
-              >
-                {plan.features.map((f) => (
-                  <li
-                    key={f}
-                    style={{
-                      fontSize: "13px",
-                      color: "#555",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "8px",
-                    }}
-                  >
-                    <span style={{ color: "#4F46E5", fontWeight: "600" }}>
-                      ✓
-                    </span>{" "}
-                    {f}
+              ) : <div className="mb-4 h-5" />}
+              <div className="text-xs text-gray-400 mb-5 font-light">{plan.desc}</div>
+              <ul className="space-y-2 mb-6">
+                {plan.features.map(f => (
+                  <li key={f} className="flex items-center gap-2 text-xs text-gray-600">
+                    <span className="text-indigo-500 font-medium">✓</span> {f}
                   </li>
                 ))}
               </ul>
-
-              <Link
-                href="/register"
-                style={{
-                  display: "block",
-                  width: "100%",
-                  padding: "11px",
-                  borderRadius: "10px",
-                  fontSize: "13px",
-                  fontWeight: "500",
-                  textAlign: "center",
-                  textDecoration: "none",
-                  background: plan.featured ? "#4F46E5" : "#fff",
-                  color: plan.featured ? "#fff" : "#333",
-                  border: plan.featured ? "none" : "1px solid #e5e5e5",
-                  boxSizing: "border-box",
-                }}
-              >
-                {plan.name === "Free"
-                  ? "Get started free"
-                  : `Upgrade to ${plan.name}`}
+              <Link href="/register" className={`block w-full py-2.5 rounded-xl text-xs font-medium text-center transition ${plan.featured ? 'bg-indigo-600 text-white hover:bg-indigo-700' : 'bg-white text-gray-700 border border-gray-200 hover:bg-gray-50'}`}>
+                {plan.name === 'Free' ? 'Get started free' : `Upgrade to ${plan.name}`}
               </Link>
             </div>
           ))}
         </div>
       </section>
 
-      <hr style={{ border: "none", borderTop: "1px solid #f0f0f0" }} />
+      <hr className="border-gray-100" />
 
       {/* FAQ */}
-      <section id="faq" style={{ padding: "64px 40px" }}>
-        <div
-          style={{
-            fontSize: "11px",
-            fontWeight: "500",
-            color: "#4F46E5",
-            textTransform: "uppercase",
-            letterSpacing: "0.1em",
-            marginBottom: "10px",
-          }}
-        >
-          FAQ
-        </div>
-        <h2
-          style={{
-            fontFamily: "Georgia, serif",
-            fontSize: "36px",
-            color: "#0f0f0f",
-            marginBottom: "10px",
-          }}
-        >
-          Common questions
-        </h2>
-        <p
-          style={{
-            fontSize: "15px",
-            color: "#777",
-            marginBottom: "40px",
-            fontWeight: "300",
-          }}
-        >
-          Everything you need to know before you start.
-        </p>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "1px",
-            border: "1px solid #eee",
-            borderRadius: "14px",
-            overflow: "hidden",
-          }}
-        >
+      <section id="faq" className="px-6 md:px-10 py-16">
+        <p className="text-xs font-medium text-indigo-600 uppercase tracking-widest mb-2">FAQ</p>
+        <h2 className="font-serif text-3xl md:text-4xl text-gray-950 mb-3">Common questions</h2>
+        <p className="text-gray-400 text-sm mb-10 font-light">Everything you need to know before you start.</p>
+        <div className="border border-gray-100 rounded-2xl overflow-hidden divide-y divide-gray-100">
           {[
-            [
-              "Do I need coding skills?",
-              "Not at all. PortfolioCraft is fully no-code. Just fill in your info, pick a theme, and publish. Your portfolio is live in minutes.",
-            ],
-            [
-              "Can I use my own domain?",
-              "Yes — on the Pro and Business plans you can connect any custom domain you own. Just add a CNAME record and you're done.",
-            ],
-            [
-              "Can I cancel anytime?",
-              "Yes, you can cancel your subscription at any time. Your portfolio stays active until the end of your billing period.",
-            ],
-            [
-              "What payment methods do you accept?",
-              "We accept credit cards via Stripe, PayPal, and ShamCash for users in Syria and the region.",
-            ],
-            [
-              "Is my data secure?",
-              "Your data is stored securely and never shared with third parties. We use industry-standard encryption for all sensitive information.",
-            ],
+            ['Do I need coding skills?', 'Not at all. PortfolioCraft is fully no-code. Just fill in your info, pick a theme, and publish. Your portfolio is live in minutes.'],
+            ['Can I use my own domain?', "Yes — on the Pro and Business plans you can connect any custom domain you own. Just add a CNAME record and you're done."],
+            ['Can I cancel anytime?', 'Yes, you can cancel your subscription at any time. Your portfolio stays active until the end of your billing period.'],
+            ['What payment methods do you accept?', 'We accept credit cards via Stripe, PayPal, and ShamCash for users in Syria and the region.'],
+            ['Is my data secure?', 'Your data is stored securely and never shared with third parties. We use industry-standard encryption for all sensitive information.'],
           ].map(([q, a]) => (
-            <div
-              key={q}
-              style={{
-                background: "#fafafa",
-                padding: "16px 20px",
-                borderBottom: "1px solid #eee",
-              }}
-            >
-              <p
-                style={{
-                  fontSize: "14px",
-                  fontWeight: "500",
-                  color: "#1a1a1a",
-                  marginBottom: "8px",
-                }}
-              >
-                {q}
-              </p>
-              <p
-                style={{
-                  fontSize: "13px",
-                  color: "#777",
-                  lineHeight: "1.6",
-                  fontWeight: "300",
-                }}
-              >
-                {a}
-              </p>
+            <div key={q as string} className="bg-gray-50 px-5 py-4">
+              <p className="text-sm font-medium text-gray-900 mb-2">{q}</p>
+              <p className="text-xs text-gray-500 leading-relaxed font-light">{a}</p>
             </div>
           ))}
         </div>
       </section>
 
       {/* CTA */}
-      <section
-        style={{
-          background: "#0f0f1a",
-          padding: "64px 40px",
-          textAlign: "center",
-        }}
-      >
-        <h2
-          style={{
-            fontFamily: "Georgia, serif",
-            fontSize: "40px",
-            color: "#fff",
-            marginBottom: "14px",
-          }}
-        >
-          Ready to build yours?
-        </h2>
-        <p
-          style={{
-            fontSize: "15px",
-            color: "#888",
-            marginBottom: "32px",
-            fontWeight: "300",
-          }}
-        >
-          Join 1,200+ professionals who already have a portfolio that works for
-          them.
-        </p>
-        <Link
-          href="/register"
-          style={{
-            background: "#4F46E5",
-            color: "#fff",
-            padding: "14px 36px",
-            borderRadius: "12px",
-            fontSize: "15px",
-            fontWeight: "500",
-            textDecoration: "none",
-            display: "inline-block",
-          }}
-        >
+      <section className="bg-gray-950 px-6 md:px-10 py-20 text-center">
+        <h2 className="font-serif text-3xl md:text-5xl text-white mb-4">Ready to build yours?</h2>
+        <p className="text-gray-400 text-sm mb-8 font-light">Join 1,200+ professionals who already have a portfolio that works for them.</p>
+        <Link href="/register" className="bg-indigo-600 text-white px-9 py-3.5 rounded-xl text-sm font-medium hover:bg-indigo-700 transition inline-block">
           Get started for free
         </Link>
       </section>
 
       {/* Footer */}
-      <footer
-        style={{
-          padding: "24px 40px",
-          borderTop: "1px solid #f0f0f0",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
-        <div style={{ fontFamily: "Georgia, serif", fontSize: "16px" }}>
-          Portfolio<span style={{ color: "#4F46E5" }}>Craft</span>
+      <footer className="px-6 md:px-10 py-6 border-t border-gray-100 flex flex-col sm:flex-row justify-between items-center gap-4">
+        <div className="font-serif text-base">
+          Portfolio<span className="text-indigo-600">Craft</span>
         </div>
-        <div style={{ display: "flex", gap: "20px", alignItems: "center" }}>
-          <Link
-            href="/privacy"
-            style={{ fontSize: "12px", color: "#bbb", textDecoration: "none" }}
-          >
-            Privacy Policy
-          </Link>
-          <Link
-            href="/terms"
-            style={{ fontSize: "12px", color: "#bbb", textDecoration: "none" }}
-          >
-            Terms of Service
-          </Link>
-          <p style={{ fontSize: "12px", color: "#bbb", margin: 0 }}>
-            © 2026 PortfolioCraft
-          </p>
+        <div className="flex flex-wrap justify-center gap-4 items-center">
+          <Link href="/privacy" className="text-xs text-gray-400 hover:text-gray-600 transition">Privacy Policy</Link>
+          <Link href="/terms" className="text-xs text-gray-400 hover:text-gray-600 transition">Terms of Service</Link>
+          <span className="text-xs text-gray-400">© 2026 PortfolioCraft</span>
         </div>
       </footer>
+
     </div>
-  );
+  )
 }
