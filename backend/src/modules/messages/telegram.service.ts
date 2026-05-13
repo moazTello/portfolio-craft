@@ -5,9 +5,11 @@ import { ConfigService } from '@nestjs/config'
 export class TelegramService {
   private botToken: string
   private apiUrl: string
+  private adminChatId: string
 
   constructor(private config: ConfigService) {
     this.botToken = config.get('TELEGRAM_BOT_TOKEN')!
+    this.adminChatId = config.get('TELEGRAM_CHAT_ID')!
     this.apiUrl = `https://api.telegram.org/bot${this.botToken}`
   }
 
@@ -25,5 +27,9 @@ export class TelegramService {
     } catch (err) {
       console.error('Telegram error:', err)
     }
+  }
+
+  async sendToAdmin(text: string) {
+    return this.sendMessage(this.adminChatId, text)
   }
 }

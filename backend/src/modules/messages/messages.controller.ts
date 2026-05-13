@@ -21,24 +21,24 @@ import { TelegramService } from './telegram.service';
 class SendMessageDto {
   @ApiProperty()
   @IsString()
-  portfolioId: string
+  portfolioId: string;
 
   @ApiProperty()
   @IsString()
-  senderName: string
+  senderName: string;
 
   @ApiProperty()
   @IsEmail()
-  senderEmail: string
+  senderEmail: string;
 
   @ApiPropertyOptional()
   @IsString()
   @IsOptional()
-  subject?: string
+  subject?: string;
 
   @ApiProperty()
   @IsString()
-  content: string
+  content: string;
 }
 
 @ApiTags('Messages')
@@ -105,5 +105,11 @@ export class MessagesController {
       '✅ <b>PortfolioCraft</b>\n\nYour Telegram notifications are working!',
     );
     return { success: true };
+  }
+
+  @Post('notify-admin')
+  @ApiOperation({ summary: 'Send notification to admin' })
+  async notifyAdmin(@Body() body: { message: string }) {
+    return this.telegram.sendToAdmin(body.message);
   }
 }

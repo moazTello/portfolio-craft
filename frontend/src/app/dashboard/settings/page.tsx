@@ -637,6 +637,24 @@ export default function SettingsPage() {
                 </p>
               </div>
 
+              {/* Namecheap Affiliate — أضف هون */}
+              <div className="bg-orange-50 dark:bg-orange-950 border border-orange-100 dark:border-orange-900 rounded-xl p-4">
+                <p className="text-sm text-orange-700 dark:text-orange-300 font-medium mb-1">
+                  Don't have a domain yet?
+                </p>
+                <p className="text-xs text-orange-600 dark:text-orange-400 mb-3">
+                  Get one from Namecheap — starting at $8.99/year
+                </p>
+                <a
+                  href="https://namecheap.pxf.io/YOUR_AFFILIATE_ID"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition inline-block"
+                >
+                  Buy a domain on Namecheap →
+                </a>
+              </div>
+
               {/* Domain Input */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">

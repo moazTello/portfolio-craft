@@ -201,6 +201,7 @@ const navItems = [
   { label: "Achievements", href: "/dashboard/achievements", icon: "🏆" },
   { label: "Blog", href: "/dashboard/blog", icon: "✍️" },
   { label: "Booking", href: "/dashboard/booking", icon: "📅" },
+  { label: 'Business Cards', href: '/dashboard/business-cards', icon: '🎴' },
 ];
 //this is the most aggressive symbol in the IRS
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
