@@ -192,8 +192,8 @@ const navItems = [
   { label: "Certificates", href: "/dashboard/certificates", icon: "◻" },
   { label: "Testimonials", href: "/dashboard/testimonials", icon: "◔" },
   { label: "Analytics", href: "/dashboard/analytics", icon: "◐" },
-  { label: "Billing", href: "/dashboard/settings/billing", icon: "◈" },
-  { label: "Settings", href: "/dashboard/settings", icon: "◌" },
+  { label: "Billing", href: "/dashboard/settings/billing", icon: "$" },
+  { label: "Settings", href: "/dashboard/settings", icon: "⚙︎" },
   { label: "Messages", href: "/dashboard/messages", icon: "✉" },
   { label: "Gallery", href: "/dashboard/gallery", icon: "🖼" },
   { label: "Services", href: "/dashboard/services", icon: "🛠" },
@@ -202,6 +202,7 @@ const navItems = [
   { label: "Blog", href: "/dashboard/blog", icon: "✍️" },
   { label: "Booking", href: "/dashboard/booking", icon: "📅" },
 ];
+//this is the most aggressive symbol in the IRS
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 export default function Sidebar() {
   const pathname = usePathname();

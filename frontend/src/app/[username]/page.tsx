@@ -862,36 +862,65 @@ async function getPortfolio(username: string) {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ username: string }>;
+  params: Promise<{ username: string }>
 }): Promise<Metadata> {
-  const { username } = await params;
-  const portfolio = await getPortfolio(username);
-  if (!portfolio) return { title: "Portfolio Not Found" };
+  const { username } = await params
+  const portfolio = await getPortfolio(username)
+  if (!portfolio) return { title: 'Portfolio Not Found' }
+
+  const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://portfolio-craft-swain.vercel.app'
+  const portfolioUrl = `${SITE_URL}/${username}`
+  const title = portfolio.seoTitle ?? `${portfolio.heroTitle} | ${portfolio.heroSubtitle}`
+  const description = portfolio.seoDescription ?? portfolio.aboutText?.slice(0, 160)
 
   return {
-    title: portfolio.seoTitle ?? portfolio.heroTitle,
-    description: portfolio.seoDescription ?? portfolio.aboutText?.slice(0, 160),
-    keywords: portfolio.skills?.map((s: any) => s.name).join(", "),
+    title,
+    description,
+    keywords: [
+      portfolio.heroTitle,           // اسم الشخص
+      portfolio.heroSubtitle,        // المسمى الوظيفي
+      ...(portfolio.skills?.map((s: any) => s.name) ?? []),  // المهارات
+      portfolio.location ?? '',      // الموقع
+      'portfolio',
+      'developer',
+    ].filter(Boolean).join(', '),
+    
     authors: [{ name: portfolio.heroTitle }],
+    creator: portfolio.heroTitle,
+    
     openGraph: {
-      title: portfolio.seoTitle ?? portfolio.heroTitle,
-      description:
-        portfolio.seoDescription ?? portfolio.aboutText?.slice(0, 160),
-      type: "profile",
-      url: `https://${username}.portfoliocraft.com`,
+      title,
+      description,
+      type: 'profile',
+      url: portfolioUrl,
+      siteName: 'PortfolioCraft',
       images: portfolio.ogImage
-        ? [{ url: portfolio.ogImage, width: 1200, height: 630 }]
+        ? [{ url: portfolio.ogImage, width: 1200, height: 630, alt: title }]
         : [],
     },
+    
     twitter: {
-      card: "summary_large_image",
-      title: portfolio.seoTitle ?? portfolio.heroTitle,
-      description:
-        portfolio.seoDescription ?? portfolio.aboutText?.slice(0, 160),
+      card: 'summary_large_image',
+      title,
+      description,
       images: portfolio.ogImage ? [portfolio.ogImage] : [],
     },
-    alternates: { canonical: `https://${username}.portfoliocraft.com` },
-  };
+    
+    alternates: {
+      canonical: portfolioUrl,
+    },
+    
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-snippet': -1,
+        'max-image-preview': 'large',
+      },
+    },
+  }
 }
 
 export default async function PortfolioPage({
