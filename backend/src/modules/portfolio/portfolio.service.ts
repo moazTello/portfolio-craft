@@ -269,10 +269,11 @@ export class PortfolioService {
       const records = await dns.resolveCname(portfolio.customDomain);
       const pointsToUs = records.some(
         (r) =>
-          r.includes('portfolio-craft.com') || // ← الدومين الصح
+          r.includes('portfolio-craft.com') ||
           r.includes('portfoliocraft.com') ||
           r.includes('vercel.app') ||
-          r.includes('vercel-dns.com'), // ← أضف هذا
+          r.includes('vercel-dns.com') ||
+          r.includes('vercel-dns-'), // ← أضف هذا
       );
 
       return {
@@ -281,11 +282,24 @@ export class PortfolioService {
         cname: records[0] ?? null,
       };
     } catch {
-      return {
-        verified: false,
-        domain: portfolio.customDomain,
-        cname: null,
-      };
+      // إذا ما قدر يحل الـ DNS — جرب HTTP check
+      try {
+        const res = await fetch(`https://${portfolio.customDomain}`, {
+          method: 'HEAD',
+          signal: AbortSignal.timeout(5000),
+        });
+        return {
+          verified: res.ok,
+          domain: portfolio.customDomain,
+          cname: null,
+        };
+      } catch {
+        return {
+          verified: false,
+          domain: portfolio.customDomain,
+          cname: null,
+        };
+      }
     }
   }
 
