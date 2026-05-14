@@ -284,12 +284,6 @@ export class PortfolioService {
         data: { customDomain: null },
       });
     }
-
-    // حذف الدومين
-    return this.prisma.portfolio.update({
-      where: { userId },
-      data: { customDomain: null },
-    });
   }
 
   async verifyDomain(userId: string) {
@@ -299,7 +293,6 @@ export class PortfolioService {
     if (!portfolio?.customDomain) {
       throw new BadRequestException('No custom domain set');
     }
-
     try {
       const dns = await import('dns').then((m) => m.promises);
       const records = await dns.resolveCname(portfolio.customDomain);
