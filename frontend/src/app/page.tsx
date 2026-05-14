@@ -151,7 +151,7 @@ export default function LandingPage() {
               label: "Creative Dev",
               name: "Moaz T.",
               role: "React Developer",
-              href: "https://www.portfolio-craft.com/tellommt",
+              href: "https://www.eng-moaz-tello.com",
             },
             {
               bg: "#f8f4ef",
