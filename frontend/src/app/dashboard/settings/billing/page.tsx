@@ -76,6 +76,7 @@ export default function BillingPage() {
   const [shamCashPlan, setShamCashPlan] = useState<"PRO" | "BUSINESS" | null>(
     null,
   );
+  const [userCountry, setUserCountry] = useState<string>("");
   const [interval, setInterval] = useState<"monthly" | "annual">("monthly");
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -105,7 +106,14 @@ export default function BillingPage() {
         setSubscription(data);
         setLoading(false);
       });
+
+    fetch("https://ipapi.co/json/")
+      .then((r) => r.json())
+      .then((data) => setUserCountry(data.country_code ?? ""))
+      .catch(() => {});
   }, []);
+  const isSyria = userCountry === "SY";
+
   async function capturePaypal(orderId: string) {
     try {
       const res = await api.post("/billing/paypal/capture", { orderId });
@@ -389,8 +397,10 @@ export default function BillingPage() {
                     onClick={() =>
                       setShamCashPlan(plan.id as "PRO" | "BUSINESS")
                     }
+                    disabled={!isSyria}
                     className="w-full py-2 rounded-lg text-sm font-medium border border-green-200 dark:border-green-800 bg-green-50 dark:bg-green-950 text-green-700 dark:text-green-400 hover:bg-green-100 transition"
                   >
+                    {isSyria && <span>⭐</span>}
                     Pay with ShamCash
                   </button>
                 </div>
