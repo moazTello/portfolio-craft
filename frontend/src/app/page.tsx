@@ -171,7 +171,7 @@ export default function LandingPage() {
             },
           ].map(({ bg, accent, label, name, role, href }) => (
             <div
-              key={name}
+              key={bg}
               className="border border-gray-100 rounded-2xl overflow-hidden"
             >
               <div

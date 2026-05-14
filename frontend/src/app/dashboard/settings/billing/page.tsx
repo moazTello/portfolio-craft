@@ -7,9 +7,6 @@ import { LoadingSkeleton } from "@/components/shared/LoadingSpinner";
 import { usePortfolioGuard } from "@/hooks/usePortfolioGuard";
 import { api } from "@/lib/api";
 import { ShamCashModal } from "@/components/dashboard/ShamCashModal";
-// function getToken() {
-//   return localStorage.getItem("token") ?? "";
-// }
 
 const plans = [
   {
@@ -143,27 +140,6 @@ export default function BillingPage() {
     }
   }
 
-  // async function handleUpgrade(planId: string) {
-  //   setCheckoutLoading(planId);
-  //   try {
-  //     // const res = await fetch("http://localhost:3001/v1/billing/checkout", {
-  //     //   method: "POST",
-  //     //   headers: {
-  //     //     "Content-Type": "application/json",
-  //     //     Authorization: `Bearer ${getToken()}`,
-  //     //   },
-  //     //   body: JSON.stringify({ plan: planId }),
-  //     // });
-  //     const res = await api.post("/billing/checkout", { plan: planId });
-  //     const data = await res.json();
-  //     if (data.url) window.location.href = data.url;
-  //   } catch (err: any) {
-  //     toast.error(err.message);
-  //   } finally {
-  //     setCheckoutLoading(null);
-  //   }
-  // }
-
   async function handleUpgrade(planId: string) {
     setCheckoutLoading(planId);
     try {
@@ -193,19 +169,17 @@ export default function BillingPage() {
       toast.error("Something went wrong");
     }
   }
-
-  //   if (loading) return <div className="text-gray-400 text-sm">Loading...</div>;
-  // if (loading)
-  //   return (
-  //     <div>
-  //       <LoadingSkeleton rows={4} />
-  //     </div>
-  //   );
   if (!ready) return <LoadingSkeleton rows={3} />;
   if (loading) return <LoadingSkeleton rows={3} />;
   const currentPlan = subscription?.plan ?? "FREE";
   const currentPlanData = plans.find((p) => p.id === currentPlan);
-  console.log(subscription);
+  const shamBtn = (id:any) => {
+    if(isSyria){
+      setShamCashPlan(id as "PRO" | "BUSINESS")
+    }else{
+      toast.info("ShamCash is available for users in Syria only")
+    }
+  }
   return (
     <div>
       {/* Header */}
@@ -352,7 +326,7 @@ export default function BillingPage() {
 
                 //     } disabled:opacity-50
                 // `}
-                className={`w-full py-2.5 rounded-lg text-sm font-medium transition ${
+                className={`w-full py-2.5 cursor-pointer rounded-lg text-sm font-medium transition ${
                   isCurrent
                     ? "bg-indigo-50 dark:bg-indigo-950 border border-indigo-300 dark:border-indigo-700 text-indigo-700 dark:text-indigo-300 cursor-not-allowed"
                     : plan.highlighted
@@ -382,7 +356,7 @@ export default function BillingPage() {
                   <button
                     onClick={() => handlePaypalUpgrade(plan.id)}
                     disabled={checkoutLoading === `paypal-${plan.id}`}
-                    className="w-full py-2 rounded-lg text-sm font-medium border border-gray-200 dark:border-gray-700 bg-[#FFC439] text-[#003087] hover:bg-[#FFB800] transition disabled:opacity-50"
+                    className="w-full py-2 cursor-pointer rounded-lg text-sm font-medium border border-gray-200 dark:border-gray-700 bg-[#FFC439] text-[#003087] hover:bg-[#FFB800] transition disabled:opacity-50"
                   >
                     {checkoutLoading === `paypal-${plan.id}`
                       ? "Loading..."
@@ -395,13 +369,43 @@ export default function BillingPage() {
                 <div className="mt-2">
                   <button
                     onClick={() =>
-                      setShamCashPlan(plan.id as "PRO" | "BUSINESS")
+                      // setShamCashPlan(plan.id as "PRO" | "BUSINESS")
+                      shamBtn(plan.id as "PRO" | "BUSINESS")
                     }
-                    disabled={!isSyria}
-                    className="w-full py-2 rounded-lg text-sm font-medium border border-green-200 dark:border-green-800 bg-green-50 dark:bg-green-950 text-green-700 dark:text-green-400 hover:bg-green-100 transition"
+                    // disabled={!isSyria}
+                    className="w-full cursor-pointer py-2 rounded-lg text-sm font-medium border border-green-200 dark:border-green-800 bg-green-50 dark:bg-green-950 text-green-600 dark:text-green-400 hover:bg-green-400 hover:text-white transition"
                   >
-                    {isSyria && <span>⭐</span>}
-                    Pay with ShamCash
+                    {isSyria ? (
+                      "⭐ Pay with ShamCash"
+                    ) : (
+                      <span className="flex items-center justify-center gap-2">
+                        <svg width="20" height="14" viewBox="0 0 30 20">
+                          <rect width="30" height="6.6" y="0" fill="#007a3d" />
+                          <rect
+                            width="30"
+                            height="6.6"
+                            y="6.7"
+                            fill="#ffffff"
+                          />
+                          <rect
+                            width="30"
+                            height="6.6"
+                            y="13.4"
+                            fill="#000000"
+                          />
+                          <text
+                            x="15"
+                            y="12"
+                            textAnchor="middle"
+                            fontSize="5"
+                            fill="#ce1126"
+                          >
+                            ★ ★ ★
+                          </text>
+                        </svg>
+                        Pay with ShamCash
+                      </span>
+                    )}
                   </button>
                 </div>
               )}
