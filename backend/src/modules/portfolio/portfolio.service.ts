@@ -200,6 +200,25 @@ export class PortfolioService {
     }
     return username;
   }
+  private async removeDomainFromVercel(domain: string) {
+    try {
+      const token = this.config.get('VERCEL_TOKEN');
+      const projectId = this.config.get('VERCEL_PROJECT_ID');
+
+      await fetch(
+        `https://api.vercel.com/v9/projects/${projectId}/domains/${domain}`,
+        {
+          method: 'DELETE',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+    } catch (e) {
+      console.error('Vercel domain remove error:', e);
+    }
+  }
   private async addDomainToVercel(domain: string) {
     try {
       const token = this.config.get('VERCEL_TOKEN');
@@ -247,10 +266,22 @@ export class PortfolioService {
         throw new ConflictException('Domain already in use');
       }
       await this.addDomainToVercel(cleanDomain);
-
       return this.prisma.portfolio.update({
         where: { userId },
         data: { customDomain: cleanDomain },
+      });
+    }
+
+    if (!domain) {
+      const portfolio = await this.prisma.portfolio.findUnique({
+        where: { userId },
+      });
+      if (portfolio?.customDomain) {
+        await this.removeDomainFromVercel(portfolio.customDomain);
+      }
+      return this.prisma.portfolio.update({
+        where: { userId },
+        data: { customDomain: null },
       });
     }
 
