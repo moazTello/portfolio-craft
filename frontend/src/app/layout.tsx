@@ -127,8 +127,24 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: { default: "PortfolioCraft", template: "%s | PortfolioCraft" },
-  description: "Build your professional portfolio in minutes",
+  description:
+    "Build your professional portfolio in minutes. No code needed. Share your work, get hired, and grow your freelance business.",
+  keywords: [
+    "portfolio builder",
+    "professional portfolio",
+    "free portfolio website",
+    "developer portfolio",
+    "designer portfolio",
+    "freelancer portfolio",
+    "portfolio maker",
+    "online portfolio",
+    "CV website",
+    "personal website",
+  ],
   metadataBase: new URL("https://www.portfolio-craft.com"),
+  authors: [{ name: "PortfolioCraft" }],
+  creator: "PortfolioCraft",
+  publisher: "PortfolioCraft",
   icons: {
     icon: "/favicon.png",
     apple: "/favicon.png",
@@ -137,13 +153,30 @@ export const metadata: Metadata = {
     siteName: "PortfolioCraft",
     type: "website",
     url: "https://www.portfolio-craft.com",
+    title: "PortfolioCraft — Build your professional portfolio in minutes",
+    description:
+      "Create a stunning portfolio website in minutes. No code needed. Custom domain, blog, booking system, and more.",
     images: [
       { url: "/og-image.png", width: 1200, height: 630, alt: "PortfolioCraft" },
     ],
+    locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
+    title: "PortfolioCraft — Build your professional portfolio",
+    description:
+      "Create a stunning portfolio website in minutes. No code needed.",
     images: ["/og-image.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-snippet": -1,
+      "max-image-preview": "large",
+    },
   },
 };
 
