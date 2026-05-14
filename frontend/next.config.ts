@@ -9,7 +9,7 @@ const nextConfig: NextConfig = {
           {
             type: "host",
             value:
-              "(?!localhost|portfolio-craft-swain\\.vercel\\.app|portfolio-craft\\.com|www\\.portfolio-craft\\.com|eng-moaz-tello\\.com|www\\.eng-moaz-tello\\.com)(?<domain>.*)",
+              "(?!localhost|portfolio-craft-swain\\.vercel\\.app|www\\.portfolio-craft\\.com|portfolio-craft\\.com)(?<domain>.*\\..+)",
           },
         ],
         destination: "/custom-domain/:path*",
