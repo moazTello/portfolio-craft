@@ -74,24 +74,26 @@ export default function ExperiencePage() {
 
   async function onSubmit(values: FormValues) {
     try {
-      // const url = editingId
-      //   ? `http://localhost:3001/v1/portfolios/mine/experiences/${editingId}`
-      //   : "http://localhost:3001/v1/portfolios/mine/experiences";
       const url = editingId
         ? `/portfolios/mine/experiences/${editingId}`
         : "/portfolios/mine/experiences";
 
-      // const res = await fetch(url, {
-      //   method: editingId ? "PATCH" : "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //     Authorization: `Bearer ${getToken()}`,
-      //   },
-      //   body: JSON.stringify(values),
-      // });
+      // احذف الـ fields الفاضية
+      const payload = Object.fromEntries(
+        Object.entries(values).filter(
+          ([_, v]) => v !== "" && v !== null && v !== undefined,
+        ),
+      );
+
+      // إذا current = true احذف endDate
+      if (payload.current) {
+        delete payload.endDate;
+      }
+
       const res = await (editingId
-        ? api.patch(url, values)
-        : api.post(url, values));
+        ? api.patch(url, payload)
+        : api.post(url, payload));
+
       if (!res.ok) throw new Error();
       toast.success(editingId ? "Experience updated!" : "Experience added!");
       reset();
