@@ -1127,11 +1127,12 @@ export default async function PortfolioPage({
                       {project.description && (
                         <p
                           style={{ color: "var(--p-text-muted)" }}
-                          className="text-sm mb-4 line-clamp-2"
+                          className="text-sm mb-4 line-clamp-6"
                         >
                           {project.description}
                         </p>
                       )}
+                      
                       {project.tags?.length > 0 && (
                         <div className="flex flex-wrap gap-1.5 mb-4">
                           {project.tags.map((tag: string) => (

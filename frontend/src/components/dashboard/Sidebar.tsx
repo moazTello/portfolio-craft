@@ -185,23 +185,31 @@ import { toast } from "sonner";
 
 const navItems = [
   { label: "Dashboard", href: "/dashboard", icon: "▦" },
+
+  // الأساسيات
   { label: "Portfolio", href: "/dashboard/portfolio", icon: "◉" },
   { label: "Projects", href: "/dashboard/projects", icon: "◈" },
   { label: "Experience", href: "/dashboard/experience", icon: "◷" },
   { label: "Skills", href: "/dashboard/skills", icon: "◎" },
   { label: "Certificates", href: "/dashboard/certificates", icon: "◻" },
-  { label: "Testimonials", href: "/dashboard/testimonials", icon: "◔" },
-  { label: "Analytics", href: "/dashboard/analytics", icon: "◐" },
-  { label: "Billing", href: "/dashboard/settings/billing", icon: "$" },
-  { label: "Settings", href: "/dashboard/settings", icon: "⚙︎" },
-  { label: "Messages", href: "/dashboard/messages", icon: "✉" },
+
+  // المحتوى الإضافي
+  { label: "Blog", href: "/dashboard/blog", icon: "✍️" },
   { label: "Gallery", href: "/dashboard/gallery", icon: "🖼" },
   { label: "Services", href: "/dashboard/services", icon: "🛠" },
   { label: "Clients", href: "/dashboard/clients", icon: "🤝" },
   { label: "Achievements", href: "/dashboard/achievements", icon: "🏆" },
-  { label: "Blog", href: "/dashboard/blog", icon: "✍️" },
+  { label: "Testimonials", href: "/dashboard/testimonials", icon: "◔" },
+
+  // التفاعل
+  { label: "Messages", href: "/dashboard/messages", icon: "✉️" },
   { label: "Booking", href: "/dashboard/booking", icon: "📅" },
-  { label: 'Business Cards', href: '/dashboard/business-cards', icon: '🎴' },
+  { label: "Business Cards", href: "/dashboard/business-cards", icon: "🎴" },
+
+  // البيانات والإدارة
+  { label: "Analytics", href: "/dashboard/analytics", icon: "◐" },
+  { label: "Billing", href: "/dashboard/settings/billing", icon: "$" },
+  { label: "Settings", href: "/dashboard/settings", icon: "⚙︎" },
 ];
 //this is the most aggressive symbol in the IRS
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";

@@ -126,20 +126,24 @@ const geistMono = Geist_Mono({
 // };
 
 export const metadata: Metadata = {
-  title: {
-    default: "PortfolioCraft",
-    template: "%s | PortfolioCraft",
-  },
+  title: { default: "PortfolioCraft", template: "%s | PortfolioCraft" },
   description: "Build your professional portfolio in minutes",
   metadataBase: new URL("https://www.portfolio-craft.com"),
+  icons: {
+    icon: "/favicon.png",
+    apple: "/favicon.png",
+  },
   openGraph: {
     siteName: "PortfolioCraft",
     type: "website",
     url: "https://www.portfolio-craft.com",
+    images: [
+      { url: "/og-image.png", width: 1200, height: 630, alt: "PortfolioCraft" },
+    ],
   },
-  robots: {
-    index: true,
-    follow: true,
+  twitter: {
+    card: "summary_large_image",
+    images: ["/og-image.png"],
   },
 };
 
