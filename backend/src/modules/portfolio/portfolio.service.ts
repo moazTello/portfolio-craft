@@ -268,7 +268,11 @@ export class PortfolioService {
       const dns = await import('dns').then((m) => m.promises);
       const records = await dns.resolveCname(portfolio.customDomain);
       const pointsToUs = records.some(
-        (r) => r.includes('portfoliocraft.com') || r.includes('vercel.app'),
+        (r) =>
+          r.includes('portfolio-craft.com') || // ← الدومين الصح
+          r.includes('portfoliocraft.com') ||
+          r.includes('vercel.app') ||
+          r.includes('vercel-dns.com'), // ← أضف هذا
       );
 
       return {
