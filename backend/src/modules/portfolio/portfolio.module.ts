@@ -11,8 +11,9 @@ import { CertificatesController } from './sections/certificates.controller'
 import { CertificatesService } from './sections/certificates.service'
 import { TestimonialsController } from './sections/testimonials.controller'
 import { TestimonialsService } from './sections/testimonials.service'
-
+import { ConfigModule } from '@nestjs/config'
 @Module({
+  imports: [ConfigModule],
   controllers: [PortfolioController, ProjectsController, SkillsController, ExperiencesController, CertificatesController, TestimonialsController],
   providers: [PortfolioService, ProjectsService, SkillsService, ExperiencesService, CertificatesService, TestimonialsService],
 })

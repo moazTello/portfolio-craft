@@ -7,9 +7,13 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from '../../database/prisma.service';
 import { UpdatePortfolioDto } from './dto/update-portfolio.dto';
+import { ConfigService } from '@nestjs/config';
 @Injectable()
 export class PortfolioService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private config: ConfigService,
+  ) {}
 
   async create(userId: string) {
     const existing = await this.prisma.portfolio.findUnique({
@@ -153,22 +157,6 @@ export class PortfolioService {
       data: { published },
     });
   }
-
-  // async findPublic(username: string) {
-  //   const portfolio = await this.prisma.portfolio.findUnique({
-  //     where: { username, published: true },
-  //     include: {
-  //       projects: { orderBy: { displayOrder: 'asc' } },
-  //       skills: { orderBy: { displayOrder: 'asc' } },
-  //       experiences: { orderBy: { displayOrder: 'asc' } },
-  //       certificates: { orderBy: { displayOrder: 'asc' } },
-  //       testimonials: { orderBy: { displayOrder: 'asc' } },
-  //       services: { orderBy: { displayOrder: 'asc' } },
-  //     },
-  //   });
-  //   if (!portfolio) throw new NotFoundException('Portfolio not found');
-  //   return portfolio;
-  // }
   async findPublic(username: string) {
     const portfolio = await this.prisma.portfolio.findUnique({
       where: { username, published: true },
@@ -212,7 +200,23 @@ export class PortfolioService {
     }
     return username;
   }
+  private async addDomainToVercel(domain: string) {
+    try {
+      const token = this.config.get('VERCEL_TOKEN');
+      const projectId = this.config.get('VERCEL_PROJECT_ID');
 
+      await fetch(`https://api.vercel.com/v9/projects/${projectId}/domains`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name: domain }),
+      });
+    } catch (e) {
+      console.error('Vercel domain add error:', e);
+    }
+  }
   async setCustomDomain(userId: string, domain: string | null) {
     const user = await this.prisma.user.findUnique({ where: { id: userId } });
     if (user?.plan === 'FREE') {
@@ -222,7 +226,7 @@ export class PortfolioService {
     }
 
     if (domain) {
-      // تنظيف الدومين
+      // تنظيف الدومين أول
       const cleanDomain = domain
         .toLowerCase()
         .replace(/^https?:\/\//, '')
@@ -242,6 +246,7 @@ export class PortfolioService {
       if (existing) {
         throw new ConflictException('Domain already in use');
       }
+      await this.addDomainToVercel(cleanDomain);
 
       return this.prisma.portfolio.update({
         where: { userId },
