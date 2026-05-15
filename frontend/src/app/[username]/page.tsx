@@ -10,6 +10,7 @@ import { getThemeById } from "@/components/portfolio/themes";
 import Link from "next/link";
 import { BookingWidget } from "@/components/portfolio/BookingWidget";
 import { api } from "@/lib/api";
+import { cookies } from "next/headers";
 export const dynamic = "force-dynamic";
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001/v1";
 
@@ -104,40 +105,46 @@ export default async function PortfolioPage({
   const portfolio = await getPortfolio(username);
   if (!portfolio) notFound();
   if (portfolio.notPublished) {
+    // تحقق إذا كان صاحب البورتفوليو
+    const cookieStore = await cookies();
+    const token = cookieStore.get("token")?.value;
+    const isOwner = token ? true : false; // لو عنده token غالباً هو صاحبه
+
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 dark:bg-gray-950 text-center px-6">
         <div className="text-5xl mb-4">🔒</div>
-        <h1 className="text-2xl font-semibold text-gray-900 dark:text-white mb-2">
-          Portfolio not published yet
-        </h1>
-        <p className="text-gray-400 text-sm mb-6">
-          This portfolio is still being set up.
-        </p>
-        <a
-          href="https://www.portfolio-craft.com"
-          className="bg-indigo-600 text-white px-6 py-2.5 rounded-xl text-sm font-medium hover:bg-indigo-700 transition"
-        >
-          Create your own →
-        </a>
-      </div>
-    );
-  }
-  if (portfolio.notPublished) {
-    return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 dark:bg-gray-950 text-center px-6">
-        <div className="text-5xl mb-4">🔒</div>
-        <h1 className="text-2xl font-semibold text-gray-900 dark:text-white mb-2">
-          Your portfolio is not published yet
-        </h1>
-        <p className="text-gray-400 text-sm mb-6">
-          Go to your dashboard to publish it and make it visible to everyone.
-        </p>
-        <a
-          href="/dashboard/portfolio"
-          className="bg-indigo-600 text-white px-6 py-2.5 rounded-xl text-sm font-medium hover:bg-indigo-700 transition"
-        >
-          Publish Portfolio →
-        </a>
+        {isOwner ? (
+          <>
+            <h1 className="text-2xl font-semibold text-gray-900 dark:text-white mb-2">
+              Your portfolio is not published yet
+            </h1>
+            <p className="text-gray-400 text-sm mb-6">
+              Go to your dashboard and publish it to make it visible to
+              everyone.
+            </p>
+            <a
+              href="/dashboard/portfolio"
+              className="bg-indigo-600 text-white px-6 py-2.5 rounded-xl text-sm font-medium hover:bg-indigo-700 transition"
+            >
+              Publish now →
+            </a>
+          </>
+        ) : (
+          <>
+            <h1 className="text-2xl font-semibold text-gray-900 dark:text-white mb-2">
+              Portfolio not published yet
+            </h1>
+            <p className="text-gray-400 text-sm mb-6">
+              This portfolio is still being set up.
+            </p>
+            <a
+              href="https://www.portfolio-craft.com"
+              className="bg-indigo-600 text-white px-6 py-2.5 rounded-xl text-sm font-medium hover:bg-indigo-700 transition"
+            >
+              Create your own →
+            </a>
+          </>
+        )}
       </div>
     );
   }
