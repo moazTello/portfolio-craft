@@ -159,7 +159,7 @@ export class PortfolioService {
   }
   async findPublic(username: string) {
     const portfolio = await this.prisma.portfolio.findUnique({
-      where: { username, published: true },
+      where: { username },
       include: {
         user: {
           select: { avatarUrl: true },
