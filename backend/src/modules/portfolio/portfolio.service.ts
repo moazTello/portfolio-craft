@@ -176,6 +176,10 @@ export class PortfolioService {
       },
     });
     if (!portfolio) throw new NotFoundException('Portfolio not found');
+    // مو published — رجّع flag خاص
+    if (!portfolio.published) {
+      return { notPublished: true, username };
+    }
     const blogPosts = await this.prisma.blogPost.findMany({
       where: { userId: portfolio.userId, published: true },
       orderBy: { publishedAt: 'desc' },
@@ -192,6 +196,7 @@ export class PortfolioService {
     });
     return { ...portfolio, blogPosts };
   }
+
   private async uniqueUsername(base: string): Promise<string> {
     let username = base;
     let i = 1;
