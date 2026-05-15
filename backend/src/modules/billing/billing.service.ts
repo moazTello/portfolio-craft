@@ -242,7 +242,7 @@ export class BillingService {
       const { Resend } = await import('resend');
       const resend = new Resend(this.config.get('RESEND_API_KEY'));
       await resend.emails.send({
-        from: 'PortfolioCraft <onboarding@resend.dev>',
+        from: 'PortfolioCraft <no-reply@portfolio-craft.com>',
         to: adminEmail,
         subject: `💰 New ${data.method} Payment Request — ${data.plan}`,
         html: `

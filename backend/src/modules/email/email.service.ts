@@ -14,7 +14,7 @@ export class EmailService {
     const url = `${this.config.get('FRONTEND_URL')}/verify-email?token=${token}`;
 
     await this.resend.emails.send({
-      from: 'PortfolioCraft <onboarding@resend.dev>',
+      from: 'PortfolioCraft <no-reply@portfolio-craft.com>',
       to: email,
       subject: 'Verify your email',
       html: `
@@ -34,7 +34,7 @@ export class EmailService {
     const url = `${this.config.get('FRONTEND_URL')}/reset-password?token=${token}`;
 
     await this.resend.emails.send({
-      from: 'PortfolioCraft <onboarding@resend.dev>',
+      from: 'PortfolioCraft <no-reply@portfolio-craft.com>',
       to: email,
       subject: 'Reset your password',
       html: `
@@ -59,7 +59,7 @@ export class EmailService {
     content: string,
   ) {
     await this.resend.emails.send({
-      from: 'PortfolioCraft <onboarding@resend.dev>',
+      from: 'PortfolioCraft <no-reply@portfolio-craft.com>',
       to: ownerEmail,
       subject: `New message from ${senderName}`,
       html: `
