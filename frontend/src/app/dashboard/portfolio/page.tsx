@@ -165,7 +165,7 @@ export default function EditPortfolioPage() {
   //   );
   if (!ready || loading) return <LoadingSkeleton rows={4} />;
   return (
-    <div className="max-w-2xl">
+    <div className="max-w-4xl">
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <div>

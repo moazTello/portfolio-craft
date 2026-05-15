@@ -286,6 +286,32 @@ export default async function PortfolioPage({
                     Contact Me
                   </a>
                 )}
+                {portfolio.twitter && (
+                  <a
+                    href={portfolio.twitter}
+                    target="_blank"
+                    style={{
+                      border: "1px solid var(--p-border)",
+                      color: "var(--p-text-muted)",
+                    }}
+                    className="px-5 py-2.5 rounded-lg text-sm font-medium hover:opacity-80 transition"
+                  >
+                    X / Twitter
+                  </a>
+                )}
+                {portfolio.website && (
+                  <a
+                    href={portfolio.website}
+                    target="_blank"
+                    style={{
+                      border: "1px solid var(--p-border)",
+                      color: "var(--p-text-muted)",
+                    }}
+                    className="px-5 py-2.5 rounded-lg text-sm font-medium hover:opacity-80 transition"
+                  >
+                    Website
+                  </a>
+                )}
               </div>
             </FadeUp>
           </div>
