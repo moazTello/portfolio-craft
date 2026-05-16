@@ -139,23 +139,25 @@ export default function EditPortfolioPage() {
   //   }
   // }
   async function togglePublish() {
-  const endpoint = published ? "unpublish" : "publish";
-  try {
-    const res = await api.post(`/portfolios/mine/${endpoint}`);
-    console.log('Status:', res.status, 'OK:', res.ok)
-    if (res.ok) {
-      setPublished(!published);
-      toast.success(published ? "Portfolio unpublished" : "Portfolio published!");
-    } else {
-      const data = await res.json()
-      console.log('Error data:', data)
-      toast.error('Failed to update')
+    const endpoint = published ? "unpublish" : "publish";
+    try {
+      const res = await api.post(`/portfolios/mine/${endpoint}`);
+      console.log("Status:", res.status, "OK:", res.ok);
+      if (res.ok) {
+        setPublished(!published);
+        toast.success(
+          published ? "Portfolio unpublished" : "Portfolio published!",
+        );
+      } else {
+        const data = await res.json();
+        console.log("Error data:", data);
+        toast.error("Failed to update");
+      }
+    } catch (err: any) {
+      console.log("Catch error:", err);
+      toast.error(err.message);
     }
-  } catch (err: any) {
-    console.log('Catch error:', err)
-    toast.error(err.message);
   }
-}
   // if (loading) return <div className="text-gray-400 text-sm">Loading...</div>;
   // if (loading)
   //   return (
@@ -167,12 +169,12 @@ export default function EditPortfolioPage() {
   return (
     <div className="max-w-4xl">
       {/* Header */}
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4">
         <div>
           <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">
             Edit Portfolio
           </h1>
-          <p className="text-sm text-gray-500 mt-1">
+          <p className="text-sm text-gray-500 mt-1 break-all">
             Public URL:{" "}
             <a
               href={`${SITE_URL}/${username}`}
@@ -183,8 +185,7 @@ export default function EditPortfolioPage() {
             </a>
           </p>
         </div>
-
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 shrink-0">
           <ExportPdfButton plan={plan} />
           <button
             onClick={togglePublish}
@@ -207,20 +208,28 @@ export default function EditPortfolioPage() {
           </h2>
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="heroTitle"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
                 Your Name / Title
               </label>
               <input
+                id="heroTitle"
                 {...register("heroTitle")}
                 placeholder="Jane Doe"
                 className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="heroSubtitle"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
                 Subtitle / Role
               </label>
               <input
+                id="heroSubtitle"
                 {...register("heroSubtitle")}
                 placeholder="Full Stack Developer"
                 className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -233,6 +242,7 @@ export default function EditPortfolioPage() {
         <div className="bg-white border border-gray-100 rounded-xl p-6">
           <h2 className="text-base font-medium text-gray-900 mb-4">About Me</h2>
           <textarea
+            id="aboutText"
             {...register("aboutText")}
             placeholder="Tell visitors about yourself..."
             rows={5}
@@ -248,10 +258,14 @@ export default function EditPortfolioPage() {
           <div className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
                   Email
                 </label>
                 <input
+                  id="email"
                   {...register("email")}
                   placeholder="you@example.com"
                   className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -263,10 +277,14 @@ export default function EditPortfolioPage() {
                 )}
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label
+                  htmlFor="phone"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
                   Phone
                 </label>
                 <input
+                  id="phone"
                   {...register("phone")}
                   placeholder="+1 234 567 890"
                   className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -274,10 +292,14 @@ export default function EditPortfolioPage() {
               </div>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="location"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
                 Location
               </label>
               <input
+                id="location"
                 {...register("location")}
                 placeholder="San Francisco, CA"
                 className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -315,10 +337,14 @@ export default function EditPortfolioPage() {
               },
             ].map((field) => (
               <div key={field.name}>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label
+                  htmlFor={field.name}
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
                   {field.label}
                 </label>
                 <input
+                  id={field.name}
                   {...register(field.name as keyof FormValues)}
                   placeholder={field.placeholder}
                   className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -340,7 +366,7 @@ export default function EditPortfolioPage() {
           <p className="text-xs text-gray-400 mb-4">
             Choose your portfolio style
           </p>
-          <div className="grid grid-cols-5 gap-3">
+          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3">
             {themes.map((theme) => {
               const available =
                 theme.plan === "FREE" ||
@@ -444,7 +470,8 @@ export default function EditPortfolioPage() {
             <p className="text-xs text-gray-400 mb-4">
               Choose your PDF export style — Business plan only
             </p>
-            <div className="grid grid-cols-5 gap-3">
+
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
               {pdfTemplates.map((tmpl) => (
                 <button
                   key={tmpl.id}

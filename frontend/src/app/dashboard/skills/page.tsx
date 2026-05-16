@@ -95,7 +95,7 @@ export default function SkillsPage() {
       setShowForm(false);
       setEditingId(null);
       fetchSkills();
-    } catch(err:any) {
+    } catch (err: any) {
       toast.error(err.message);
     }
   }
@@ -160,12 +160,17 @@ export default function SkillsPage() {
             {editingId ? "Edit Skill" : "New Skill"}
           </h2>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
+            {/* Form grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label
+                  htmlFor="skillName"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
                   Skill Name *
                 </label>
                 <input
+                  id="skillName"
                   {...register("name")}
                   placeholder="e.g. React, Python, Figma"
                   className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -177,10 +182,14 @@ export default function SkillsPage() {
                 )}
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label
+                  htmlFor="skillCategory"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
                   Category *
                 </label>
                 <select
+                  id="skillCategory"
                   {...register("category")}
                   className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 >
@@ -200,13 +209,17 @@ export default function SkillsPage() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label
+                htmlFor="proficiency"
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
                 Proficiency —{" "}
                 <span className="text-indigo-600 font-semibold">
                   {proficiency}%
                 </span>
               </label>
               <input
+                id="proficiency"
                 type="range"
                 min={0}
                 max={100}
@@ -270,8 +283,11 @@ export default function SkillsPage() {
               </h3>
               <div className="space-y-3">
                 {items.map((skill: any) => (
-                  <div key={skill.id} className="flex items-center gap-4">
-                    <span className="text-sm text-gray-700 w-32 shrink-0">
+                  <div
+                    key={skill.id}
+                    className="flex items-center gap-2 sm:gap-4"
+                  >
+                    <span className="text-sm text-gray-700 w-24 sm:w-32 shrink-0 truncate">
                       {skill.name}
                     </span>
                     <div className="flex-1 bg-gray-100 rounded-full h-2">
@@ -280,7 +296,7 @@ export default function SkillsPage() {
                         style={{ width: `${skill.proficiency}%` }}
                       />
                     </div>
-                    <span className="text-xs text-gray-400 w-8 text-right">
+                    <span className="text-xs text-gray-400 w-8 text-right shrink-0">
                       {skill.proficiency}%
                     </span>
                     <div className="flex gap-2 shrink-0">

@@ -166,7 +166,7 @@ export default function BookingPage() {
   return (
     <div>
       {/* Header */}
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex items-start justify-between mb-6 gap-4">
         <div>
           <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">
             Booking
@@ -175,7 +175,7 @@ export default function BookingPage() {
             Manage appointments and availability
           </p>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 shrink-0">
           <span className="text-sm text-gray-500">Booking</span>
           <button
             onClick={toggleBooking}
@@ -185,7 +185,7 @@ export default function BookingPage() {
           >
             <span
               className={`absolute top-1 w-4 h-4 bg-white rounded-full shadow transition-transform ${
-                bookingEnabled ? "translate-x-7" : "translate-x-1"
+                bookingEnabled ? "-translate-x-5" : "translate-x-1"
               }`}
             />
           </button>
@@ -224,7 +224,7 @@ export default function BookingPage() {
       {tab === "bookings" && (
         <div>
           {/* Status Filter */}
-          <div className="flex gap-2 mb-4">
+          <div className="flex flex-wrap gap-2 mb-4">
             {["ALL", "PENDING", "CONFIRMED", "COMPLETED", "CANCELLED"].map(
               (s) => (
                 <button
@@ -364,7 +364,7 @@ export default function BookingPage() {
             <h2 className="text-base font-medium text-gray-900 dark:text-white mb-4">
               Appointment Settings
             </h2>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                   Duration (minutes)
@@ -407,7 +407,7 @@ export default function BookingPage() {
             </h2>
             <div className="space-y-3">
               {availability.map((slot) => (
-                <div key={slot.dayOfWeek} className="flex items-center gap-4">
+                <div key={slot.dayOfWeek} className="flex items-center gap-3 flex-wrap">
                   {/* Toggle */}
                   <button
                     onClick={() =>
@@ -421,14 +421,14 @@ export default function BookingPage() {
                   >
                     <span
                       className={`absolute top-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${
-                        slot.isActive ? "translate-x-5" : "translate-x-0.5"
+                        slot.isActive ? "-translate-x-5" : "translate-x-0.5"
                       }`}
                     />
                   </button>
 
                   {/* Day */}
                   <span
-                    className={`text-sm w-24 ${slot.isActive ? "text-gray-900 dark:text-white font-medium" : "text-gray-400"}`}
+                    className={`text-sm w-20 shrink-0 ${slot.isActive ? "text-gray-900 dark:text-white font-medium" : "text-gray-400"}`}
                   >
                     {DAYS[slot.dayOfWeek]}
                   </span>

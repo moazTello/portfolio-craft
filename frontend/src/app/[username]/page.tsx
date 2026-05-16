@@ -274,18 +274,6 @@ export default async function PortfolioPage({
                     LinkedIn
                   </a>
                 )}
-                {portfolio.email && (
-                  <a
-                    href={`mailto:${portfolio.email}`}
-                    style={{
-                      background: "var(--p-btn-bg)",
-                      color: "var(--p-btn-text)",
-                    }}
-                    className="px-5 py-2.5 rounded-lg text-sm font-medium hover:opacity-90 transition"
-                  >
-                    Contact Me
-                  </a>
-                )}
                 {portfolio.twitter && (
                   <a
                     href={portfolio.twitter}
@@ -310,6 +298,18 @@ export default async function PortfolioPage({
                     className="px-5 py-2.5 rounded-lg text-sm font-medium hover:opacity-80 transition"
                   >
                     Website
+                  </a>
+                )}
+                {portfolio.email && (
+                  <a
+                    href={`mailto:${portfolio.email}`}
+                    style={{
+                      background: "var(--p-btn-bg)",
+                      color: "var(--p-btn-text)",
+                    }}
+                    className="px-5 py-2.5 rounded-lg text-sm font-medium hover:opacity-90 transition"
+                  >
+                    Contact Me
                   </a>
                 )}
               </div>

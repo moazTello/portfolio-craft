@@ -192,12 +192,12 @@ export default function SettingsPage() {
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-1 bg-gray-100 rounded-lg p-1 mb-6 w-fit">
+      <div className="flex flex-wrap gap-1 bg-gray-100 rounded-lg p-1 mb-6">
         {tabs.map((tab) => (
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id as any)}
-            className={`px-4 py-1.5 rounded-md text-sm font-medium transition ${
+            className={`px-3 py-1.5 rounded-md text-xs sm:text-sm font-medium transition ${
               activeTab === tab.id
                 ? "bg-white text-gray-900 shadow-sm"
                 : "text-gray-500 hover:text-gray-700"
@@ -229,10 +229,14 @@ export default function SettingsPage() {
             className="space-y-4"
           >
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="portfolio-name"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
                 Name
               </label>
               <input
+                id="portfolio-name"
                 {...profileForm.register("name")}
                 className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
@@ -243,10 +247,14 @@ export default function SettingsPage() {
               )}
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="portfolio-email"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
                 Email
               </label>
               <input
+                id="portfolio-email"
                 {...profileForm.register("email")}
                 type="email"
                 className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -280,7 +288,10 @@ export default function SettingsPage() {
               </p>
             </div> */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <label
+                htmlFor="portfolio-telegram"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+              >
                 Telegram Notifications
               </label>
 
@@ -318,6 +329,7 @@ export default function SettingsPage() {
               </div>
 
               <input
+                id="portfolio-telegram"
                 {...profileForm.register("telegramChatId")}
                 placeholder="e.g. 123456789"
                 className="w-full border border-gray-200 dark:border-gray-700 dark:bg-gray-800 dark:text-white rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -366,10 +378,14 @@ export default function SettingsPage() {
             className="space-y-4"
           >
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="portfolio-currentpassword"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
                 Current Password
               </label>
               <input
+                id="portfolio-currentpassword"
                 {...passwordForm.register("currentPassword")}
                 type="password"
                 placeholder="••••••••"
@@ -382,10 +398,14 @@ export default function SettingsPage() {
               )}
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="portfolio-newpassword"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
                 New Password
               </label>
               <input
+                id="portfolio-newpassword"
                 {...passwordForm.register("newPassword")}
                 type="password"
                 placeholder="••••••••"
@@ -398,10 +418,14 @@ export default function SettingsPage() {
               )}
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="portfolio-confirmpassword"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
                 Confirm Password
               </label>
               <input
+                id="portfolio-confirmpassword"
                 {...passwordForm.register("confirmPassword")}
                 type="password"
                 placeholder="••••••••"
@@ -439,11 +463,15 @@ export default function SettingsPage() {
 
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <label
+                htmlFor="portfolio-username"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+              >
                 Username
               </label>
               <div className="relative">
                 <input
+                  id="portfolio-username"
                   value={usernameInput}
                   // onChange={async (e) => {
                   //   const val = e.target.value
@@ -657,11 +685,15 @@ export default function SettingsPage() {
 
               {/* Domain Input */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label
+                  htmlFor="portfolio-yourdomain"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                >
                   Your Domain
                 </label>
                 <div className="flex gap-2">
                   <input
+                    id="portfolio-yourdomain"
                     value={domainInput}
                     onChange={(e) => {
                       setDomainInput(e.target.value);

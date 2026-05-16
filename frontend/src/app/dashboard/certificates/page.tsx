@@ -52,18 +52,6 @@ export default function CertificatesPage() {
     resolver: zodResolver(schema),
   });
 
-  // async function fetchCertificates() {
-  //   // const res = await fetch(
-  //   //   "http://localhost:3001/v1/portfolios/mine/certificates",
-  //   //   {
-  //   //     headers: { Authorization: `Bearer ${getToken()}` },
-  //   //   },
-  //   // );
-  //   const res = await api.get("portfolios/mine/certificates");
-  //   const data = await res.json();
-  //   setCertificates(Array.isArray(data) ? data : []);
-  //   setLoading(false);
-  // }
   async function fetchCertificates() {
     try {
       const res = await api.get("/portfolios/mine/certificates");
@@ -171,12 +159,16 @@ export default function CertificatesPage() {
             {editingId ? "Edit Certificate" : "New Certificate"}
           </h2>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label
+                  htmlFor="certTitle"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
                   Title *
                 </label>
                 <input
+                  id="certTitle"
                   {...register("title")}
                   placeholder="AWS Solutions Architect"
                   className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -188,10 +180,14 @@ export default function CertificatesPage() {
                 )}
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label
+                  htmlFor="certIssuer"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
                   Issuer *
                 </label>
                 <input
+                  id="certIssuer"
                   {...register("issuer")}
                   placeholder="Amazon Web Services"
                   className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -204,22 +200,30 @@ export default function CertificatesPage() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label
+                  htmlFor="issueDate"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
                   Issue Date
                 </label>
                 <input
+                  id="issueDate"
                   {...register("issueDate")}
                   type="date"
                   className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label
+                  htmlFor="expiryDate"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
                   Expiry Date
                 </label>
                 <input
+                  id="expiryDate"
                   {...register("expiryDate")}
                   type="date"
                   className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -228,10 +232,14 @@ export default function CertificatesPage() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="credentialUrl"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
                 Credential URL
               </label>
               <input
+                id="credentialUrl"
                 {...register("credentialUrl")}
                 placeholder="https://www.credential.net/..."
                 className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -278,7 +286,7 @@ export default function CertificatesPage() {
           </p>
         </div>
       ) : (
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {certificates.map((cert) => (
             <div
               key={cert.id}

@@ -53,27 +53,6 @@ export default function ProjectsPage() {
     }
   }
 
-  // async function onSubmit(values: FormValues) {
-  //   try {
-  //     const url = editingId
-  //       ? `/portfolios/mine/projects/${editingId}`
-  //       : "/portfolios/mine/projects";
-
-  //     const res = await (editingId
-  //       ? api.patch(url, values)
-  //       : api.post(url, values));
-  //     if (!res.ok) throw new Error("Failed to save");
-
-  //     toast.success(editingId ? "Project updated!" : "Project created!");
-  //     reset();
-  //     setShowForm(false);
-  //     setEditingId(null);
-  //     fetchProjects();
-  //   } catch (err: any) {
-  //     toast.error(err.message);
-  //   }
-  // }
-
   async function onSubmit(values: any) {
     try {
       const tagsArray =
@@ -119,71 +98,11 @@ export default function ProjectsPage() {
     }
   }
 
-  // async function fetchProjects() {
-  //   const res = await fetch(
-  //     "http://localhost:3001/v1/portfolios/mine/projects",
-  //     {
-  //       headers: { Authorization: `Bearer ${getToken()}` },
-  //     },
-  //   );
-  //   const data = await res.json();
-  //   setProjects(Array.isArray(data) ? data : []);
-  //   setLoading(false);
-  // }
-
   useEffect(() => {
     if (!ready) return;
     fetchProjects();
   }, [ready]);
 
-  // async function onSubmit(values: FormValues) {
-  //   try {
-  //     const url = editingId
-  //       ? `http://localhost:3001/v1/portfolios/mine/projects/${editingId}`
-  //       : "http://localhost:3001/v1/portfolios/mine/projects";
-
-  //     const res = await fetch(url, {
-  //       method: editingId ? "PATCH" : "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: `Bearer ${getToken()}`,
-  //       },
-  //       body: JSON.stringify(values),
-  //     });
-
-  //     if (!res.ok) throw new Error();
-
-  //     toast.success(editingId ? "Project updated!" : "Project created!");
-  //     reset();
-  //     setShowForm(false);
-  //     setEditingId(null);
-  //     fetchProjects();
-  //   } catch {
-  //     toast.error("Something went wrong");
-  //   }
-  // }
-
-  // async function deleteProject(id: string) {
-  //   if (!confirm("Delete this project?")) return;
-  //   await fetch(`http://localhost:3001/v1/portfolios/mine/projects/${id}`, {
-  //     method: "DELETE",
-  //     headers: { Authorization: `Bearer ${getToken()}` },
-  //   });
-  //   toast.success("Project deleted");
-  //   fetchProjects();
-  // }
-
-  // function startEdit(project: any) {
-  //   setEditingId(project.id);
-  //   reset({
-  //     title: project.title,
-  //     description: project.description ?? "",
-  //     liveUrl: project.liveUrl ?? "",
-  //     repoUrl: project.repoUrl ?? "",
-  //     featured: project.featured,
-  //   });
-  //   setShowForm(true);
-  // }
   function startEdit(project: any) {
     setEditingId(project.id);
     reset({
@@ -224,10 +143,14 @@ export default function ProjectsPage() {
           </h2>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="project-title"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
                 Title *
               </label>
               <input
+                id="project-title"
                 {...register("title")}
                 placeholder="My Awesome Project"
                 className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -252,22 +175,29 @@ export default function ProjectsPage() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="project-tag"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
                 Tags (comma separated)
               </label>
               <input
+                id="project-tag"
                 {...register("tagsInput")}
                 placeholder="React, Next.js, Prisma"
                 className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
             </div>
-
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label
+                  htmlFor="project-live"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
                   Live URL
                 </label>
                 <input
+                  id="project-live"
                   {...register("liveUrl")}
                   placeholder="https://myproject.com"
                   className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -279,10 +209,14 @@ export default function ProjectsPage() {
                 )}
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label
+                  htmlFor="project-repo"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
                   Repo URL
                 </label>
                 <input
+                  id="project-repo"
                   {...register("repoUrl")}
                   placeholder="https://github.com/..."
                   className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -351,22 +285,25 @@ export default function ProjectsPage() {
           </p>
         </div>
       ) : (
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {projects.map((project) => (
             <div
               key={project.id}
               className="bg-white border border-gray-100 rounded-xl p-5"
             >
-              <div className="flex items-start justify-between mb-2">
-                <h3 className="font-medium text-gray-900">{project.title}</h3>
+              <div className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-xl p-5">
+                <h3 className="font-medium text-gray-900 dark:text-white">
+                  {project.title}
+                </h3>
+
                 {project.featured && (
-                  <span className="text-xs bg-indigo-50 text-indigo-600 px-2 py-0.5 rounded-full">
+                  <span className="text-xs bg-gray-100 dark:bg-gray-800 dark:text-gray-300 px-2 py-1 rounded">
                     Featured
                   </span>
                 )}
               </div>
               {project.description && (
-                <p className="text-sm text-gray-500 mb-3 line-clamp-9">
+                <p className="text-sm text-gray-500 dark:text-gray-400 mb-3 line-clamp-9 mt-5 md:mt-0">
                   {project.description}
                 </p>
               )}

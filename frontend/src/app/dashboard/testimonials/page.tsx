@@ -57,22 +57,6 @@ export default function TestimonialsPage() {
     defaultValues: { rating: 5 },
   });
 
-  // async function fetchTestimonials() {
-  //   try {
-  //     // const res = await fetch(
-  //     //   "http://localhost:3001/v1/portfolios/mine/testimonials",
-  //     //   {
-  //     //     headers: { Authorization: `Bearer ${getToken()}` },
-  //     //   },
-  //     // );
-  //     const res = await api.get("/portfolios/mine/testimonials");
-  //     const data = await res.json();
-  //     setTestimonials(Array.isArray(data) ? data : []);
-  //     setLoading(false);
-  //   } catch (err: any) {
-  //     toast.error(err.message);
-  //   }
-  // }
   async function fetchTestimonials() {
     try {
       const res = await api.get("/portfolios/mine/testimonials");
@@ -90,20 +74,9 @@ export default function TestimonialsPage() {
 
   async function onSubmit(values: FormValues) {
     try {
-      // const url = editingId
-      //   ? `http://localhost:3001/v1/portfolios/mine/testimonials/${editingId}`
-      //   : "http://localhost:3001/v1/portfolios/mine/testimonials";
       const url = editingId
         ? `/portfolios/mine/testimonials/${editingId}`
         : "/portfolios/mine/testimonials";
-      // const res = await fetch(url, {
-      //   method: editingId ? "PATCH" : "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //     Authorization: `Bearer ${getToken()}`,
-      //   },
-      //   body: JSON.stringify(values),
-      // });
       const res = await (editingId
         ? api.patch(url, values)
         : api.post(url, values));
@@ -120,23 +93,6 @@ export default function TestimonialsPage() {
     }
   }
 
-  // async function deleteTestimonial(id: string) {
-  //   if (!confirm("Delete this testimonial?")) return;
-  //   try {
-  //     // await fetch(
-  //     //   `http://localhost:3001/v1/portfolios/mine/testimonials/${id}`,
-  //     //   {
-  //     //     method: "DELETE",
-  //     //     headers: { Authorization: `Bearer ${getToken()}` },
-  //     //   },
-  //     // );
-  //     await api.delete(`/portfolios/mine/testimonials/${id}`);
-  //     toast.success("Testimonial deleted");
-  //     fetchTestimonials();
-  //   } catch (err: any) {
-  //     toast.success(err.message);
-  //   }
-  // }
   async function deleteTestimonial(id: string) {
     if (!confirm("Delete this testimonial?")) return;
     try {
@@ -163,9 +119,9 @@ export default function TestimonialsPage() {
   if (!ready) return <LoadingSkeleton rows={3} />;
   if (loading) return <LoadingSkeleton rows={3} />;
   return (
-    <div>
+    <div className="w-full">
       {/* Header */}
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex items-start justify-between mb-8 gap-4">
         <div>
           <h1 className="text-2xl font-semibold text-gray-900">Testimonials</h1>
           <p className="text-sm text-gray-500 mt-1">
@@ -179,7 +135,7 @@ export default function TestimonialsPage() {
             reset({ rating: 5 });
             setSelectedRating(5);
           }}
-          className="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-indigo-700 transition"
+          className="shrink-0 bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-indigo-700 transition"
         >
           + Add Testimonial
         </button>
@@ -192,7 +148,7 @@ export default function TestimonialsPage() {
             {editingId ? "Edit Testimonial" : "New Testimonial"}
           </h2>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Name *
@@ -303,7 +259,7 @@ export default function TestimonialsPage() {
           </p>
         </div>
       ) : (
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {testimonials.map((testimonial) => (
             <div
               key={testimonial.id}

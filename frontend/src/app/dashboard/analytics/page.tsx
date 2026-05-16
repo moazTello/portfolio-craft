@@ -79,7 +79,7 @@ export default function AnalyticsPage() {
         </p>
       </div>
       {/* Stats */}
-      <div className="grid grid-cols-3 gap-4 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
         <div className="bg-white border border-gray-100 rounded-xl p-5">
           <p className="text-xs text-gray-500 mb-1">Total Views</p>
           <p className="text-3xl font-semibold text-gray-900">
@@ -104,7 +104,7 @@ export default function AnalyticsPage() {
       </div>
       {/* Chart */}
       <div className="bg-white border border-gray-100 rounded-xl p-6 mb-6">
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center justify-between mb-6 gap-4">
           <h2 className="text-base font-medium text-gray-900">
             Views — Last 30 Days
           </h2>
@@ -114,10 +114,10 @@ export default function AnalyticsPage() {
           <>
             <SimpleChart data={timeseries} />
             <div className="flex justify-between mt-2">
-              <span className="text-xs text-gray-400">
+              <span className="text-xs text-gray-400 hidden sm:inline">
                 {timeseries[0]?.date}
               </span>
-              <span className="text-xs text-gray-400">
+              <span className="text-xs text-gray-400 hidden sm:inline">
                 {timeseries[timeseries.length - 1]?.date}
               </span>
             </div>

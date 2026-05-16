@@ -83,7 +83,7 @@ export default function BlogPage() {
           {posts.map((post) => (
             <div
               key={post.id}
-              className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-xl p-5 flex items-center gap-4"
+              className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-xl p-5 flex flex-col sm:flex-row sm:items-center gap-4"
             >
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-1">
@@ -130,7 +130,7 @@ export default function BlogPage() {
                   </span>
                 </div>
               </div>
-              <div className="flex gap-2 shrink-0">
+              <div className="flex gap-2 shrink-0 flex-wrap">
                 <button
                   onClick={() => togglePublish(post)}
                   className={`text-xs px-3 py-1.5 rounded-lg border transition ${
