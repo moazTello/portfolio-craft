@@ -117,7 +117,7 @@ export default function Sidebar() {
           {open ? "✕" : "☰"}
         </button>
       </div> */}
-      <div className="md:hidden fixed top-0 left-0 right-0 z-50 bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800 px-4 py-3 flex items-center justify-between">
+      <div className="md:hidden fixed top-0 left-0 right-0 z-30 bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800 px-4 py-3 flex items-center justify-between">
         <Link href="/dashboard" className="flex items-center gap-2">
           <svg
             width="61"
@@ -216,7 +216,7 @@ export default function Sidebar() {
       {/* Mobile overlay */}
       {open && (
         <div
-          className={`md:hidden fixed inset-0 z-40 bg-black/50 transition-opacity duration-300 ${
+          className={`md:hidden fixed inset-0 z-30 bg-black/50 transition-opacity duration-300 ${
             open
               ? "opacity-100 pointer-events-auto"
               : "opacity-0 pointer-events-none"
@@ -228,7 +228,7 @@ export default function Sidebar() {
       {/* Sidebar */}
       <aside
         className={`
-        fixed top-0 left-0 h-screen z-50 bg-white dark:bg-gray-900 border-r border-gray-100 dark:border-gray-800 flex flex-col
+        fixed top-0 left-0 h-screen z-40 bg-white dark:bg-gray-900 border-r border-gray-100 dark:border-gray-800 flex flex-col
         w-56 transition-transform duration-300
         md:translate-x-0
         ${open ? "translate-x-0" : "-translate-x-full md:translate-x-0"}

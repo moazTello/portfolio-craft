@@ -645,7 +645,7 @@ export default function SettingsPage() {
                   </li>
                 </ol>
                 <div className="mt-3 bg-white dark:bg-gray-900 border border-blue-200 dark:border-blue-800 rounded-lg p-3 font-mono text-xs">
-                  <div className="grid grid-cols-3 gap-2 text-blue-700 dark:text-blue-300">
+                  <div className="grid grid-cols-3 gap-1 text-blue-700 dark:text-blue-300 overflow-hidden">
                     <div>
                       <p className="text-gray-400 mb-1">Type</p>
                       <p className="font-bold">CNAME</p>
@@ -656,7 +656,7 @@ export default function SettingsPage() {
                     </div>
                     <div>
                       <p className="text-gray-400 mb-1">Value</p>
-                      <p className="font-bold">portfoliocraft.com</p>
+                      <p className="font-bold break-all">portfoliocraft.com</p>
                     </div>
                   </div>
                 </div>
