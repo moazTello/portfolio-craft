@@ -49,37 +49,6 @@ export class PortfolioService {
     return portfolio;
   }
 
-  // async update(userId: string, dto: UpdatePortfolioDto) {
-  //   return this.prisma.portfolio.update({
-  //     where: { userId },
-  //     data: dto,
-  //   });
-  // }
-
-  //   async update(userId: string, data: any) {
-  //   const portfolio = await this.prisma.portfolio.findUnique({ where: { userId } })
-  //   if (!portfolio) throw new NotFoundException('Portfolio not found')
-
-  //   const user = await this.prisma.user.findUnique({ where: { id: userId } })
-
-  //   // تحقق من الثيم حسب الخطة
-  //   if (data.themePreset) {
-  //     const proThemes = ['default', 'midnight', 'forest', 'ocean', 'rose', 'slate']
-  //     const businessThemes = ['sunset', 'obsidian', 'aurora', 'luxury', 'neon', 'arctic']
-
-  //     if (businessThemes.includes(data.themePreset) && user?.plan !== 'BUSINESS') {
-  //       throw new ForbiddenException('This theme is available on Business plan only')
-  //     }
-  //     if (!proThemes.includes(data.themePreset) && !businessThemes.includes(data.themePreset)) {
-  //       throw new ForbiddenException('Invalid theme')
-  //     }
-  //   }
-
-  //   return this.prisma.portfolio.update({
-  //     where: { userId },
-  //     data,
-  //   })
-  // }
   async update(userId: string, data: any) {
     const portfolio = await this.prisma.portfolio.findUnique({
       where: { userId },
@@ -161,9 +130,7 @@ export class PortfolioService {
     const portfolio = await this.prisma.portfolio.findUnique({
       where: { username },
       include: {
-        user: {
-          select: { avatarUrl: true },
-        },
+        user: { select: { avatarUrl: true, plan: true } }, // ← أضف plan
         projects: { orderBy: { displayOrder: 'asc' } },
         skills: { orderBy: { displayOrder: 'asc' } },
         experiences: { orderBy: { displayOrder: 'asc' } },
@@ -175,26 +142,42 @@ export class PortfolioService {
         achievements: { orderBy: { displayOrder: 'asc' } },
       },
     });
+
     if (!portfolio) throw new NotFoundException('Portfolio not found');
-    // مو published — رجّع flag خاص
-    if (!portfolio.published) {
-      return { notPublished: true, username };
-    }
-    const blogPosts = await this.prisma.blogPost.findMany({
-      where: { userId: portfolio.userId, published: true },
-      orderBy: { publishedAt: 'desc' },
-      take: 3,
-      select: {
-        id: true,
-        title: true,
-        slug: true,
-        excerpt: true,
-        readTime: true,
-        tags: true,
-        publishedAt: true,
-      },
-    });
-    return { ...portfolio, blogPosts };
+    if (!portfolio.published) return { notPublished: true, username };
+
+    // بعد ما عرّفنا portfolio
+    const plan = portfolio.user?.plan ?? 'FREE';
+    const isPro = plan === 'PRO' || plan === 'BUSINESS';
+    const isBusiness = plan === 'BUSINESS';
+
+    const blogPosts = isPro
+      ? await this.prisma.blogPost.findMany({
+          where: { userId: portfolio.userId, published: true },
+          orderBy: { publishedAt: 'desc' },
+          take: 3,
+          select: {
+            id: true,
+            title: true,
+            slug: true,
+            excerpt: true,
+            readTime: true,
+            tags: true,
+            publishedAt: true,
+          },
+        })
+      : [];
+
+    return {
+      ...portfolio,
+      projects: isPro ? portfolio.projects : portfolio.projects.slice(0, 3),
+      gallery: isPro ? portfolio.gallery : portfolio.gallery.slice(0, 6),
+      services: isPro ? portfolio.services : [],
+      clients: isBusiness ? portfolio.clients : [],
+      achievements: isBusiness ? portfolio.achievements : [],
+      blogPosts,
+      booking: isBusiness,
+    };
   }
 
   private async uniqueUsername(base: string): Promise<string> {
@@ -292,6 +275,25 @@ export class PortfolioService {
   }
 
   async verifyDomain(userId: string) {
+    const user = await this.prisma.user.findUnique({ where: { id: userId } });
+
+    // تحقق من الخطة أول
+    if (user?.plan === 'FREE') {
+      // احذف الدومين إذا كان موجود
+      const portfolio = await this.prisma.portfolio.findUnique({
+        where: { userId },
+      });
+      if (portfolio?.customDomain) {
+        await this.removeDomainFromVercel(portfolio.customDomain);
+        await this.prisma.portfolio.update({
+          where: { userId },
+          data: { customDomain: null },
+        });
+      }
+      throw new ForbiddenException(
+        'Custom domain requires Pro or Business plan',
+      );
+    }
     const portfolio = await this.prisma.portfolio.findUnique({
       where: { userId },
     });

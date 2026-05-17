@@ -173,13 +173,14 @@ export default function BillingPage() {
   if (loading) return <LoadingSkeleton rows={3} />;
   const currentPlan = subscription?.plan ?? "FREE";
   const currentPlanData = plans.find((p) => p.id === currentPlan);
-  const shamBtn = (id:any) => {
-    if(isSyria){
-      setShamCashPlan(id as "PRO" | "BUSINESS")
-    }else{
-      toast.info("ShamCash is available for users in Syria only")
+  const shamBtn = (id: any) => {
+    if (isSyria) {
+      setShamCashPlan(id as "PRO" | "BUSINESS");
+    } else {
+      toast.info("ShamCash is available for users in Syria only");
     }
-  }
+  };
+
   return (
     <div>
       {/* Header */}
@@ -189,7 +190,17 @@ export default function BillingPage() {
         </h1>
         <p className="text-sm text-gray-500 mt-1">Manage your subscription</p>
       </div>
-
+      {currentPlan === "FREE" && subscription?.hadPaidPlan && (
+        <div className="bg-red-50 border border-red-100 rounded-xl p-4 mb-6">
+          <p className="text-sm text-red-600 font-medium">
+            ⚠️ Your subscription has ended
+          </p>
+          <p className="text-xs text-red-400 mt-1">
+            Your portfolio is now limited to Free plan features. Your data is
+            safe — upgrade to restore full access.
+          </p>
+        </div>
+      )}
       {/* Current Plan Banner */}
       <div className="bg-indigo-50 dark:bg-indigo-950 border border-indigo-100 dark:border-indigo-900 rounded-xl p-5 mb-8 flex items-center justify-between">
         <div>

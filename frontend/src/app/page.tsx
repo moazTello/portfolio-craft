@@ -70,7 +70,7 @@ export default async function LandingPage() {
       </nav>
 
       {/* Hero */}
-      <section className="px-6 md:px-10 py-20 text-center bg-gradient-to-b from-indigo-50 to-white border-b border-gray-100">
+      <section className="px-6 md:px-10 py-20 text-center bg-linear-to-b from-indigo-50 to-white border-b border-gray-100">
         <div className="inline-block bg-indigo-100 text-indigo-700 text-xs font-medium px-3 py-1 rounded-full mb-6 uppercase tracking-wide">
           {t(messages, 'hero.badge')}
         </div>

@@ -45,28 +45,6 @@ export class BillingService {
     return customer.id;
   }
 
-  // async createCheckoutSession(
-  //   userId: string,
-  //   email: string,
-  //   plan: 'PRO' | 'BUSINESS',
-  // ) {
-  //   const customerId = await this.getOrCreateCustomer(userId, email);
-  //   const priceId =
-  //     plan === 'PRO'
-  //       ? this.config.get('STRIPE_PRO_PRICE_ID')
-  //       : this.config.get('STRIPE_BUSINESS_PRICE_ID');
-  //   const session = await this.stripe.checkout.sessions.create({
-  //     customer: customerId,
-  //     payment_method_types: ['card'],
-  //     line_items: [{ price: priceId, quantity: 1 }],
-  //     mode: 'subscription',
-  //     success_url: `${this.config.get('FRONTEND_URL')}/dashboard/settings/billing?success=true`,
-  //     cancel_url: `${this.config.get('FRONTEND_URL')}/dashboard/settings/billing?cancelled=true`,
-  //     metadata: { userId, plan },
-  //   });
-  //   return { url: session.url };
-  // }
-
   async createCheckoutSession(
     userId: string,
     email: string,
@@ -106,7 +84,25 @@ export class BillingService {
     });
     return { url: session.url };
   }
+  private async removeDomainFromVercel(domain: string) {
+    try {
+      const token = this.config.get('VERCEL_TOKEN');
+      const projectId = this.config.get('VERCEL_PROJECT_ID');
 
+      await fetch(
+        `https://api.vercel.com/v9/projects/${projectId}/domains/${domain}`,
+        {
+          method: 'DELETE',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+    } catch (e) {
+      console.error('Vercel domain remove error:', e);
+    }
+  }
   async handleWebhook(payload: Buffer, signature: string) {
     const webhookSecret = this.config.get('STRIPE_WEBHOOK_SECRET')!;
     let event: ReturnType<typeof this.stripe.webhooks.constructEvent>;
@@ -139,10 +135,49 @@ export class BillingService {
 
       case 'customer.subscription.deleted': {
         const subscription = event.data.object;
-        await this.prisma.user.updateMany({
+
+        const user = await this.prisma.user.findFirst({
           where: { stripeSubscriptionId: subscription.id },
+          include: { portfolio: true },
+        });
+
+        if (!user) break;
+
+        // رجّع الخطة لـ FREE
+        await this.prisma.user.update({
+          where: { id: user.id },
           data: { plan: 'FREE', stripeSubscriptionId: null },
         });
+
+        // رجّع الثيم للـ default إذا كان Pro أو Business
+        if (user.portfolio) {
+          const proThemes = ['midnight', 'forest', 'ocean', 'rose', 'slate'];
+          const businessThemes = [
+            'sunset',
+            'obsidian',
+            'aurora',
+            'luxury',
+            'neon',
+            'arctic',
+          ];
+          const currentTheme = user.portfolio.themePreset ?? 'default';
+
+          if ([...proThemes, ...businessThemes].includes(currentTheme)) {
+            await this.prisma.portfolio.update({
+              where: { userId: user.id },
+              data: { themePreset: 'default' },
+            });
+          }
+
+          // احذف الـ custom domain من Vercel
+          if (user.portfolio.customDomain) {
+            await this.removeDomainFromVercel(user.portfolio.customDomain);
+            await this.prisma.portfolio.update({
+              where: { userId: user.id },
+              data: { customDomain: null },
+            });
+          }
+        }
         break;
       }
     }
