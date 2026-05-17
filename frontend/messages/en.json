@@ -1,0 +1,68 @@
+{
+  "nav": {
+    "features": "Features",
+    "examples": "Examples",
+    "pricing": "Pricing",
+    "faq": "FAQ",
+    "getStarted": "Get started free"
+  },
+  "hero": {
+    "badge": "Used by 1,200+ professionals",
+    "title": "Your portfolio,",
+    "titleEm": "beautifully",
+    "titleEnd": "crafted",
+    "subtitle": "Build a stunning professional portfolio in minutes. No code needed. Share your work, get hired, and grow your freelance business.",
+    "startFree": "Start for free",
+    "seeExamples": "See examples →",
+    "stat1": "Portfolios created",
+    "stat2": "Beautiful themes",
+    "stat3": "Setup time"
+  },
+  "features": {
+    "label": "Features",
+    "title": "Everything you need to stand out",
+    "subtitle": "All the tools to build a professional online presence — in one place.",
+    "themes": { "title": "12 premium themes", "desc": "From minimal to bold — choose a design that matches your personal brand." },
+    "domain": { "title": "Custom domain", "desc": "Connect your own domain like moaz.com for a truly professional look." },
+    "booking": { "title": "Booking system", "desc": "Let clients book appointments directly from your portfolio page." },
+    "pdf": { "title": "CV PDF export", "desc": "Export your portfolio as a polished PDF resume in one click." },
+    "analytics": { "title": "Analytics", "desc": "See who's visiting your portfolio and track your growth over time." },
+    "blog": { "title": "Built-in blog", "desc": "Share your thoughts and expertise with a fully featured blog section." }
+  },
+  "examples": {
+    "label": "Examples",
+    "title": "See what people build",
+    "subtitle": "Real portfolios from real professionals across different fields.",
+    "soon": "Soon"
+  },
+  "pricing": {
+    "label": "Pricing",
+    "title": "Simple, transparent pricing",
+    "subtitle": "Start free, upgrade when you're ready.",
+    "mostPopular": "Most popular",
+    "or": "or",
+    "free": { "name": "Free", "price": "$0", "period": "forever", "desc": "Perfect for getting started", "cta": "Get started free" },
+    "pro": { "name": "Pro", "price": "$5", "period": "per month", "annual": "$48/year", "saving": "Save $12", "desc": "For freelancers & job seekers", "cta": "Upgrade to Pro" },
+    "business": { "name": "Business", "price": "$12", "period": "per month", "annual": "$99/year", "saving": "Save $45", "desc": "For growing professionals", "cta": "Upgrade to Business" }
+  },
+  "faq": {
+    "label": "FAQ",
+    "title": "Common questions",
+    "subtitle": "Everything you need to know before you start.",
+    "q1": { "q": "Do I need coding skills?", "a": "Not at all. PortfolioCraft is fully no-code. Just fill in your info, pick a theme, and publish. Your portfolio is live in minutes." },
+    "q2": { "q": "Can I use my own domain?", "a": "Yes — on the Pro and Business plans you can connect any custom domain you own. Just add a CNAME record and you're done." },
+    "q3": { "q": "Can I cancel anytime?", "a": "Yes, you can cancel your subscription at any time. Your portfolio stays active until the end of your billing period." },
+    "q4": { "q": "What payment methods do you accept?", "a": "We accept credit cards via Stripe, PayPal, and ShamCash for users in Syria and the region." },
+    "q5": { "q": "Is my data secure?", "a": "Your data is stored securely and never shared with third parties. We use industry-standard encryption for all sensitive information." }
+  },
+  "cta": {
+    "title": "Ready to build yours?",
+    "subtitle": "Join 1,200+ professionals who already have a portfolio that works for them.",
+    "button": "Get started for free"
+  },
+  "footer": {
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "copy": "© 2026 PortfolioCraft"
+  }
+}

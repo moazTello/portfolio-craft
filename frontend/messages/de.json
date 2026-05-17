@@ -1,0 +1,68 @@
+{
+  "nav": {
+    "features": "Funktionen",
+    "examples": "Beispiele",
+    "pricing": "Preise",
+    "faq": "FAQ",
+    "getStarted": "Kostenlos starten"
+  },
+  "hero": {
+    "badge": "Von über 1.200 Fachleuten genutzt",
+    "title": "Dein Portfolio,",
+    "titleEm": "wunderschön",
+    "titleEnd": "gestaltet",
+    "subtitle": "Erstelle in Minuten ein beeindruckendes professionelles Portfolio. Kein Code erforderlich.",
+    "startFree": "Kostenlos starten",
+    "seeExamples": "Beispiele ansehen →",
+    "stat1": "Portfolios erstellt",
+    "stat2": "Schöne Themes",
+    "stat3": "Einrichtungszeit"
+  },
+  "features": {
+    "label": "Funktionen",
+    "title": "Alles was du brauchst um aufzufallen",
+    "subtitle": "Alle Tools für eine professionelle Online-Präsenz — an einem Ort.",
+    "themes": { "title": "12 Premium-Themes", "desc": "Von minimal bis mutig — wähle ein Design, das zu deiner Marke passt." },
+    "domain": { "title": "Eigene Domain", "desc": "Verbinde deine eigene Domain wie moaz.com für einen professionellen Auftritt." },
+    "booking": { "title": "Buchungssystem", "desc": "Lass Kunden direkt über deine Portfolio-Seite Termine buchen." },
+    "pdf": { "title": "CV PDF-Export", "desc": "Exportiere dein Portfolio als professionellen Lebenslauf mit einem Klick." },
+    "analytics": { "title": "Analysen", "desc": "Sieh wer dein Portfolio besucht und verfolge dein Wachstum." },
+    "blog": { "title": "Integrierter Blog", "desc": "Teile deine Gedanken und Expertise mit einem vollständigen Blog-Bereich." }
+  },
+  "examples": {
+    "label": "Beispiele",
+    "title": "Sieh was andere bauen",
+    "subtitle": "Echte Portfolios von echten Fachleuten aus verschiedenen Bereichen.",
+    "soon": "Bald"
+  },
+  "pricing": {
+    "label": "Preise",
+    "title": "Einfache, transparente Preise",
+    "subtitle": "Starte kostenlos, upgrade wenn du bereit bist.",
+    "mostPopular": "Am beliebtesten",
+    "or": "oder",
+    "free": { "name": "Kostenlos", "price": "$0", "period": "für immer", "desc": "Perfekt zum Einstieg", "cta": "Kostenlos starten" },
+    "pro": { "name": "Pro", "price": "$5", "period": "pro Monat", "annual": "$48/Jahr", "saving": "Spare $12", "desc": "Für Freelancer & Jobsuchende", "cta": "Auf Pro upgraden" },
+    "business": { "name": "Business", "price": "$12", "period": "pro Monat", "annual": "$99/Jahr", "saving": "Spare $45", "desc": "Für wachsende Fachleute", "cta": "Auf Business upgraden" }
+  },
+  "faq": {
+    "label": "FAQ",
+    "title": "Häufige Fragen",
+    "subtitle": "Alles was du wissen musst bevor du anfängst.",
+    "q1": { "q": "Brauche ich Programmierkenntnisse?", "a": "Überhaupt nicht. PortfolioCraft ist vollständig ohne Code. Fülle einfach deine Infos aus, wähle ein Theme und veröffentliche." },
+    "q2": { "q": "Kann ich meine eigene Domain verwenden?", "a": "Ja — bei den Pro- und Business-Plänen kannst du jede eigene Domain verbinden. Füge einfach einen CNAME-Eintrag hinzu." },
+    "q3": { "q": "Kann ich jederzeit kündigen?", "a": "Ja, du kannst dein Abonnement jederzeit kündigen. Dein Portfolio bleibt bis zum Ende des Abrechnungszeitraums aktiv." },
+    "q4": { "q": "Welche Zahlungsmethoden akzeptiert ihr?", "a": "Wir akzeptieren Kreditkarten über Stripe, PayPal und ShamCash für Benutzer in Syrien und der Region." },
+    "q5": { "q": "Sind meine Daten sicher?", "a": "Deine Daten werden sicher gespeichert und nie an Dritte weitergegeben. Wir verwenden branchenübliche Verschlüsselung." }
+  },
+  "cta": {
+    "title": "Bereit deins zu bauen?",
+    "subtitle": "Schließe dich über 1.200 Fachleuten an die bereits ein Portfolio haben das für sie arbeitet.",
+    "button": "Kostenlos starten"
+  },
+  "footer": {
+    "privacy": "Datenschutzrichtlinie",
+    "terms": "Nutzungsbedingungen",
+    "copy": "© 2026 PortfolioCraft"
+  }
+}
