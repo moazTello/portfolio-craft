@@ -1,20 +1,30 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3001/v1'
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001/v1";
+
 async function getPosts(username: string) {
   try {
-    // const res = await fetch(
-    //   `http://localhost:3001/v1/public/blog/${username}`,
-    //   { next: { revalidate: 60 } },
-    // );
-   const res = await fetch(
-      `${API_URL}/public/blog/${username}`,
-      { next: { revalidate: 60 } }
-    )
+    const res = await fetch(`${API_URL}/public/blog/${username}`, {
+      next: { revalidate: 60 },
+    });
     if (!res.ok) return [];
     return res.json();
   } catch {
     return [];
+  }
+}
+
+async function getPortfolioPlan(username: string) {
+  try {
+    const res = await fetch(`${API_URL}/portfolios/public/${username}`, {
+      cache: "no-store",
+    });
+    if (!res.ok) return "FREE";
+    const data = await res.json();
+    return data.user?.plan ?? "FREE";
+  } catch {
+    return "FREE";
   }
 }
 
@@ -24,6 +34,13 @@ export default async function BlogListPage({
   params: Promise<{ username: string }>;
 }) {
   const { username } = await params;
+
+  // تحقق من الخطة أول
+  const plan = await getPortfolioPlan(username);
+  const isPro = plan === "PRO" || plan === "BUSINESS";
+
+  if (!isPro) notFound();
+
   const posts = await getPosts(username);
 
   return (

@@ -954,7 +954,7 @@ export default async function PortfolioPage({
                 </p>
               </FadeUp>
               <FadeUp delay={0.1}>
-                  <BookingWidget username={username} />
+                <BookingWidget username={username} />
               </FadeUp>
             </div>
           </section>
@@ -1051,15 +1051,17 @@ export default async function PortfolioPage({
             Built with{" "}
             <span style={{ color: "var(--p-primary)" }}>PortfolioCraft</span>
           </p>
-          <div style={{ textAlign: "center", marginTop: "8px" }}>
-            <Link
-              href={`/${username}/blog`}
-              style={{ color: "var(--p-primary)" }}
-              className="text-sm hover:underline"
-            >
-              Read my blog →
-            </Link>
-          </div>
+          {portfolio.blogPosts && portfolio.blogPosts.length > 0 && (
+            <div style={{ textAlign: "center", marginTop: "8px" }}>
+              <Link
+                href={`/${username}/blog`}
+                style={{ color: "var(--p-primary)" }}
+                className="text-sm hover:underline"
+              >
+                Read my blog →
+              </Link>
+            </div>
+          )}
         </footer>
       </main>
     </PortfolioThemeProvider>
