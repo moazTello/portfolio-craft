@@ -212,7 +212,7 @@ export class PortfolioService {
     }
     return username;
   }
-  private async removeDomainFromVercel(domain: string) {
+  public async removeDomainFromVercel(domain: string) {
     try {
       const token = this.config.get('VERCEL_TOKEN');
       const projectId = this.config.get('VERCEL_PROJECT_ID');

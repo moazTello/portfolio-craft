@@ -1,26 +1,3 @@
-// import { Module } from '@nestjs/common';
-// import { AppController } from './app.controller';
-// import { AppService } from './app.service';
-// import { DatabaseModule } from './database/database.module';
-// import { AuthModule } from './modules/auth/auth.module';
-// import { UsersModule } from './modules/users/users.module';
-// import { PortfolioModule } from './modules/portfolio/portfolio.module';
-// import { AnalyticsModule } from './modules/analytics/analytics.module';
-// import { BillingModule } from './modules/billing/billing.module';
-
-// @Module({
-//   imports: [
-//     DatabaseModule,
-//     AuthModule,
-//     UsersModule,
-//     PortfolioModule,
-//     AnalyticsModule,
-//     BillingModule,
-//   ],
-//   controllers: [AppController],
-//   providers: [AppService],
-// })
-// export class AppModule {}
 import { Module } from '@nestjs/common';
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
@@ -41,6 +18,8 @@ import { ClientsModule } from './modules/clients/clients.module';
 import { AchievementsModule } from './modules/achievements/achievements.module';
 import { BlogModule } from './modules/blog/blog.module';
 import { BookingModule } from './modules/booking/booking.module';
+import { ScheduleModule } from '@nestjs/schedule';
+import { SubscriptionCheckerService } from './tasks/subscription-checker.service';
 @Module({
   imports: [
     ThrottlerModule.forRoot([
@@ -75,6 +54,7 @@ import { BookingModule } from './modules/booking/booking.module';
     AchievementsModule,
     BlogModule,
     BookingModule,
+    ScheduleModule.forRoot(),
   ],
   controllers: [AppController],
   providers: [
@@ -83,6 +63,7 @@ import { BookingModule } from './modules/booking/booking.module';
       provide: APP_GUARD,
       useClass: ThrottlerGuard,
     },
+    SubscriptionCheckerService,
   ],
 })
 export class AppModule {}
