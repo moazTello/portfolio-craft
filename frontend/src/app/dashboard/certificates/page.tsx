@@ -69,24 +69,21 @@ export default function CertificatesPage() {
 
   async function onSubmit(values: FormValues) {
     try {
-      // const url = editingId
-      //   ? `http://localhost:3001/v1/portfolios/mine/certificates/${editingId}`
-      //   : "http://localhost:3001/v1/portfolios/mine/certificates";
       const url = editingId
         ? `/portfolios/mine/certificates/${editingId}`
         : "/portfolios/mine/certificates";
-      // const res = await fetch(url, {
-      //   method: editingId ? "PATCH" : "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //     Authorization: `Bearer ${getToken()}`,
-      //   },
-      //   body: JSON.stringify(values),
-      // });
-      // const res = editingId ?await api.patch(url,values): await api.post(url,values);
+
+      const payload = {
+        ...values,
+        issueDate: values.issueDate || undefined,
+        expiryDate: values.expiryDate || undefined,
+        credentialUrl: values.credentialUrl || undefined,
+      };
+
       const res = await (editingId
-        ? api.patch(url, values)
-        : api.post(url, values));
+        ? api.patch(url, payload)
+        : api.post(url, payload));
+
       if (!res.ok) throw new Error();
       toast.success(editingId ? "Certificate updated!" : "Certificate added!");
       reset();
