@@ -167,15 +167,39 @@ export class PortfolioService {
           },
         })
       : [];
+    const theme = (() => {
+      const businessThemes = [
+        'sunset',
+        'obsidian',
+        'aurora',
+        'luxury',
+        'neon',
+        'arctic',
+      ];
+      const proThemes = [
+        'midnight',
+        'forest',
+        'ocean',
+        'rose',
+        'slate',
+        'default',
+      ];
+      const current = portfolio.themePreset ?? 'default';
 
+      if (businessThemes.includes(current) && !isBusiness) return 'default';
+      if (![...proThemes, ...businessThemes].includes(current) && !isPro)
+        return 'default';
+      return current;
+    })();
     return {
       ...portfolio,
+      themePreset: theme,
       projects: isPro ? portfolio.projects : portfolio.projects.slice(0, 3),
       gallery: isPro ? portfolio.gallery : portfolio.gallery.slice(0, 6),
       services: isPro ? portfolio.services : [],
       clients: isBusiness ? portfolio.clients : [],
       achievements: isBusiness ? portfolio.achievements : [],
-      blogPosts,
+      blogPosts: isPro ? blogPosts : [],
       booking: isBusiness,
     };
   }

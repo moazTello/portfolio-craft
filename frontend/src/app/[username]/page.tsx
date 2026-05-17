@@ -930,7 +930,7 @@ export default async function PortfolioPage({
           </section>
         )}
 
-        {portfolio.bookingEnabled && (
+        {portfolio.bookingEnabled && portfolio.booking && (
           <section
             style={{ background: "var(--p-section-bg)" }}
             className="py-20 px-6"
@@ -954,7 +954,7 @@ export default async function PortfolioPage({
                 </p>
               </FadeUp>
               <FadeUp delay={0.1}>
-                <BookingWidget username={username} />
+                  <BookingWidget username={username} />
               </FadeUp>
             </div>
           </section>

@@ -190,6 +190,17 @@ export default function BillingPage() {
         </h1>
         <p className="text-sm text-gray-500 mt-1">Manage your subscription</p>
       </div>
+      {subscription?.daysUntilEnd && subscription.daysUntilEnd <= 7 && (
+        <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-6">
+          <p className="text-sm text-amber-700 font-medium">
+            ⚠️ Your subscription expires in {subscription.daysUntilEnd} days
+          </p>
+          <p className="text-xs text-amber-600 mt-1">
+            Renew now to keep your custom domain, themes, and all features
+            active.
+          </p>
+        </div>
+      )}
       {currentPlan === "FREE" && subscription?.hadPaidPlan && (
         <div className="bg-red-50 border border-red-100 rounded-xl p-4 mb-6">
           <p className="text-sm text-red-600 font-medium">

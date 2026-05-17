@@ -143,39 +143,86 @@ export class BillingService {
 
         if (!user) break;
 
-        // رجّع الخطة لـ FREE
         await this.prisma.user.update({
           where: { id: user.id },
           data: { plan: 'FREE', stripeSubscriptionId: null },
         });
 
-        // رجّع الثيم للـ default إذا كان Pro أو Business
         if (user.portfolio) {
-          const proThemes = ['midnight', 'forest', 'ocean', 'rose', 'slate'];
-          const businessThemes = [
-            'sunset',
-            'obsidian',
-            'aurora',
-            'luxury',
-            'neon',
-            'arctic',
-          ];
-          const currentTheme = user.portfolio.themePreset ?? 'default';
-
-          if ([...proThemes, ...businessThemes].includes(currentTheme)) {
-            await this.prisma.portfolio.update({
-              where: { userId: user.id },
-              data: { themePreset: 'default' },
-            });
-          }
-
-          // احذف الـ custom domain من Vercel
           if (user.portfolio.customDomain) {
             await this.removeDomainFromVercel(user.portfolio.customDomain);
-            await this.prisma.portfolio.update({
-              where: { userId: user.id },
-              data: { customDomain: null },
-            });
+          }
+        }
+        break;
+      }
+
+      case 'customer.subscription.updated': {
+        const subscription = event.data.object;
+        const periodEnd = (subscription as any).current_period_end;
+
+        if (!periodEnd) break;
+        const daysUntilEnd = Math.ceil(
+          (periodEnd * 1000 - Date.now()) / (1000 * 60 * 60 * 24),
+        );
+
+        // إذا بقي 7 أيام أو أقل
+        if (daysUntilEnd <= 7) {
+          const user = await this.prisma.user.findFirst({
+            where: { stripeSubscriptionId: subscription.id },
+          });
+
+          if (user) {
+            // ابعت إيميل تحذير
+            try {
+              const { Resend } = await import('resend');
+              const resend = new Resend(this.config.get('RESEND_API_KEY'));
+              await resend.emails.send({
+                from: 'PortfolioCraft <no-reply@portfolio-craft.com>',
+                to: user.email,
+                subject: `⚠️ Your subscription expires in ${daysUntilEnd} days`,
+                html: `
+            <div style="font-family:sans-serif;max-width:500px;margin:0 auto;padding:32px">
+              <h2 style="color:#4F46E5">Your subscription is expiring soon</h2>
+              <p>Your PortfolioCraft ${user.plan} plan expires in <strong>${daysUntilEnd} days</strong>.</p>
+              <p>After expiry your portfolio will be limited to Free plan features:</p>
+              <ul>
+                <li>Only 3 projects visible</li>
+                <li>Only 6 gallery photos</li>
+                <li>Custom domain will be disabled</li>
+                <li>Blog and booking will be hidden</li>
+              </ul>
+              <a href="https://www.portfolio-craft.com/dashboard/settings/billing"
+                style="display:inline-block;background:#4F46E5;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;margin-top:16px">
+                Renew Subscription →
+              </a>
+            </div>
+          `,
+              });
+            } catch (e) {
+              console.error('Warning email error:', e);
+            }
+
+            // ابعت Telegram للأدمن
+            try {
+              const botToken = this.config.get('TELEGRAM_BOT_TOKEN');
+              const chatId = this.config.get('TELEGRAM_CHAT_ID');
+              if (botToken && chatId) {
+                await fetch(
+                  `https://api.telegram.org/bot${botToken}/sendMessage`,
+                  {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                      chat_id: chatId,
+                      text: `⚠️ <b>Subscription Expiring Soon!</b>\n\n📧 <b>Email:</b> ${user.email}\n📦 <b>Plan:</b> ${user.plan}\n⏰ <b>Days left:</b> ${daysUntilEnd}`,
+                      parse_mode: 'HTML',
+                    }),
+                  },
+                );
+              }
+            } catch (e) {
+              console.error('Telegram error:', e);
+            }
           }
         }
         break;
@@ -192,6 +239,32 @@ export class BillingService {
         stripeSubscriptionId: true,
       },
     });
+
+    if (user?.stripeSubscriptionId) {
+      try {
+        const subscription = await this.stripe.subscriptions.retrieve(
+          user.stripeSubscriptionId,
+        );
+
+        // الـ property الجديدة في Stripe API
+        const periodEnd =
+          (subscription as any).current_period_end ??
+          subscription.items?.data[0]?.current_period_end;
+
+        if (periodEnd) {
+          const daysUntilEnd = Math.ceil(
+            (periodEnd * 1000 - Date.now()) / (1000 * 60 * 60 * 24),
+          );
+          return {
+            ...user,
+            daysUntilEnd,
+            expiresAt: new Date(periodEnd * 1000).toISOString(),
+          };
+        }
+      } catch {
+        return user;
+      }
+    }
     return user;
   }
   async createPaypalOrder(
