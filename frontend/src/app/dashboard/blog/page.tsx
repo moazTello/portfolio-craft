@@ -12,10 +12,20 @@ export default function BlogPage() {
   const router = useRouter();
   const [posts, setPosts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [userPlan, setUserPlan] = useState("FREE");
   useEffect(() => {
     if (!ready) return;
+
+    // تحقق من الخطة
+    api
+      .get("/auth/me")
+      .then((r) => r.json())
+      .then((data) => setUserPlan(data.plan ?? "FREE"))
+      .catch(() => {});
+
     fetchPosts();
   }, [ready]);
+
   async function fetchPosts() {
     try {
       const res = await api.get("/blog");
@@ -47,6 +57,26 @@ export default function BlogPage() {
     }
   }
   if (!ready || loading) return <LoadingSkeleton rows={4} />;
+  // إذا FREE — أظهر upgrade page
+  if (userPlan === "FREE") {
+    return (
+      <div className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-xl p-12 text-center">
+        <p className="text-4xl mb-4">✍️</p>
+        <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+          Blog — Pro & Business
+        </h2>
+        <p className="text-gray-400 text-sm mb-6">
+          Share your thoughts and expertise with a fully featured blog.
+        </p>
+        <a
+          href="/dashboard/settings/billing"
+          className="bg-indigo-600 text-white px-6 py-2.5 rounded-lg text-sm font-medium hover:bg-indigo-700 transition"
+        >
+          Upgrade Now →
+        </a>
+      </div>
+    );
+  }
   return (
     <div>
       {/* Header */}

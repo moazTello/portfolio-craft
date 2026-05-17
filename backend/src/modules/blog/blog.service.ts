@@ -59,33 +59,37 @@ export class BlogService {
     if (!post) throw new NotFoundException('Post not found');
     return post;
   }
-  //   async create(userId: string, data: {
-  //     title: string
-  //     content: string
-  //     excerpt?: string
-  //     coverImage?: string
-  //     tags?: string[]
-  //     published?: boolean
-  //   }) {
-  //     const baseSlug = this.slugify(data.title)
-  //     const slug = await this.uniqueSlug(userId, baseSlug)
-  //     const readTime = this.calcReadTime(data.content)
-
-  //     return this.prisma.blogPost.create({
-  //       data: {
-  //         userId,
-  //         slug,
-  //         readTime,
-  //         title: data.title,
-  //         content: data.content,
-  //         excerpt: data.excerpt,
-  //         coverImage: data.coverImage,
-  //         tags: data.tags ?? [],
-  //         published: data.published ?? false,
-  //         publishedAt: data.published ? new Date() : null,
-  //       },
-  //     })
-  //   }
+  // async create(
+  //   userId: string,
+  //   data: {
+  //     title?: string;
+  //     content?: string;
+  //     excerpt?: string;
+  //     coverImage?: string;
+  //     tags?: string[];
+  //     published?: boolean;
+  //   },
+  // ) {
+  //   if (!data.title) throw new Error('Title is required');
+  //   if (!data.content) throw new Error('Content is required');
+  //   const baseSlug = this.slugify(data.title);
+  //   const slug = await this.uniqueSlug(userId, baseSlug);
+  //   const readTime = this.calcReadTime(data.content);
+  //   return this.prisma.blogPost.create({
+  //     data: {
+  //       userId,
+  //       slug,
+  //       readTime,
+  //       title: data.title,
+  //       content: data.content,
+  //       excerpt: data.excerpt,
+  //       coverImage: data.coverImage,
+  //       tags: data.tags ?? [],
+  //       published: data.published ?? false,
+  //       publishedAt: data.published ? new Date() : null,
+  //     },
+  //   });
+  // }
   async create(
     userId: string,
     data: {
@@ -97,11 +101,21 @@ export class BlogService {
       published?: boolean;
     },
   ) {
+    // تحقق من الخطة
+    const user = await this.prisma.user.findUnique({ where: { id: userId } });
+    if (user?.plan === 'FREE') {
+      throw new ForbiddenException(
+        'Blog is available on Pro and Business plans only',
+      );
+    }
+
     if (!data.title) throw new Error('Title is required');
     if (!data.content) throw new Error('Content is required');
+
     const baseSlug = this.slugify(data.title);
     const slug = await this.uniqueSlug(userId, baseSlug);
     const readTime = this.calcReadTime(data.content);
+
     return this.prisma.blogPost.create({
       data: {
         userId,
@@ -155,11 +169,36 @@ export class BlogService {
     return this.prisma.blogPost.delete({ where: { id } });
   }
   // ─── Public ────────────────────────────────────────────
+  // async findPublicByUsername(username: string) {
+  //   const user = await this.prisma.user.findFirst({
+  //     where: { portfolio: { username } },
+  //   });
+  //   if (!user) throw new NotFoundException('User not found');
+  //   return this.prisma.blogPost.findMany({
+  //     where: { userId: user.id, published: true },
+  //     orderBy: { publishedAt: 'desc' },
+  //     select: {
+  //       id: true,
+  //       title: true,
+  //       slug: true,
+  //       excerpt: true,
+  //       coverImage: true,
+  //       tags: true,
+  //       readTime: true,
+  //       publishedAt: true,
+  //     },
+  //   });
+  // }
   async findPublicByUsername(username: string) {
     const user = await this.prisma.user.findFirst({
       where: { portfolio: { username } },
     });
     if (!user) throw new NotFoundException('User not found');
+
+    // تحقق من الخطة
+    const isPro = user.plan === 'PRO' || user.plan === 'BUSINESS';
+    if (!isPro) throw new NotFoundException('Blog not available');
+
     return this.prisma.blogPost.findMany({
       where: { userId: user.id, published: true },
       orderBy: { publishedAt: 'desc' },
