@@ -4,6 +4,7 @@ export default function LandingPage() {
   return (
     <div className="font-sans text-gray-900 bg-white">
       {/* Nav */}
+      
       <nav className="flex items-center justify-between px-6 md:px-10 py-5 border-b border-gray-100">
         <div className="font-serif text-xl">
           Portfolio<span className="text-indigo-600">Craft</span>
