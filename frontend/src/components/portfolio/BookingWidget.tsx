@@ -115,7 +115,7 @@ export function BookingWidget({ username }: Props) {
               background: "var(--p-card-bg)",
               color: "var(--p-text)",
               border: "1px solid var(--p-border)",
-              colorScheme: "auto",
+              colorScheme: "var(--p-text-muted)",
             }}
             className="w-full rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 mb-4"
           />
