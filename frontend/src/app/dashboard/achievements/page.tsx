@@ -49,18 +49,22 @@ export default function AchievementsPage() {
   }
   async function onSubmit(values: FormValues) {
     try {
-      const payload = Object.fromEntries(
-        Object.entries({ ...values, imageUrl: selectedIcon }).filter(
-          ([_, v]) => v !== "" && v !== null && v !== undefined,
-        ),
-      );
+      const payload = {
+        title: values.title,
+        description: values.description || undefined,
+        date: values.date || undefined,
+        imageUrl: selectedIcon, // ← دايماً من الـ state
+      };
+
       const res = await (editingId
         ? api.patch(`/portfolios/mine/achievements/${editingId}`, payload)
         : api.post("/portfolios/mine/achievements", payload));
+
       if (!res.ok) {
         const data = await res.json();
         throw new Error(data.message);
       }
+
       toast.success(editingId ? "Achievement updated!" : "Achievement added!");
       reset();
       setSelectedIcon("🏆");
@@ -71,6 +75,30 @@ export default function AchievementsPage() {
       toast.error(err.message || "Something went wrong");
     }
   }
+  // async function onSubmit(values: FormValues) {
+  //   try {
+  //     const payload = Object.fromEntries(
+  //       Object.entries({ ...values, imageUrl: selectedIcon }).filter(
+  //         ([_, v]) => v !== "" && v !== null && v !== undefined,
+  //       ),
+  //     );
+  //     const res = await (editingId
+  //       ? api.patch(`/portfolios/mine/achievements/${editingId}`, payload)
+  //       : api.post("/portfolios/mine/achievements", payload));
+  //     if (!res.ok) {
+  //       const data = await res.json();
+  //       throw new Error(data.message);
+  //     }
+  //     toast.success(editingId ? "Achievement updated!" : "Achievement added!");
+  //     reset();
+  //     setSelectedIcon("🏆");
+  //     setShowForm(false);
+  //     setEditingId(null);
+  //     fetchAchievements();
+  //   } catch (err: any) {
+  //     toast.error(err.message || "Something went wrong");
+  //   }
+  // }
   async function deleteAchievement(id: string) {
     if (!confirm("Delete this achievement?")) return;
     try {
@@ -83,7 +111,7 @@ export default function AchievementsPage() {
   }
   function startEdit(achievement: any) {
     setEditingId(achievement.id);
-    setSelectedIcon(achievement.imageUrl ?? "🏆");
+    setSelectedIcon(achievement.imageUrl ?? "🏆"); // ← تأكد
     reset({
       title: achievement.title,
       description: achievement.description ?? "",
