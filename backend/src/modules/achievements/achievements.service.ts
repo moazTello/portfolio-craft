@@ -23,6 +23,7 @@ export class AchievementsService {
     title: string
     description?: string
     date?: string
+    imageUrl?: string
   }) {
     const portfolio = await this.getPortfolio(userId)
     const count = await this.prisma.achievement.count({ where: { portfolioId: portfolio.id } })
@@ -33,6 +34,7 @@ export class AchievementsService {
         title: data.title,
         description: data.description,
         date: data.date ? new Date(data.date) : undefined,
+        imageUrl: data.imageUrl,
       },
     })
   }
@@ -41,6 +43,7 @@ export class AchievementsService {
     title?: string
     description?: string
     date?: string
+    imageUrl?: string
   }) {
     const portfolio = await this.getPortfolio(userId)
     return this.prisma.achievement.update({
