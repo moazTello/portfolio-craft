@@ -65,13 +65,75 @@ export function ContactForm({ portfolioId }: { portfolioId: string }) {
   }
 
   return (
+    // <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+    //   <div className="grid grid-cols-2 gap-4">
+    //     <div>
+    //       <input
+    //         {...register("senderName")}
+    //         placeholder="Your name"
+    //         className="w-full border border-gray-200 dark:border-gray-700 dark:bg-gray-800 dark:text-white rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+    //       />
+    //       {errors.senderName && (
+    //         <p className="text-red-500 text-xs mt-1">
+    //           {errors.senderName.message}
+    //         </p>
+    //       )}
+    //     </div>
+    //     <div>
+    //       <input
+    //         {...register("senderEmail")}
+    //         type="email"
+    //         placeholder="your@email.com"
+    //         className="w-full border border-gray-200 dark:border-gray-700 dark:bg-gray-800 dark:text-white rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+    //       />
+    //       {errors.senderEmail && (
+    //         <p className="text-red-500 text-xs mt-1">
+    //           {errors.senderEmail.message}
+    //         </p>
+    //       )}
+    //     </div>
+    //   </div>
+
+    //   <div>
+    //     <input
+    //       {...register("subject")}
+    //       placeholder="Subject (optional)"
+    //       className="w-full border border-gray-200 dark:border-gray-700 dark:bg-gray-800 dark:text-white rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+    //     />
+    //   </div>
+
+    //   <div>
+    //     <textarea
+    //       {...register("content")}
+    //       placeholder="Your message..."
+    //       rows={4}
+    //       className="w-full border border-gray-200 dark:border-gray-700 dark:bg-gray-800 dark:text-white rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+    //     />
+    //     {errors.content && (
+    //       <p className="text-red-500 text-xs mt-1">{errors.content.message}</p>
+    //     )}
+    //   </div>
+
+    //   <button
+    //     type="submit"
+    //     disabled={isSubmitting}
+    //     className="w-full bg-indigo-600 text-white py-2.5 rounded-lg text-sm font-medium hover:bg-indigo-700 transition disabled:opacity-50"
+    //   >
+    //     {isSubmitting ? "Sending..." : "Send Message"}
+    //   </button>
+    // </form>
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <input
             {...register("senderName")}
             placeholder="Your name"
-            className="w-full border border-gray-200 dark:border-gray-700 dark:bg-gray-800 dark:text-white rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            style={{
+              background: "var(--p-card-bg)",
+              color: "var(--p-text)",
+              border: "1px solid var(--p-border)",
+            }}
+            className="w-full rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
           {errors.senderName && (
             <p className="text-red-500 text-xs mt-1">
@@ -84,7 +146,12 @@ export function ContactForm({ portfolioId }: { portfolioId: string }) {
             {...register("senderEmail")}
             type="email"
             placeholder="your@email.com"
-            className="w-full border border-gray-200 dark:border-gray-700 dark:bg-gray-800 dark:text-white rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            style={{
+              background: "var(--p-card-bg)",
+              color: "var(--p-text)",
+              border: "1px solid var(--p-border)",
+            }}
+            className="w-full rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
           {errors.senderEmail && (
             <p className="text-red-500 text-xs mt-1">
@@ -94,20 +161,28 @@ export function ContactForm({ portfolioId }: { portfolioId: string }) {
         </div>
       </div>
 
-      <div>
-        <input
-          {...register("subject")}
-          placeholder="Subject (optional)"
-          className="w-full border border-gray-200 dark:border-gray-700 dark:bg-gray-800 dark:text-white rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-        />
-      </div>
+      <input
+        {...register("subject")}
+        placeholder="Subject (optional)"
+        style={{
+          background: "var(--p-card-bg)",
+          color: "var(--p-text)",
+          border: "1px solid var(--p-border)",
+        }}
+        className="w-full rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+      />
 
       <div>
         <textarea
           {...register("content")}
           placeholder="Your message..."
           rows={4}
-          className="w-full border border-gray-200 dark:border-gray-700 dark:bg-gray-800 dark:text-white rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          style={{
+            background: "var(--p-card-bg)",
+            color: "var(--p-text)",
+            border: "1px solid var(--p-border)",
+          }}
+          className="w-full rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
         />
         {errors.content && (
           <p className="text-red-500 text-xs mt-1">{errors.content.message}</p>
@@ -117,7 +192,11 @@ export function ContactForm({ portfolioId }: { portfolioId: string }) {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="w-full bg-indigo-600 text-white py-2.5 rounded-lg text-sm font-medium hover:bg-indigo-700 transition disabled:opacity-50"
+        style={{
+          background: "var(--p-btn-bg)",
+          color: "var(--p-btn-text)",
+        }}
+        className="w-full py-2.5 rounded-lg text-sm font-medium transition disabled:opacity-50"
       >
         {isSubmitting ? "Sending..." : "Send Message"}
       </button>
