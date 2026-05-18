@@ -111,7 +111,13 @@ export function BookingWidget({ username }: Props) {
             min={today}
             value={selectedDate}
             onChange={(e) => setSelectedDate(e.target.value)}
-            className="w-full border border-gray-200 dark:border-gray-700 dark:bg-gray-800 dark:text-white rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 mb-4"
+            style={{
+              background: "var(--p-card-bg)",
+              color: "var(--p-text)",
+              border: "1px solid var(--p-border)",
+              colorScheme: "auto",
+            }}
+            className="w-full rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 mb-4"
           />
           <button
             onClick={() => selectedDate && fetchSlots(selectedDate)}
