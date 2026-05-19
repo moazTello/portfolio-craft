@@ -20,8 +20,10 @@ import { BlogModule } from './modules/blog/blog.module';
 import { BookingModule } from './modules/booking/booking.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { SubscriptionCheckerService } from './tasks/subscription-checker.service';
+import { ConfigModule } from '@nestjs/config'; 
 @Module({
   imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
     ThrottlerModule.forRoot([
       {
         name: 'short',
