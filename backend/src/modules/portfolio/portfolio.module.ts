@@ -16,5 +16,6 @@ import { ConfigModule } from '@nestjs/config'
   imports: [ConfigModule],
   controllers: [PortfolioController, ProjectsController, SkillsController, ExperiencesController, CertificatesController, TestimonialsController],
   providers: [PortfolioService, ProjectsService, SkillsService, ExperiencesService, CertificatesService, TestimonialsService],
+  exports: [PortfolioService], 
 })
 export class PortfolioModule {}
