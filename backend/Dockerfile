@@ -1,4 +1,4 @@
-FROM node:18-alpine
+FROM node:20-alpine
 
 RUN apk add --no-cache openssl chromium
 ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
