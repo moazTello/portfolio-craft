@@ -24,25 +24,69 @@ async function bootstrap() {
   //   ],
   //   credentials: true,
   // });
+  // app.enableCors({
+  //   origin: (origin, callback) => {
+  //     const allowed = [
+  //       'http://localhost:3000',
+  //       'https://portfolio-craft.com',
+  //       'https://www.portfolio-craft.com',
+  //       process.env.FRONTEND_URL ?? '',
+  //     ];
+  //     // اقبل كل vercel.app subdomains
+  //     if (
+  //       !origin ||
+  //       allowed.includes(origin) ||
+  //       origin.endsWith('.vercel.app')
+  //     ) {
+  //       callback(null, true);
+  //     } else {
+  //       callback(new Error('Not allowed by CORS'));
+  //     }
+  //   },
+  //   credentials: true,
+  // });
+
+  // app.enableCors({
+  //   origin: async (origin, callback) => {
+  //     if (!origin) return callback(null, true);
+
+  //     const allowed = [
+  //       'http://localhost:3000',
+  //       'https://portfolio-craft.com',
+  //       'https://www.portfolio-craft.com',
+  //       process.env.FRONTEND_URL ?? '',
+  //     ];
+
+  //     // اقبل كل vercel.app subdomains
+  //     if (allowed.includes(origin) || origin.endsWith('.vercel.app')) {
+  //       return callback(null, true);
+  //     }
+
+  //     // تحقق إذا الدومين مسجل كـ custom domain
+  //     try {
+  //       const { PrismaClient } = await import('@prisma/client');
+  //       const prisma = new PrismaClient();
+  //       const domain = origin
+  //         .replace('https://', '')
+  //         .replace('http://', '')
+  //         .replace('www.', '');
+  //       const portfolio = await prisma.portfolio.findFirst({
+  //         where: { customDomain: domain },
+  //       });
+  //       await prisma.$disconnect();
+  //       if (portfolio) return callback(null, true);
+  //     } catch {
+  //       // ignore
+  //     }
+
+  //     callback(new Error('Not allowed by CORS'));
+  //   },
+  //   credentials: true,
+  // });
   app.enableCors({
     origin: (origin, callback) => {
-      const allowed = [
-        'http://localhost:3000',
-        'https://portfolio-craft.com',
-        'https://www.portfolio-craft.com',
-        process.env.FRONTEND_URL ?? '',
-      ];
-
-      // اقبل كل vercel.app subdomains
-      if (
-        !origin ||
-        allowed.includes(origin) ||
-        origin.endsWith('.vercel.app')
-      ) {
-        callback(null, true);
-      } else {
-        callback(new Error('Not allowed by CORS'));
-      }
+      // قبل كل شي — لأن الـ custom domains غير محدودة
+      callback(null, true);
     },
     credentials: true,
   });
