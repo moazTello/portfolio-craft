@@ -1,7 +1,3 @@
-import { webcrypto } from 'crypto';
-// @ts-ignore
-globalThis.crypto = webcrypto;
-
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
