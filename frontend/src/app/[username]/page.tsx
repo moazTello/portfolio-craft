@@ -805,13 +805,13 @@ export default async function PortfolioPage({
                       <a
                         href={client.websiteUrl}
                         target="_blank"
-                        className="opacity-60 hover:opacity-100 transition"
+                        className="opacity-60 hover:opacity-100 transition mx-5"
                       >
                         {client.logoUrl ? (
                           <img
                             src={client.logoUrl}
                             alt={client.name}
-                            className="h-28 object-contain grayscale hover:grayscale-0 transition"
+                            className="h-32 object-contain grayscale hover:grayscale-0 transition rounded-2xl"
                           />
                         ) : (
                           <span
@@ -823,12 +823,12 @@ export default async function PortfolioPage({
                         )}
                       </a>
                     ) : (
-                      <div className="opacity-60">
+                      <div className="opacity-60 hover:opacity-100 transition mx-5">
                         {client.logoUrl ? (
                           <img
                             src={client.logoUrl}
                             alt={client.name}
-                            className="h-28 object-contain grayscale hover:grayscale-0"
+                            className="h-32 object-contain grayscale hover:grayscale-0 transition rounded-2xl"
                           />
                         ) : (
                           <span

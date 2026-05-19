@@ -127,7 +127,12 @@ export function ShamCashModal({ plan, onClose }: Props) {
                   </p>
                 </div>
               </div>
-
+              <div className="bg-amber-100 dark:bg-amber-950 border border-amber-300 dark:border-amber-900 rounded-lg p-3 mb-4">
+                <p className="text-xs text-amber-700 dark:text-amber-500">
+                  Please send your <strong>Email</strong> as a note in the
+                  ShamCash app to help us identify your payment.
+                </p>
+              </div>
               {/* Info */}
               <div className="space-y-3 mb-6">
                 <div>
