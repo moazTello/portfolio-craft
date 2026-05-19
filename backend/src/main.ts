@@ -1,9 +1,13 @@
+import { webcrypto } from 'crypto';
+// @ts-ignore
+globalThis.crypto = webcrypto;
+
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-
 import * as express from 'express';
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { rawBody: true });
   app.use(express.json({ limit: '2mb' }));
