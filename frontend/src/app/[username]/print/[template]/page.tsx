@@ -2792,6 +2792,43 @@ export function ModularTemplate({
             ))}
           </section>
         )}
+        {portfolio.achievements?.length > 0 && (
+          <section style={{ marginBottom: "16px" }}>
+            <h2
+              style={{
+                fontSize: "10px",
+                fontWeight: "800",
+                textTransform: "uppercase",
+                letterSpacing: "1px",
+                color: accentColor,
+                borderBottom: `2px solid ${accentColor}`,
+                paddingBottom: "3px",
+                marginBottom: "10px",
+              }}
+            >
+              ACHIEVEMENTS
+            </h2>
+            {portfolio.achievements.map((ach: any) => (
+              <div key={ach.id} style={{ marginBottom: "8px" }}>
+                <p style={{ fontWeight: "700", margin: "0", fontSize: "12px" }}>
+                  {ach.title}
+                </p>
+                <p
+                  style={{
+                    color: accentColor,
+                    margin: "1px 0",
+                    fontSize: "11px",
+                  }}
+                >
+                  {ach.organization}
+                </p>
+                <p style={{ fontSize: "10px", color: "#777", margin: "0" }}>
+                  {ach.startYear} – {ach.endYear} · {ach.location}
+                </p>
+              </div>
+            ))}
+          </section>
+        )}
         <footer
           style={{
             marginTop: "20px",
