@@ -301,16 +301,12 @@ export default async function LandingPage() {
 
   return (
     <div
-      className="font-sans text-gray-900 bg-white"
+      className="font-sans text-gray-900 dark:text-white bg-white dark:bg-gray-950"
       dir={isRtl ? "rtl" : "ltr"}
     >
-      <style>{`
-    :root { color-scheme: light only; }
-    * { color-scheme: light only; }
-  `}</style>
       {/* Nav */}
-      <nav className="flex items-center justify-between px-4 md:px-10 py-4 border-b border-gray-100">
-        <div className="font-serif text-lg md:text-xl">
+      <nav className="flex items-center justify-between px-4 md:px-10 py-4 border-b border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-950">
+        <div className="font-serif text-lg md:text-xl text-gray-900 dark:text-white">
           Portfolio<span className="text-indigo-600">Craft</span>
         </div>
         <div className="hidden md:flex gap-7">
@@ -318,7 +314,7 @@ export default async function LandingPage() {
             <a
               key={s}
               href={`#${s}`}
-              className="text-sm text-gray-500 hover:text-gray-900 transition capitalize"
+              className="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition capitalize"
             >
               {t(messages, `nav.${s}`)}
             </a>
@@ -336,18 +332,18 @@ export default async function LandingPage() {
       </nav>
 
       {/* Hero */}
-      <section className="px-4 md:px-10 py-16 md:py-20 text-center bg-linear-to-b from-indigo-50 to-white border-b border-gray-100">
-        <div className="inline-block bg-indigo-100 text-indigo-700 text-xs font-medium px-3 py-1 rounded-full mb-5 uppercase tracking-wide">
+      <section className="px-4 md:px-10 py-16 md:py-20 text-center bg-linear-to-b from-indigo-50 dark:from-indigo-950 to-white dark:to-gray-950 border-b border-gray-100 dark:border-gray-800">
+        <div className="inline-block bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300 text-xs font-medium px-3 py-1 rounded-full mb-5 uppercase tracking-wide">
           {t(messages, "hero.badge")}
         </div>
-        <h1 className="font-serif text-3xl sm:text-4xl md:text-6xl leading-tight text-gray-950 max-w-2xl mx-auto mb-4">
+        <h1 className="font-serif text-3xl sm:text-4xl md:text-6xl leading-tight text-gray-950 dark:text-white max-w-2xl mx-auto mb-4">
           {t(messages, "hero.title")}{" "}
           <em className="italic text-indigo-600">
             {t(messages, "hero.titleEm")}
           </em>{" "}
           {t(messages, "hero.titleEnd")}
         </h1>
-        <p className="text-sm md:text-lg text-gray-500 max-w-md mx-auto mb-8 font-light leading-relaxed">
+        <p className="text-sm md:text-lg text-gray-500 dark:text-gray-400 max-w-md mx-auto mb-8 font-light leading-relaxed">
           {t(messages, "hero.subtitle")}
         </p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
@@ -359,36 +355,41 @@ export default async function LandingPage() {
           </Link>
           <a
             href="#examples"
-            className="bg-white text-gray-700 px-7 py-3 rounded-xl text-sm border border-gray-200 hover:bg-gray-50 transition"
+            className="bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-7 py-3 rounded-xl text-sm border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition"
           >
             {t(messages, "hero.seeExamples")}
           </a>
         </div>
-        <div className="flex flex-wrap justify-center gap-6 md:gap-10 mt-10 pt-8 border-t border-gray-100">
+        <div className="flex flex-wrap justify-center gap-6 md:gap-10 mt-10 pt-8 border-t border-gray-100 dark:border-gray-800">
           {[
             ["1,200+", t(messages, "hero.stat1")],
             ["12", t(messages, "hero.stat2")],
             ["5 min", t(messages, "hero.stat3")],
           ].map(([num, label]) => (
             <div key={label}>
-              <span className="font-serif text-2xl md:text-3xl text-gray-950 block">
+              <span className="font-serif text-2xl md:text-3xl text-gray-950 dark:text-white block">
                 {num}
               </span>
-              <span className="text-xs text-gray-400">{label}</span>
+              <span className="text-xs text-gray-400 dark:text-gray-500">
+                {label}
+              </span>
             </div>
           ))}
         </div>
       </section>
 
       {/* Features */}
-      <section id="features" className="px-4 md:px-10 py-14 md:py-16">
+      <section
+        id="features"
+        className="px-4 md:px-10 py-14 md:py-16 bg-white dark:bg-gray-950"
+      >
         <p className="text-xs font-medium text-indigo-600 uppercase tracking-widest mb-2">
           {t(messages, "features.label")}
         </p>
-        <h2 className="font-serif text-2xl md:text-4xl text-gray-950 mb-3">
+        <h2 className="font-serif text-2xl md:text-4xl text-gray-950 dark:text-white mb-3">
           {t(messages, "features.title")}
         </h2>
-        <p className="text-gray-400 text-sm mb-8 font-light">
+        <p className="text-gray-400 dark:text-gray-500 text-sm mb-8 font-light">
           {t(messages, "features.subtitle")}
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -397,7 +398,7 @@ export default async function LandingPage() {
           ).map((key) => (
             <div
               key={key}
-              className="bg-gray-50 border border-gray-100 rounded-2xl p-5 md:p-6"
+              className="bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl p-5 md:p-6"
             >
               <div className="text-2xl mb-3">
                 {key === "themes"
@@ -412,10 +413,10 @@ export default async function LandingPage() {
                           ? "📊"
                           : "✍️"}
               </div>
-              <h3 className="text-sm font-medium text-gray-900 mb-2">
+              <h3 className="text-sm font-medium text-gray-900 dark:text-white mb-2">
                 {t(messages, `features.${key}.title`)}
               </h3>
-              <p className="text-xs text-gray-400 leading-relaxed font-light">
+              <p className="text-xs text-gray-400 dark:text-gray-500 leading-relaxed font-light">
                 {t(messages, `features.${key}.desc`)}
               </p>
             </div>
@@ -423,17 +424,20 @@ export default async function LandingPage() {
         </div>
       </section>
 
-      <hr className="border-gray-100" />
+      <hr className="border-gray-100 dark:border-gray-800" />
 
       {/* Examples */}
-      <section id="examples" className="px-4 md:px-10 py-14 md:py-16">
+      <section
+        id="examples"
+        className="px-4 md:px-10 py-14 md:py-16 bg-white dark:bg-gray-950"
+      >
         <p className="text-xs font-medium text-indigo-600 uppercase tracking-widest mb-2">
           {t(messages, "examples.label")}
         </p>
-        <h2 className="font-serif text-2xl md:text-4xl text-gray-950 mb-3">
+        <h2 className="font-serif text-2xl md:text-4xl text-gray-950 dark:text-white mb-3">
           {t(messages, "examples.title")}
         </h2>
-        <p className="text-gray-400 text-sm mb-8 font-light">
+        <p className="text-gray-400 dark:text-gray-500 text-sm mb-8 font-light">
           {t(messages, "examples.subtitle")}
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -465,7 +469,7 @@ export default async function LandingPage() {
           ].map(({ bg, accent, label, name, role, href }) => (
             <div
               key={name}
-              className="border border-gray-100 rounded-2xl overflow-hidden"
+              className="border border-gray-100 dark:border-gray-800 rounded-2xl overflow-hidden"
             >
               <div
                 className="h-32 md:h-36 flex items-center justify-center"
@@ -478,12 +482,14 @@ export default async function LandingPage() {
                   {label}
                 </span>
               </div>
-              <div className="p-4 flex justify-between items-center">
+              <div className="p-4 flex justify-between items-center bg-white dark:bg-gray-900">
                 <div>
-                  <div className="text-sm font-medium text-gray-900">
+                  <div className="text-sm font-medium text-gray-900 dark:text-white">
                     {name}
                   </div>
-                  <div className="text-xs text-gray-400">{role}</div>
+                  <div className="text-xs text-gray-400 dark:text-gray-500">
+                    {role}
+                  </div>
                 </div>
                 {href ? (
                   <Link
@@ -494,7 +500,7 @@ export default async function LandingPage() {
                     View →
                   </Link>
                 ) : (
-                  <span className="text-xs text-gray-300">
+                  <span className="text-xs text-gray-300 dark:text-gray-600">
                     {t(messages, "examples.soon")}
                   </span>
                 )}
@@ -504,54 +510,57 @@ export default async function LandingPage() {
         </div>
       </section>
 
-      <hr className="border-gray-100" />
+      <hr className="border-gray-100 dark:border-gray-800" />
 
       {/* Pricing */}
-      <section id="pricing" className="px-4 md:px-10 py-14 md:py-16">
+      <section
+        id="pricing"
+        className="px-4 md:px-10 py-14 md:py-16 bg-white dark:bg-gray-950"
+      >
         <p className="text-xs font-medium text-indigo-600 uppercase tracking-widest mb-2">
           {t(messages, "pricing.label")}
         </p>
-        <h2 className="font-serif text-2xl md:text-4xl text-gray-950 mb-3">
+        <h2 className="font-serif text-2xl md:text-4xl text-gray-950 dark:text-white mb-3">
           {t(messages, "pricing.title")}
         </h2>
-        <p className="text-gray-400 text-sm mb-8 font-light">
+        <p className="text-gray-400 dark:text-gray-500 text-sm mb-8 font-light">
           {t(messages, "pricing.subtitle")}
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {(["free", "pro", "business"] as const).map((plan) => (
             <div
               key={plan}
-              className={`relative rounded-2xl p-5 md:p-6 ${plan === "pro" ? "border-2 border-indigo-500" : "border border-gray-100"}`}
+              className={`relative rounded-2xl p-5 md:p-6 bg-white dark:bg-gray-900 ${plan === "pro" ? "border-2 border-indigo-500" : "border border-gray-100 dark:border-gray-800"}`}
             >
               {plan === "pro" && (
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-indigo-600 text-white text-xs px-3 py-1 rounded-full whitespace-nowrap">
                   {t(messages, "pricing.mostPopular")}
                 </div>
               )}
-              <div className="text-xs font-medium text-gray-400 mb-1">
+              <div className="text-xs font-medium text-gray-400 dark:text-gray-500 mb-1">
                 {t(messages, `pricing.${plan}.name`)}
               </div>
-              <div className="font-serif text-3xl md:text-4xl text-gray-950 mb-1">
+              <div className="font-serif text-3xl md:text-4xl text-gray-950 dark:text-white mb-1">
                 {t(messages, `pricing.${plan}.price`)}{" "}
-                <span className="font-sans text-sm text-gray-400">
+                <span className="font-sans text-sm text-gray-400 dark:text-gray-500">
                   / {t(messages, `pricing.${plan}.period`)}
                 </span>
               </div>
               {plan !== "free" && (
                 <div className="flex flex-wrap items-center gap-2 mb-4">
-                  <span className="text-xs text-gray-400">
+                  <span className="text-xs text-gray-400 dark:text-gray-500">
                     {t(messages, "pricing.or")}
                   </span>
-                  <span className="text-xs font-medium text-gray-900">
+                  <span className="text-xs font-medium text-gray-900 dark:text-white">
                     {t(messages, `pricing.${plan}.annual`)}
                   </span>
-                  <span className="text-xs bg-green-50 text-green-700 px-2 py-0.5 rounded-full">
+                  <span className="text-xs bg-green-50 dark:bg-green-950 text-green-700 dark:text-green-400 px-2 py-0.5 rounded-full">
                     {t(messages, `pricing.${plan}.saving`)}
                   </span>
                 </div>
               )}
               {plan === "free" && <div className="mb-4 h-5" />}
-              <div className="text-xs text-gray-400 mb-4 font-light">
+              <div className="text-xs text-gray-400 dark:text-gray-500 mb-4 font-light">
                 {t(messages, `pricing.${plan}.desc`)}
               </div>
               <ul className="space-y-2 mb-5">
@@ -578,7 +587,7 @@ export default async function LandingPage() {
                 ).map((f) => (
                   <li
                     key={f}
-                    className="flex items-center gap-2 text-xs text-gray-600"
+                    className="flex items-center gap-2 text-xs text-gray-600 dark:text-gray-400"
                   >
                     <span className="text-indigo-500 font-medium">✓</span> {f}
                   </li>
@@ -586,7 +595,7 @@ export default async function LandingPage() {
               </ul>
               <Link
                 href="/register"
-                className={`block w-full py-2.5 rounded-xl text-xs font-medium text-center transition ${plan === "pro" ? "bg-indigo-600 text-white hover:bg-indigo-700" : "bg-white text-gray-700 border border-gray-200 hover:bg-gray-50"}`}
+                className={`block w-full py-2.5 rounded-xl text-xs font-medium text-center transition ${plan === "pro" ? "bg-indigo-600 text-white hover:bg-indigo-700" : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700"}`}
               >
                 {t(messages, `pricing.${plan}.cta`)}
               </Link>
@@ -595,26 +604,32 @@ export default async function LandingPage() {
         </div>
       </section>
 
-      <hr className="border-gray-100" />
+      <hr className="border-gray-100 dark:border-gray-800" />
 
       {/* FAQ */}
-      <section id="faq" className="px-4 md:px-10 py-14 md:py-16">
+      <section
+        id="faq"
+        className="px-4 md:px-10 py-14 md:py-16 bg-white dark:bg-gray-950"
+      >
         <p className="text-xs font-medium text-indigo-600 uppercase tracking-widest mb-2">
           {t(messages, "faq.label")}
         </p>
-        <h2 className="font-serif text-2xl md:text-4xl text-gray-950 mb-3">
+        <h2 className="font-serif text-2xl md:text-4xl text-gray-950 dark:text-white mb-3">
           {t(messages, "faq.title")}
         </h2>
-        <p className="text-gray-400 text-sm mb-8 font-light">
+        <p className="text-gray-400 dark:text-gray-500 text-sm mb-8 font-light">
           {t(messages, "faq.subtitle")}
         </p>
-        <div className="border border-gray-100 rounded-2xl overflow-hidden divide-y divide-gray-100">
+        <div className="border border-gray-100 dark:border-gray-800 rounded-2xl overflow-hidden divide-y divide-gray-100 dark:divide-gray-800">
           {(["q1", "q2", "q3", "q4", "q5"] as const).map((q) => (
-            <div key={q} className="bg-gray-50 px-4 md:px-5 py-4">
-              <p className="text-sm font-medium text-gray-900 mb-2">
+            <div
+              key={q}
+              className="bg-gray-50 dark:bg-gray-900 px-4 md:px-5 py-4"
+            >
+              <p className="text-sm font-medium text-gray-900 dark:text-white mb-2">
                 {t(messages, `faq.${q}.q`)}
               </p>
-              <p className="text-xs text-gray-500 leading-relaxed font-light">
+              <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed font-light">
                 {t(messages, `faq.${q}.a`)}
               </p>
             </div>
@@ -639,24 +654,24 @@ export default async function LandingPage() {
       </section>
 
       {/* Footer */}
-      <footer className="px-4 md:px-10 py-6 border-t border-gray-100 flex flex-col sm:flex-row justify-between items-center gap-4">
-        <div className="font-serif text-base">
+      <footer className="px-4 md:px-10 py-6 border-t border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-950 flex flex-col sm:flex-row justify-between items-center gap-4">
+        <div className="font-serif text-base text-gray-900 dark:text-white">
           Portfolio<span className="text-indigo-600">Craft</span>
         </div>
         <div className="flex flex-wrap justify-center gap-3 md:gap-4 items-center">
           <Link
             href="/privacy"
-            className="text-xs text-gray-400 hover:text-gray-600 transition"
+            className="text-xs text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 transition"
           >
             {t(messages, "footer.privacy")}
           </Link>
           <Link
             href="/terms"
-            className="text-xs text-gray-400 hover:text-gray-600 transition"
+            className="text-xs text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 transition"
           >
             {t(messages, "footer.terms")}
           </Link>
-          <span className="text-xs text-gray-400">
+          <span className="text-xs text-gray-400 dark:text-gray-500">
             {t(messages, "footer.copy")}
           </span>
         </div>
