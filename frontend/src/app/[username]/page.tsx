@@ -1047,10 +1047,14 @@ export default async function PortfolioPage({
           }}
           className="py-8 px-6 text-center"
         >
-          <p style={{ color: "var(--p-text-muted)" }} className="text-xs">
+          <Link
+            href="/"
+            style={{ color: "var(--p-text-muted)", textDecoration:"none"}}
+            className="text-xs"
+          >
             Built with{" "}
             <span style={{ color: "var(--p-primary)" }}>PortfolioCraft</span>
-          </p>
+          </Link>
           {portfolio.blogPosts && portfolio.blogPosts.length > 0 && (
             <div style={{ textAlign: "center", marginTop: "8px" }}>
               <Link
