@@ -371,4 +371,15 @@ export class PortfolioService {
     if (!portfolio) throw new NotFoundException('Portfolio not found');
     return portfolio;
   }
+
+  async findAllPublished() {
+    return this.prisma.portfolio.findMany({
+      where: { published: true },
+      select: {
+        username: true,
+        updatedAt: true,
+      },
+      orderBy: { updatedAt: 'desc' },
+    });
+  }
 }

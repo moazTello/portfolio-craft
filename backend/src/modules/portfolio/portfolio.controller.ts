@@ -95,4 +95,10 @@ export class PortfolioController {
   findByDomain(@Param('domain') domain: string) {
     return this.portfolioService.findByDomain(domain);
   }
+
+  @Get('public/all')
+  @ApiOperation({ summary: 'Get all published portfolios for sitemap' })
+  async findAllPublished() {
+    return this.portfolioService.findAllPublished();
+  }
 }
