@@ -65,7 +65,7 @@ export function SkillsBar({
               initial={{ width: 0 }}
               whileInView={{ width: `${skill.proficiency}%` }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: index * 0.05 }}
+              transition={{ duration: 1.5, delay: index * 0.1 }}
             />
           </div>
           <span

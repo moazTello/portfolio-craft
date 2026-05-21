@@ -215,7 +215,7 @@ export default async function PortfolioPage({
                 />
               </FadeUp>
             )}
-            <FadeUp>
+            <FadeUp delay={0.2}>
               <h1
                 style={{
                   color: "var(--p-text)",
@@ -226,7 +226,7 @@ export default async function PortfolioPage({
                 {portfolio.heroTitle ?? portfolio.username}
               </h1>
             </FadeUp>
-            <FadeUp delay={0.2}>
+            <FadeUp delay={0.4}>
               {portfolio.heroSubtitle && (
                 <p
                   style={{ color: "var(--p-primary)" }}
@@ -236,7 +236,7 @@ export default async function PortfolioPage({
                 </p>
               )}
             </FadeUp>
-            <FadeUp delay={0.4}>
+            <FadeUp delay={0.6}>
               {portfolio.aboutText && (
                 <p
                   style={{ color: "var(--p-text-muted)" }}
@@ -246,7 +246,7 @@ export default async function PortfolioPage({
                 </p>
               )}
             </FadeUp>
-            <FadeUp delay={0.6}>
+            <FadeUp delay={0.8}>
               <div className="flex justify-center gap-4 mt-8 flex-wrap">
                 {portfolio.github && (
                   <a
@@ -323,7 +323,7 @@ export default async function PortfolioPage({
             className="py-20 px-6"
           >
             <div className="max-w-5xl mx-auto">
-              <FadeUp>
+              <FadeUp delay={0.2}>
                 <h2
                   style={{
                     color: "var(--p-text)",
@@ -339,7 +339,7 @@ export default async function PortfolioPage({
               </FadeUp>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {portfolio.projects.map((project: any, index: number) => (
-                  <FadeUp key={project.id} delay={index * 0.2}>
+                  <FadeUp key={project.id} delay={index * 0.3}>
                     <div
                       style={{
                         background: "var(--p-card-bg)",
@@ -427,7 +427,7 @@ export default async function PortfolioPage({
             className="py-20 px-6"
           >
             <div className="max-w-5xl mx-auto">
-              <FadeUp>
+              <FadeUp delay={0.2}>
                 <h2
                   style={{
                     color: "var(--p-text)",
@@ -443,7 +443,7 @@ export default async function PortfolioPage({
               </FadeUp>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                 {portfolio.gallery.map((img: any, index: number) => (
-                  <FadeUp key={img.id} delay={index * 0.2}>
+                  <FadeUp key={img.id} delay={index * 0.3}>
                     <div className="relative aspect-square rounded-xl overflow-hidden group">
                       <img
                         src={img.imageUrl}
@@ -496,7 +496,7 @@ export default async function PortfolioPage({
             className="py-20 px-6"
           >
             <div className="max-w-3xl mx-auto">
-              <FadeUp>
+              <FadeUp delay={0.2}>
                 <h2
                   style={{
                     color: "var(--p-text)",
@@ -512,7 +512,7 @@ export default async function PortfolioPage({
               </FadeUp>
               <div className="space-y-6">
                 {portfolio.experiences.map((exp: any) => (
-                  <SlideIn key={exp.id}>
+                  <SlideIn key={exp.id} delay={0.3}>
                     <div className="flex gap-4">
                       <div className="flex flex-col items-center">
                         <div
@@ -574,7 +574,7 @@ export default async function PortfolioPage({
         {portfolio.certificates?.length > 0 && (
           <section style={{ background: "var(--p-bg)" }} className="py-20 px-6">
             <div className="max-w-5xl mx-auto">
-              <FadeUp>
+              <FadeUp delay={0.2}>
                 <h2
                   style={{
                     color: "var(--p-text)",
@@ -589,8 +589,8 @@ export default async function PortfolioPage({
                 </p>
               </FadeUp>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {portfolio.certificates.map((cert: any) => (
-                  <FadeUp key={cert.id}>
+                {portfolio.certificates.map((cert: any, index: number) => (
+                  <FadeUp key={cert.id} delay={index * 0.3}>
                     <div
                       style={{
                         background: "var(--p-card-bg)",
@@ -649,7 +649,7 @@ export default async function PortfolioPage({
             className="py-20 px-6"
           >
             <div className="max-w-5xl mx-auto">
-              <FadeUp>
+              <FadeUp delay={0.2}>
                 <h2
                   style={{
                     color: "var(--p-text)",
@@ -666,7 +666,7 @@ export default async function PortfolioPage({
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {portfolio.achievements.map(
                   (achievement: any, index: number) => (
-                    <FadeUp key={achievement.id} delay={index * 0.2}>
+                    <FadeUp key={achievement.id} delay={index * 0.3}>
                       <div
                         style={{
                           background: "var(--p-card-bg)",
@@ -717,7 +717,7 @@ export default async function PortfolioPage({
         {portfolio.services?.length > 0 && (
           <section style={{ background: "var(--p-bg)" }} className="py-20 px-6">
             <div className="max-w-5xl mx-auto">
-              <FadeUp>
+              <FadeUp delay={0.2}>
                 <h2
                   style={{
                     color: "var(--p-text)",
@@ -733,7 +733,7 @@ export default async function PortfolioPage({
               </FadeUp>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {portfolio.services.map((service: any, index: number) => (
-                  <FadeUp key={service.id} delay={index * 0.2}>
+                  <FadeUp key={service.id} delay={index * 0.3}>
                     <div
                       style={{
                         background: "var(--p-card-bg)",
@@ -790,7 +790,7 @@ export default async function PortfolioPage({
             className="py-12 px-6"
           >
             <div className="max-w-5xl mx-auto">
-              <FadeUp>
+              <FadeUp delay={0.2}>
                 <p
                   style={{ color: "var(--p-text-muted)" }}
                   className="text-center text-sm mb-8 uppercase tracking-widest"
@@ -799,8 +799,8 @@ export default async function PortfolioPage({
                 </p>
               </FadeUp>
               <div className="flex flex-wrap justify-center items-center gap-8">
-                {portfolio.clients.map((client: any) => (
-                  <FadeUp key={client.id}>
+                {portfolio.clients.map((client: any, index: number) => (
+                  <FadeUp key={client.id} delay={index * 0.3}>
                     {client.websiteUrl ? (
                       <a
                         href={client.websiteUrl}
@@ -853,7 +853,7 @@ export default async function PortfolioPage({
             className="py-20 px-6"
           >
             <div className="max-w-5xl mx-auto">
-              <FadeUp>
+              <FadeUp delay={0.2}>
                 <h2
                   style={{
                     color: "var(--p-text)",
@@ -868,63 +868,65 @@ export default async function PortfolioPage({
                 </p>
               </FadeUp>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {portfolio.testimonials.map((testimonial: any) => (
-                  <FadeUp key={testimonial.id}>
-                    <div
-                      style={{
-                        background: "var(--p-card-bg)",
-                        border: "1px solid var(--p-card-border)",
-                      }}
-                      className="rounded-xl p-6"
-                    >
-                      {testimonial.rating && (
-                        <div className="flex gap-0.5 mb-3">
-                          {[1, 2, 3, 4, 5].map((star) => (
-                            <span
-                              key={star}
-                              style={{
-                                color:
-                                  star <= testimonial.rating
-                                    ? "#f59e0b"
-                                    : "var(--p-border)",
-                              }}
-                            >
-                              ★
-                            </span>
-                          ))}
-                        </div>
-                      )}
-                      <p
-                        style={{ color: "var(--p-text-muted)" }}
-                        className="text-sm italic mb-4"
+                {portfolio.testimonials.map(
+                  (testimonial: any, index: number) => (
+                    <FadeUp key={testimonial.id} delay={index * 0.2}>
+                      <div
+                        style={{
+                          background: "var(--p-card-bg)",
+                          border: "1px solid var(--p-card-border)",
+                        }}
+                        className="rounded-xl p-6"
                       >
-                        "{testimonial.content}"
-                      </p>
-                      <div>
-                        <p
-                          style={{ color: "var(--p-text)" }}
-                          className="text-sm font-medium"
-                        >
-                          {testimonial.authorName}
-                        </p>
-                        {(testimonial.authorTitle ||
-                          testimonial.authorCompany) && (
-                          <p
-                            style={{ color: "var(--p-text-muted)" }}
-                            className="text-xs mt-0.5"
-                          >
-                            {[
-                              testimonial.authorTitle,
-                              testimonial.authorCompany,
-                            ]
-                              .filter(Boolean)
-                              .join(" · ")}
-                          </p>
+                        {testimonial.rating && (
+                          <div className="flex gap-0.5 mb-3">
+                            {[1, 2, 3, 4, 5].map((star) => (
+                              <span
+                                key={star}
+                                style={{
+                                  color:
+                                    star <= testimonial.rating
+                                      ? "#f59e0b"
+                                      : "var(--p-border)",
+                                }}
+                              >
+                                ★
+                              </span>
+                            ))}
+                          </div>
                         )}
+                        <p
+                          style={{ color: "var(--p-text-muted)" }}
+                          className="text-sm italic mb-4"
+                        >
+                          "{testimonial.content}"
+                        </p>
+                        <div>
+                          <p
+                            style={{ color: "var(--p-text)" }}
+                            className="text-sm font-medium"
+                          >
+                            {testimonial.authorName}
+                          </p>
+                          {(testimonial.authorTitle ||
+                            testimonial.authorCompany) && (
+                            <p
+                              style={{ color: "var(--p-text-muted)" }}
+                              className="text-xs mt-0.5"
+                            >
+                              {[
+                                testimonial.authorTitle,
+                                testimonial.authorCompany,
+                              ]
+                                .filter(Boolean)
+                                .join(" · ")}
+                            </p>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  </FadeUp>
-                ))}
+                    </FadeUp>
+                  ),
+                )}
               </div>
             </div>
           </section>
@@ -936,7 +938,7 @@ export default async function PortfolioPage({
             className="py-20 px-6"
           >
             <div className="max-w-3xl mx-auto">
-              <FadeUp>
+              <FadeUp delay={0.2}>
                 <h2
                   style={{
                     color: "var(--p-text)",
@@ -953,7 +955,7 @@ export default async function PortfolioPage({
                   Schedule a meeting directly
                 </p>
               </FadeUp>
-              <FadeUp delay={0.2}>
+              <FadeUp delay={0.4}>
                 <BookingWidget username={username} />
               </FadeUp>
             </div>
@@ -963,7 +965,7 @@ export default async function PortfolioPage({
         {(portfolio.email || portfolio.phone || portfolio.location) && (
           <section style={{ background: "var(--p-bg)" }} className="py-20 px-6">
             <div className="max-w-3xl mx-auto">
-              <FadeUp>
+              <FadeUp delay={0.2}>
                 <h2
                   style={{
                     color: "var(--p-text)",
@@ -978,7 +980,7 @@ export default async function PortfolioPage({
                 </p>
               </FadeUp>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                <FadeUp delay={0.2}>
+                <FadeUp delay={0.4}>
                   <div className="space-y-4">
                     {portfolio.email && (
                       <div>
