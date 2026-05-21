@@ -146,8 +146,17 @@ export const metadata: Metadata = {
   creator: "PortfolioCraft",
   publisher: "PortfolioCraft",
   icons: {
-    icon: "/favicon.png",
+    icon: [
+      { url: "/favicon.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon.png", sizes: "64x64", type: "image/png" },
+    ],
     apple: "/favicon.png",
+    shortcut: "/favicon.png",
+  },
+  // ← أضف هاللي
+  manifest: "/manifest.json",
+  alternates: {
+    canonical: "https://www.portfolio-craft.com",
   },
   openGraph: {
     siteName: "PortfolioCraft",
