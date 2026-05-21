@@ -226,7 +226,7 @@ export default async function PortfolioPage({
                 {portfolio.heroTitle ?? portfolio.username}
               </h1>
             </FadeUp>
-            <FadeUp delay={0.1}>
+            <FadeUp delay={0.2}>
               {portfolio.heroSubtitle && (
                 <p
                   style={{ color: "var(--p-primary)" }}
@@ -236,7 +236,7 @@ export default async function PortfolioPage({
                 </p>
               )}
             </FadeUp>
-            <FadeUp delay={0.2}>
+            <FadeUp delay={0.4}>
               {portfolio.aboutText && (
                 <p
                   style={{ color: "var(--p-text-muted)" }}
@@ -246,7 +246,7 @@ export default async function PortfolioPage({
                 </p>
               )}
             </FadeUp>
-            <FadeUp delay={0.3}>
+            <FadeUp delay={0.6}>
               <div className="flex justify-center gap-4 mt-8 flex-wrap">
                 {portfolio.github && (
                   <a
@@ -339,7 +339,7 @@ export default async function PortfolioPage({
               </FadeUp>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {portfolio.projects.map((project: any, index: number) => (
-                  <FadeUp key={project.id} delay={index * 0.1}>
+                  <FadeUp key={project.id} delay={index * 0.2}>
                     <div
                       style={{
                         background: "var(--p-card-bg)",
@@ -443,7 +443,7 @@ export default async function PortfolioPage({
               </FadeUp>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                 {portfolio.gallery.map((img: any, index: number) => (
-                  <FadeUp key={img.id} delay={index * 0.05}>
+                  <FadeUp key={img.id} delay={index * 0.2}>
                     <div className="relative aspect-square rounded-xl overflow-hidden group">
                       <img
                         src={img.imageUrl}
@@ -666,7 +666,7 @@ export default async function PortfolioPage({
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {portfolio.achievements.map(
                   (achievement: any, index: number) => (
-                    <FadeUp key={achievement.id} delay={index * 0.1}>
+                    <FadeUp key={achievement.id} delay={index * 0.2}>
                       <div
                         style={{
                           background: "var(--p-card-bg)",
@@ -733,7 +733,7 @@ export default async function PortfolioPage({
               </FadeUp>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {portfolio.services.map((service: any, index: number) => (
-                  <FadeUp key={service.id} delay={index * 0.1}>
+                  <FadeUp key={service.id} delay={index * 0.2}>
                     <div
                       style={{
                         background: "var(--p-card-bg)",
@@ -953,7 +953,7 @@ export default async function PortfolioPage({
                   Schedule a meeting directly
                 </p>
               </FadeUp>
-              <FadeUp delay={0.1}>
+              <FadeUp delay={0.2}>
                 <BookingWidget username={username} />
               </FadeUp>
             </div>
@@ -978,7 +978,7 @@ export default async function PortfolioPage({
                 </p>
               </FadeUp>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                <FadeUp delay={0.1}>
+                <FadeUp delay={0.2}>
                   <div className="space-y-4">
                     {portfolio.email && (
                       <div>
@@ -1031,7 +1031,7 @@ export default async function PortfolioPage({
                     )}
                   </div>
                 </FadeUp>
-                <FadeUp delay={0.2}>
+                <FadeUp delay={0.4}>
                   <ContactForm portfolioId={portfolio.id} />
                 </FadeUp>
               </div>
@@ -1049,7 +1049,7 @@ export default async function PortfolioPage({
         >
           <Link
             href="/"
-            style={{ color: "var(--p-text-muted)", textDecoration:"none"}}
+            style={{ color: "var(--p-text-muted)", textDecoration: "none" }}
             className="text-xs"
           >
             Built with{" "}
