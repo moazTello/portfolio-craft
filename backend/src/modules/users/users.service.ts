@@ -1,29 +1,11 @@
-// import { Injectable } from '@nestjs/common'
-// import { PrismaService } from '../../database/prisma.service'
-
-// @Injectable()
-// export class UsersService {
-//   constructor(private prisma: PrismaService) {}
-
-//   async findByEmail(email: string) {
-//     return this.prisma.user.findUnique({ where: { email } })
-//   }
-
-//   async findById(id: string) {
-//     return this.prisma.user.findUnique({ where: { id } })
-//   }
-
-//   async create(data: { name: string; email: string; passwordHash: string }) {
-//     return this.prisma.user.create({ data })
-//   }
-// }
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../database/prisma.service';
+import { UploadService } from '../../common/services/upload.service'
 import * as bcrypt from 'bcrypt';
 import { UnauthorizedException } from '@nestjs/common';
 @Injectable()
 export class UsersService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService,private uploadService: UploadService,) {}
 
   async findByEmail(email: string) {
     return this.prisma.user.findUnique({ where: { email } });
@@ -81,7 +63,28 @@ export class UsersService {
       select: { id: true },
     });
   }
-  async updateAvatar(id: string, avatarUrl: string) {
+  // async updateAvatar(id: string, avatarUrl: string) {
+  //   return this.prisma.user.update({
+  //     where: { id },
+  //     data: { avatarUrl },
+  //     select: {
+  //       id: true,
+  //       name: true,
+  //       email: true,
+  //       avatarUrl: true,
+  //     },
+  //   });
+  // }
+  async delete(id: string) {
+    return this.prisma.user.delete({ where: { id } });
+  }
+    async updateAvatar(id: string, avatarBase64: string) {
+    // ارفع على Cloudinary
+    const avatarUrl = await this.uploadService.uploadImage(
+      avatarBase64,
+      'portfoliocraft/avatars'
+    )
+
     return this.prisma.user.update({
       where: { id },
       data: { avatarUrl },
@@ -91,9 +94,6 @@ export class UsersService {
         email: true,
         avatarUrl: true,
       },
-    });
-  }
-  async delete(id: string) {
-    return this.prisma.user.delete({ where: { id } });
+    })
   }
 }

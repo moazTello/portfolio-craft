@@ -20,7 +20,8 @@ import { BlogModule } from './modules/blog/blog.module';
 import { BookingModule } from './modules/booking/booking.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { SubscriptionCheckerService } from './tasks/subscription-checker.service';
-import { ConfigModule } from '@nestjs/config'; 
+import { ConfigModule } from '@nestjs/config';
+import { UploadService } from './common/services/upload.service'
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -61,11 +62,13 @@ import { ConfigModule } from '@nestjs/config';
   controllers: [AppController],
   providers: [
     AppService,
+    UploadService,
     {
       provide: APP_GUARD,
       useClass: ThrottlerGuard,
     },
     SubscriptionCheckerService,
   ],
+  exports: [UploadService],
 })
 export class AppModule {}
