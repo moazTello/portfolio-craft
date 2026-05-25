@@ -138,7 +138,7 @@ export class AuthService {
 
     // const token = uuid();
     const token = randomUUID();
-    const expiry = new Date(Date.now() + 60 * 60 * 1000); // 1 hour
+    const expiry = new Date(Date.now() + 90 * 60 * 1000);
 
     await this.prisma.user.update({
       where: { id: user.id },

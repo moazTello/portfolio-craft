@@ -18,7 +18,7 @@ import { GithubStrategy } from './github.strategy';
     ConfigModule,
     JwtModule.register({
       secret: process.env.JWT_SECRET ?? 'secret',
-      signOptions: { expiresIn: '30m' },
+      signOptions: { expiresIn: '60m' },
     }),
   ],
   providers: [AuthService, JwtStrategy, GoogleStrategy, GithubStrategy],
