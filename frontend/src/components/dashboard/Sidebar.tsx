@@ -32,7 +32,7 @@ const navItems = [
 
   // البيانات والإدارة
   { label: "Analytics", href: "/dashboard/analytics", icon: "◐" },
-  // { label: "Billing", href: "/dashboard/settings/billing", icon: "$" },
+  { label: "Billing", href: "/dashboard/settings/billing", icon: "$" },
   { label: "Settings", href: "/dashboard/settings", icon: "⚙︎" },
 ];
 //this is the most aggressive symbol in the IRS

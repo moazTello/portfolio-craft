@@ -1,38 +1,3 @@
-// import { Controller, Post, Get, Body, HttpCode, HttpStatus, UseGuards } from '@nestjs/common'
-// import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger'
-// import { AuthService } from './auth.service'
-// import { RegisterDto } from './dto/register.dto'
-// import { LoginDto } from './dto/login.dto'
-// import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard'
-// import { CurrentUser } from '../../common/decorators/current-user.decorator'
-
-// @ApiTags('Auth')
-// @Controller('auth')
-// export class AuthController {
-//   constructor(private readonly authService: AuthService) {}
-
-//   @Post('register')
-//   @ApiOperation({ summary: 'Register new user' })
-//   register(@Body() dto: RegisterDto) {
-//     return this.authService.register(dto)
-//   }
-
-//   @Post('login')
-//   @HttpCode(HttpStatus.OK)
-//   @ApiOperation({ summary: 'Login' })
-//   login(@Body() dto: LoginDto) {
-//     return this.authService.login(dto)
-//   }
-
-//   @Get('me')
-//   @UseGuards(JwtAuthGuard)
-//   @ApiBearerAuth()
-//   @ApiOperation({ summary: 'Get current user' })
-//   me(@CurrentUser() user: any) {
-//     return user
-//   }
-// }
-
 import {
   Controller,
   Post,
@@ -74,53 +39,6 @@ class ResetPasswordDto {
   @MinLength(8)
   newPassword: string;
 }
-
-// @ApiTags('Auth')
-// @Controller('auth')
-// export class AuthController {
-//   constructor(private readonly authService: AuthService) {}
-
-//   @Post('register')
-//   @ApiOperation({ summary: 'Register new user' })
-//   register(@Body() dto: RegisterDto) {
-//     return this.authService.register(dto);
-//   }
-
-//   @Post('login')
-//   @HttpCode(HttpStatus.OK)
-//   @ApiOperation({ summary: 'Login' })
-//   login(@Body() dto: LoginDto) {
-//     return this.authService.login(dto);
-//   }
-
-//   @Get('verify-email')
-//   @ApiOperation({ summary: 'Verify email' })
-//   verifyEmail(@Query('token') token: string) {
-//     return this.authService.verifyEmail(token);
-//   }
-
-//   @Post('forgot-password')
-//   @HttpCode(HttpStatus.OK)
-//   @ApiOperation({ summary: 'Forgot password' })
-//   forgotPassword(@Body() dto: ForgotPasswordDto) {
-//     return this.authService.forgotPassword(dto.email);
-//   }
-
-//   @Post('reset-password')
-//   @HttpCode(HttpStatus.OK)
-//   @ApiOperation({ summary: 'Reset password' })
-//   resetPassword(@Body() dto: ResetPasswordDto) {
-//     return this.authService.resetPassword(dto.token, dto.newPassword);
-//   }
-
-//   @Get('me')
-//   @UseGuards(JwtAuthGuard)
-//   @ApiBearerAuth()
-//   @ApiOperation({ summary: 'Get current user' })
-//   me(@CurrentUser() user: any) {
-//     return user;
-//   }
-// }
 @ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
