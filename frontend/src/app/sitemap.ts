@@ -1,10 +1,9 @@
 import { MetadataRoute } from 'next'
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.portfolio-craft.com'
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3001/v1'
+const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.portfolio-craft.com').replace(/\/$/, '')
+const API_URL = (process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3001/v1').replace(/\/$/, '')
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  // جيب كل البورتفوليوات المنشورة
   let portfolios: { username: string; updatedAt: string }[] = []
   try {
     const res = await fetch(`${API_URL}/portfolios/public/all`, { cache: 'no-store' })
@@ -19,7 +18,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }))
 
   return [
-    { url: SITE_URL, lastModified: new Date(), priority: 1 },
+    { url: `${SITE_URL}`, lastModified: new Date(), priority: 1 },
     { url: `${SITE_URL}/login`, priority: 0.8 },
     { url: `${SITE_URL}/register`, priority: 0.8 },
     { url: `${SITE_URL}/privacy`, priority: 0.5 },
