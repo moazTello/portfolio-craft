@@ -304,7 +304,7 @@ export default function SettingsPage() {
                   <li>
                     Open Telegram and search for your bot or{" "}
                     <a
-                      href="https://t.me/@portfoliocraft_notify_bot"
+                      href="https://t.me/portfoliocraft_notify_bot"
                       target="_blank"
                       className="underline font-medium"
                     >
