@@ -66,9 +66,8 @@ const DESIGNS = [
 ];
 
 const QUANTITIES = [
-  { value: 100, label: "100 cards", price: "$15" },
-  { value: 200, label: "200 cards", price: "$25" },
-  { value: 500, label: "500 cards", price: "$50" },
+  { value: 500, label: "500 cards", price: "$45" },
+  { value: 1000, label: "1000 cards", price: "$75" },
 ];
 
 export default function BusinessCardsPage() {
@@ -76,7 +75,7 @@ export default function BusinessCardsPage() {
   const [portfolio, setPortfolio] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [selectedDesign, setSelectedDesign] = useState("classic");
-  const [selectedQty, setSelectedQty] = useState(100);
+  const [selectedQty, setSelectedQty] = useState(500);
   const [userPlan, setUserPlan] = useState("FREE");
   const [showOrder, setShowOrder] = useState(false);
   const [name, setName] = useState("");
@@ -261,7 +260,7 @@ export default function BusinessCardsPage() {
             <h2 className="text-base font-medium text-gray-900 dark:text-white mb-4">
               Quantity
             </h2>
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-2 gap-3">
               {QUANTITIES.map((q) => (
                 <button
                   key={q.value}
