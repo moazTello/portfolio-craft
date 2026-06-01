@@ -27,74 +27,47 @@ export class MessagesService {
     const portfolio = await this.prisma.portfolio.findUnique({
       where: { id: portfolioId },
       include: {
-        user: { select: { email: true, name: true, telegramChatId: true } },
+        user: {
+          select: { email: true, name: true, telegramChatId: true, plan: true },
+        },
       },
     });
 
     if (portfolio?.user) {
-      // Email notification
-      await this.email
-        .sendContactNotification(
-          portfolio.user.email,
-          portfolio.user.name,
-          data.senderName,
-          data.senderEmail,
-          data.subject ?? 'New message',
-          data.content,
-        )
-        .catch(() => {});
+      const isPro =
+        portfolio.user.plan === 'PRO' || portfolio.user.plan === 'BUSINESS';
 
-      // Telegram notification
+      // إيميل بس للـ Pro و Business
+      if (isPro) {
+        await this.email
+          .sendContactNotification(
+            portfolio.user.email,
+            portfolio.user.name,
+            data.senderName,
+            data.senderEmail,
+            data.subject ?? 'New message',
+            data.content,
+          )
+          .catch(() => {});
+      }
+
+      // تيليغرام للجميع
       if (portfolio.user.telegramChatId) {
         const text = `
-                📬 <b>New message on your portfolio!</b>
-                👤 <b>From:</b> ${data.senderName}
-                📧 <b>Email:</b> ${data.senderEmail}
-                📌 <b>Subject:</b> ${data.subject || 'No subject'}
-                💬 <b>Message:</b>
-          ${data.content}
-        `.trim();
+        📬 <b>New message on your portfolio!</b>
+        👤 <b>From:</b> ${data.senderName}
+        📧 <b>Email:</b> ${data.senderEmail}
+        📌 <b>Subject:</b> ${data.subject || 'No subject'}
+        💬 <b>Message:</b>
+        ${data.content}
+      `.trim();
 
         await this.telegram.sendMessage(portfolio.user.telegramChatId, text);
       }
     }
+
     return { success: true, id: message.id };
   }
-
-  // async send(
-  //   portfolioId: string,
-  //   data: {
-  //     senderName: string;
-  //     senderEmail: string;
-  //     subject?: string;
-  //     content: string;
-  //   },
-  // ) {
-  //   // Save to DB
-  //   const message = await this.prisma.message.create({
-  //     data: { portfolioId, ...data },
-  //   });
-
-  //   // Get portfolio owner email
-  //   const portfolio = await this.prisma.portfolio.findUnique({
-  //     where: { id: portfolioId },
-  //     include: { user: { select: { email: true, name: true } } },
-  //   });
-
-  //   // Send email notification
-  //   if (portfolio?.user?.email) {
-  //     await this.email.sendContactNotification(
-  //       portfolio.user.email,
-  //       portfolio.user.name,
-  //       data.senderName,
-  //       data.senderEmail,
-  //       data.subject ?? 'New message',
-  //       data.content,
-  //     );
-  //   }
-
-  //   return { success: true, id: message.id };
-  // }
 
   async findAll(userId: string) {
     const portfolio = await this.prisma.portfolio.findUnique({
