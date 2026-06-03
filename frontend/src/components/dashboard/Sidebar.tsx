@@ -203,6 +203,7 @@ export default function Sidebar() {
           </svg>
 
           <span className="text-sm font-semibold text-gray-900 dark:text-white">
+            Portfolio
             <span className="text-indigo-600">Craft</span>
           </span>
         </Link>
