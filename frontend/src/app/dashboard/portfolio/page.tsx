@@ -11,7 +11,8 @@ import { api } from "@/lib/api";
 import { ExportPdfButton } from "@/components/dashboard/ExportPdfButton";
 import { themes, getThemesByPlan } from "@/components/portfolio/themes";
 import { pdfTemplates } from "@/components/portfolio/pdf-templates";
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+// const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.portfolio-craft.com').replace(/\/$/, '')
 const schema = z.object({
   heroTitle: z.string().optional(),
   heroSubtitle: z.string().optional(),

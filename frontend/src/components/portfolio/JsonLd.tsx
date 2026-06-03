@@ -5,8 +5,11 @@ export function JsonLd({
   portfolio: any;
   username: string;
 }) {
-  const SITE_URL =
-    process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.portfolio-craft.com";
+  // const SITE_URL =
+  //   process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.portfolio-craft.com";
+  const SITE_URL = (
+    process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.portfolio-craft.com"
+  ).replace(/\/$/, "");
 
   const jsonLd = {
     "@context": "https://schema.org",

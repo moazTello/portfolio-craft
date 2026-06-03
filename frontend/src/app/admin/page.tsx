@@ -9,7 +9,10 @@ function getToken() {
 }
 
 const PLANS = ["FREE", "PRO", "BUSINESS"];
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'
+// const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'
+const SITE_URL = (
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.portfolio-craft.com"
+).replace(/\/$/, "");
 export default function AdminPage() {
   const router = useRouter();
   const [stats, setStats] = useState<any>(null);

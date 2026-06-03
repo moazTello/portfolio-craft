@@ -8,7 +8,8 @@ import { api } from "@/lib/api";
 function getToken() {
   return localStorage.getItem("token") ?? "";
 }
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'
+// const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'
+const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.portfolio-craft.com').replace(/\/$/, '')
 export default function DashboardPage() {
   // const ready = usePortfolioGuard();
   // if (!ready) return <LoadingSkeleton rows={4} />;

@@ -36,8 +36,9 @@ export async function generateMetadata({
   const portfolio = await getPortfolio(username);
   if (!portfolio) return { title: "Portfolio Not Found" };
 
-  const SITE_URL =
-    process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.portfolio-craft.com";
+  // const SITE_URL =
+  //   process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.portfolio-craft.com";
+    const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.portfolio-craft.com').replace(/\/$/, '')
   const portfolioUrl = `${SITE_URL}/${username}`;
   const title =
     portfolio.seoTitle ?? `${portfolio.heroTitle} | ${portfolio.heroSubtitle}`;

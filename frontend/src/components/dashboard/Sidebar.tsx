@@ -36,7 +36,8 @@ const navItems = [
   { label: "Settings", href: "/dashboard/settings", icon: "⚙︎" },
 ];
 //this is the most aggressive symbol in the IRS
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+// const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.portfolio-craft.com').replace(/\/$/, '')
 export default function Sidebar() {
   const pathname = usePathname();
   const router = useRouter();
