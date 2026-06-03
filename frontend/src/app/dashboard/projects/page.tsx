@@ -270,11 +270,11 @@ export default function ProjectsPage() {
         // <p className="text-gray-400 text-sm">Loading...</p>
         <div>
           <div className="flex items-center justify-between mb-8">
-            <div>
+            {/* <div>
               <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">
                 Projects
               </h1>
-            </div>
+            </div> */}
           </div>
           <LoadingSkeleton rows={4} />
         </div>

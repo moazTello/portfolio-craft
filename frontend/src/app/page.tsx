@@ -197,7 +197,7 @@ export default async function LandingPage() {
               bg: "#0f172a",
               accent: "#7C3AED",
               label: "Creative Dev",
-              name: "Moaz T.",
+              name: "Informatics Engineer - Moaz Tello",
               role: "React Developer",
               href: "https://www.eng-moaz-tello.com",
             },
@@ -205,7 +205,7 @@ export default async function LandingPage() {
               bg: "#f8f4ef",
               accent: "#1a1a1a",
               label: "Designer",
-              name: "Coming Soon",
+              name: "Coming",
               role: "UI/UX Designer",
               href: null,
             },
@@ -246,7 +246,7 @@ export default async function LandingPage() {
                   <Link
                     href={href}
                     target="_blank"
-                    className="text-xs text-indigo-500 hover:underline"
+                    className="text-xs text-indigo-500 hover:underline cursor-pointer"
                   >
                     View →
                   </Link>
