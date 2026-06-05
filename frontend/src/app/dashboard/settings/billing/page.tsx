@@ -273,16 +273,6 @@ export default function BillingPage() {
       {/* Plans */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {plans
-          .filter((plan) => {
-            // FREE يشوف كلشي
-            if (currentPlan === "FREE") return true;
-            // PRO يشوف PRO (current) و BUSINESS بس
-            if (currentPlan === "PRO")
-              return plan.id === "PRO" || plan.id === "BUSINESS";
-            // BUSINESS يشوف BUSINESS بس
-            if (currentPlan === "BUSINESS") return plan.id === "BUSINESS";
-            return true;
-          })
           .map((plan) => {
             // const isCurrent = currentPlan === plan.id;
 
@@ -339,7 +329,7 @@ export default function BillingPage() {
                   ))}
                 </ul>
 
-                <button
+                {/* <button
                   onClick={() =>
                     !isCurrent &&
                     // !plan.disabled &&
@@ -382,8 +372,43 @@ export default function BillingPage() {
                         : isUpgrade
                           ? `Upgrade to ${plan.name}`
                           : `Switch to ${plan.name}`}
-                </button>
-                {!isCurrent && plan.id !== "FREE" && (
+                </button> */}
+                <button
+  onClick={() =>
+    !isCurrent &&
+    plan.id !== "FREE" &&
+    isUpgrade &&  // ← أضف هذا
+    handleUpgrade(plan.id)
+  }
+  disabled={
+    isCurrent ||
+    checkoutLoading === plan.id ||
+    plan.id === "FREE" ||
+    isDowngrade  // ← أضف هذا
+  }
+  className={`w-full py-2.5 cursor-pointer rounded-lg text-sm font-medium transition ${
+    isCurrent
+      ? "bg-indigo-50 dark:bg-indigo-950 border border-indigo-300 dark:border-indigo-700 text-indigo-700 dark:text-indigo-300 cursor-not-allowed"
+      : isDowngrade
+        ? "bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-800 text-gray-300 dark:text-gray-600 cursor-not-allowed"
+        : plan.highlighted
+          ? "bg-indigo-600 text-white hover:bg-indigo-700"
+          : isUpgrade
+            ? "bg-indigo-600 text-white hover:bg-indigo-700"
+            : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700"
+  } disabled:opacity-50`}
+>
+  {checkoutLoading === plan.id
+    ? "Loading..."
+    : isCurrent
+      ? "Current Plan"
+      : isDowngrade
+        ? "Current plan is higher"
+        : plan.id === "FREE"
+          ? "Free Plan"
+          : `Upgrade to ${plan.name}`}
+</button>
+                {!isCurrent && plan.id !== "FREE" && !isDowngrade && (
                   <div className="mt-2">
                     <p className="text-xs text-gray-400 text-center mb-2">
                       or pay with
@@ -400,7 +425,7 @@ export default function BillingPage() {
                   </div>
                 )}
 
-                {!isCurrent && plan.id !== "FREE" && (
+                {!isCurrent && plan.id !== "FREE" && !isDowngrade &&  (
                   <div className="mt-2">
                     <button
                       onClick={() =>
