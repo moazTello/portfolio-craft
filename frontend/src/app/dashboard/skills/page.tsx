@@ -18,13 +18,74 @@ const schema = z.object({
 type FormValues = z.infer<typeof schema>;
 
 const categories = [
+  // Software & Development
   "Frontend",
   "Backend",
   "Database",
   "DevOps",
-  "Design",
+  "Mobile",
+  "AI & Machine Learning",
+  "Cybersecurity",
+  "Networking",
+  "Cloud",
+  "Embedded Systems",
+  "Game Development",
+  "Blockchain",
+
+  // Design & Creative
+  "UI/UX Design",
+  "Graphic Design",
+  "Motion Design",
+  "3D Design",
+  "Photography",
+  "Video Editing",
+  "Architecture Design",
+
+  // Engineering
+  "Civil Engineering",
+  "Mechanical Engineering",
+  "Electrical Engineering",
+  "Structural Engineering",
+  "Environmental Engineering",
+
+  // Business & Management
+  "Project Management",
+  "Marketing",
+  "Sales",
+  "Finance",
+  "Accounting",
+  "HR",
+  "Business Analysis",
+
+  // Legal
+  "Corporate Law",
+  "Criminal Law",
+  "Civil Law",
+  "Intellectual Property",
+  "International Law",
+  "Real Estate Law",
+
+  // Healthcare
+  "Medicine",
+  "Dentistry",
+  "Pharmacy",
+  "Nursing",
+  "Psychology",
+
+  // Education & Research
+  "Teaching",
+  "Research",
+  "Data Analysis",
+  "Statistics",
+
+  // Languages
+  "Translation",
+  "Content Writing",
+  "Copywriting",
+
+  // Other
   "Other",
-];
+]
 
 // function getToken() {
 //   return localStorage.getItem("token") ?? "";
