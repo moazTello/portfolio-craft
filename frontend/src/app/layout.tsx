@@ -156,7 +156,7 @@ export const metadata: Metadata = {
   // ← أضف هاللي
   manifest: "/manifest.json",
   alternates: {
-    canonical: "https://www.portfolio-craft.com",
+    canonical: "https://www.portfolio-craft.com/",
   },
   openGraph: {
     siteName: "PortfolioCraft",

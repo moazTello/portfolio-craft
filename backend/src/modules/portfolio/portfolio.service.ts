@@ -120,12 +120,20 @@ export class PortfolioService {
       data: { username },
     });
   }
-  async setPublished(userId: string, published: boolean) {
-    return this.prisma.portfolio.update({
-      where: { userId },
-      data: { published },
-    });
+async setPublished(userId: string, published: boolean) {
+  const result = await this.prisma.portfolio.update({
+    where: { userId },
+    data: { published },
+  })
+
+  // أبلغ Google بالـ sitemap لما ينشر
+  if (published) {
+    fetch('https://www.google.com/ping?sitemap=https://www.portfolio-craft.com/sitemap.xml')
+      .catch(() => {})
   }
+
+  return result
+}
   async findPublic(username: string) {
     const portfolio = await this.prisma.portfolio.findUnique({
       where: { username },
