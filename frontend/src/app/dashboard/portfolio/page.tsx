@@ -429,7 +429,7 @@ export default function EditPortfolioPage() {
         {/* SEO */}
         <div className="bg-white border border-gray-100 rounded-xl p-6">
           <h2 className="text-base font-medium text-gray-900 mb-1">
-            SEO Settings
+            SEO Settings 
           </h2>
           <p className="text-xs text-gray-400 mb-4">
             How your portfolio appears in search engines
@@ -437,7 +437,7 @@ export default function EditPortfolioPage() {
           <div className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                SEO Title
+                SEO Title (comma separated)
               </label>
               <input
                 {...register("seoTitle")}
@@ -447,7 +447,7 @@ export default function EditPortfolioPage() {
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                SEO Description
+                SEO Description (comma separated)
               </label>
               <textarea
                 {...register("seoDescription")}
