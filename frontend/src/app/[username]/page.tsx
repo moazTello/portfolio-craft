@@ -17,84 +17,81 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001/v1";
 async function getPortfolio(username: string) {
   try {
     const url = `${API_URL}/portfolios/public/${username}`;
-    console.log("Fetching:", url); // للـ debug
     const res = await fetch(url, { cache: "no-store" });
-    console.log("Status:", res.status);
     if (!res.ok) return null;
     return res.json();
   } catch (e) {
-    console.log("Error:", e);
     return null;
   }
 }
+
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ username: string }>;
+  params: Promise<{ username: string }>
 }): Promise<Metadata> {
-  const { username } = await params;
-  const portfolio = await getPortfolio(username);
-  if (!portfolio) return { title: "Portfolio Not Found" };
+  const { username } = await params
+  const portfolio = await getPortfolio(username)
+  if (!portfolio) return { title: 'Portfolio Not Found' }
 
-  // const SITE_URL =
-  //   process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.portfolio-craft.com";
-    const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.portfolio-craft.com').replace(/\/$/, '')
-  const portfolioUrl = `${SITE_URL}/${username}`;
-  const title =
-    portfolio.seoTitle ?? `${portfolio.heroTitle} | ${portfolio.heroSubtitle}`;
-  const description =
-    portfolio.seoDescription ?? portfolio.aboutText?.slice(0, 160);
+  const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.portfolio-craft.com').replace(/\/$/, '')
+  const portfolioUrl = `${SITE_URL}/${username}`
+  const title = portfolio.seoTitle ?? `${portfolio.heroTitle} | ${portfolio.heroSubtitle}`
+  const description = portfolio.seoDescription ?? portfolio.aboutText?.slice(0, 160) ?? `${portfolio.heroTitle} - Professional Portfolio`
+
+  const keywords = [
+    portfolio.heroTitle,
+    portfolio.heroSubtitle,
+    ...(portfolio.skills?.map((s: any) => s.name) ?? []),
+    portfolio.location ?? '',
+    'portfolio',
+    'professional portfolio',
+    'PortfolioCraft',
+  ].filter(Boolean).join(', ')
 
   return {
     title,
     description,
-    keywords: [
-      portfolio.heroTitle, // اسم الشخص
-      portfolio.heroSubtitle, // المسمى الوظيفي
-      ...(portfolio.skills?.map((s: any) => s.name) ?? []), // المهارات
-      portfolio.location ?? "", // الموقع
-      "portfolio",
-      "developer",
-    ]
-      .filter(Boolean)
-      .join(", "),
-
-    authors: [{ name: portfolio.heroTitle }],
+    keywords,
+    authors: [{ name: portfolio.heroTitle, url: portfolioUrl }],
     creator: portfolio.heroTitle,
-
-    openGraph: {
-      title,
-      description,
-      type: "profile",
-      url: portfolioUrl,
-      siteName: "PortfolioCraft",
-      images: portfolio.ogImage
-        ? [{ url: portfolio.ogImage, width: 1200, height: 630, alt: title }]
-        : [],
-    },
-
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-      images: portfolio.ogImage ? [portfolio.ogImage] : [],
-    },
-
+    metadataBase: new URL('https://www.portfolio-craft.com'),
     alternates: {
       canonical: portfolioUrl,
     },
-
+    openGraph: {
+      title,
+      description,
+      type: 'profile',
+      url: portfolioUrl,
+      siteName: 'PortfolioCraft',
+      firstName: portfolio.heroTitle?.split(' ')[0],
+      lastName: portfolio.heroTitle?.split(' ').slice(1).join(' '),
+      images: portfolio.ogImage
+        ? [{ url: portfolio.ogImage, width: 1200, height: 630, alt: title }]
+        : [{ url: '/og-image.png', width: 1200, height: 630, alt: title }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: portfolio.ogImage ? [portfolio.ogImage] : ['/og-image.png'],
+    },
     robots: {
       index: true,
       follow: true,
       googleBot: {
         index: true,
         follow: true,
-        "max-snippet": -1,
-        "max-image-preview": "large",
+        'max-snippet': -1,
+        'max-image-preview': 'large',
       },
     },
-  };
+    other: {
+      'article:modified_time': portfolio.updatedAt,
+      'profile:username': username,
+    },
+  }
 }
 
 export default async function PortfolioPage({
@@ -110,7 +107,6 @@ export default async function PortfolioPage({
     const cookieStore = await cookies();
     const token = cookieStore.get("token")?.value;
     const isOwner = token ? true : false; // لو عنده token غالباً هو صاحبه
-
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 dark:bg-gray-950 text-center px-6">
         <div className="text-5xl mb-4">🔒</div>
@@ -216,7 +212,7 @@ export default async function PortfolioPage({
                 />
               </FadeUp>
             )}
-            <FadeUp delay={0.2}>
+            <FadeUp delay={0.1}>
               <h1
                 style={{
                   color: "var(--p-text)",
@@ -227,7 +223,7 @@ export default async function PortfolioPage({
                 {portfolio.heroTitle ?? portfolio.username}
               </h1>
             </FadeUp>
-            <FadeUp delay={0.4}>
+            <FadeUp delay={0.2}>
               {portfolio.heroSubtitle && (
                 <p
                   style={{ color: "var(--p-primary)" }}
@@ -237,7 +233,7 @@ export default async function PortfolioPage({
                 </p>
               )}
             </FadeUp>
-            <FadeUp delay={0.6}>
+            <FadeUp delay={0.3}>
               {portfolio.aboutText && (
                 <p
                   style={{ color: "var(--p-text-muted)" }}
@@ -247,7 +243,7 @@ export default async function PortfolioPage({
                 </p>
               )}
             </FadeUp>
-            <FadeUp delay={0.8}>
+            <FadeUp delay={0.4}>
               <div className="flex justify-center gap-4 mt-8 flex-wrap">
                 {portfolio.github && (
                   <a
@@ -324,7 +320,7 @@ export default async function PortfolioPage({
             className="py-20 px-6"
           >
             <div className="max-w-5xl mx-auto">
-              <FadeUp delay={0.2}>
+              <FadeUp delay={0.1}>
                 <h2
                   style={{
                     color: "var(--p-text)",
@@ -375,7 +371,6 @@ export default async function PortfolioPage({
                           {project.description}
                         </p>
                       )}
-
                       {project.tags?.length > 0 && (
                         <div className="flex flex-wrap gap-1.5 mb-4">
                           {project.tags.map((tag: string) => (
@@ -428,7 +423,7 @@ export default async function PortfolioPage({
             className="py-20 px-6"
           >
             <div className="max-w-5xl mx-auto">
-              <FadeUp delay={0.2}>
+              <FadeUp delay={0.1}>
                 <h2
                   style={{
                     color: "var(--p-text)",
@@ -444,7 +439,7 @@ export default async function PortfolioPage({
               </FadeUp>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                 {portfolio.gallery.map((img: any, index: number) => (
-                  <FadeUp key={img.id} delay={index * 0.3}>
+                  <FadeUp key={img.id} delay={index * 0.2}>
                     <div className="relative aspect-square rounded-xl overflow-hidden group">
                       <img
                         src={img.imageUrl}
@@ -497,7 +492,7 @@ export default async function PortfolioPage({
             className="py-20 px-6"
           >
             <div className="max-w-3xl mx-auto">
-              <FadeUp delay={0.2}>
+              <FadeUp delay={0.1}>
                 <h2
                   style={{
                     color: "var(--p-text)",
@@ -513,7 +508,7 @@ export default async function PortfolioPage({
               </FadeUp>
               <div className="space-y-6">
                 {portfolio.experiences.map((exp: any) => (
-                  <SlideIn key={exp.id} delay={0.3}>
+                  <SlideIn key={exp.id} delay={0.2}>
                     <div className="flex gap-4">
                       <div className="flex flex-col items-center">
                         <div
@@ -575,7 +570,7 @@ export default async function PortfolioPage({
         {portfolio.certificates?.length > 0 && (
           <section style={{ background: "var(--p-bg)" }} className="py-20 px-6">
             <div className="max-w-5xl mx-auto">
-              <FadeUp delay={0.2}>
+              <FadeUp delay={0.1}>
                 <h2
                   style={{
                     color: "var(--p-text)",
@@ -591,7 +586,7 @@ export default async function PortfolioPage({
               </FadeUp>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {portfolio.certificates.map((cert: any, index: number) => (
-                  <FadeUp key={cert.id} delay={index * 0.3}>
+                  <FadeUp key={cert.id} delay={index * 0.2}>
                     <div
                       style={{
                         background: "var(--p-card-bg)",
@@ -650,7 +645,7 @@ export default async function PortfolioPage({
             className="py-20 px-6"
           >
             <div className="max-w-5xl mx-auto">
-              <FadeUp delay={0.2}>
+              <FadeUp delay={0.1}>
                 <h2
                   style={{
                     color: "var(--p-text)",
@@ -667,7 +662,7 @@ export default async function PortfolioPage({
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {portfolio.achievements.map(
                   (achievement: any, index: number) => (
-                    <FadeUp key={achievement.id} delay={index * 0.3}>
+                    <FadeUp key={achievement.id} delay={index * 0.2}>
                       <div
                         style={{
                           background: "var(--p-card-bg)",
@@ -718,7 +713,7 @@ export default async function PortfolioPage({
         {portfolio.services?.length > 0 && (
           <section style={{ background: "var(--p-bg)" }} className="py-20 px-6">
             <div className="max-w-5xl mx-auto">
-              <FadeUp delay={0.2}>
+              <FadeUp delay={0.1}>
                 <h2
                   style={{
                     color: "var(--p-text)",
@@ -734,7 +729,7 @@ export default async function PortfolioPage({
               </FadeUp>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {portfolio.services.map((service: any, index: number) => (
-                  <FadeUp key={service.id} delay={index * 0.3}>
+                  <FadeUp key={service.id} delay={index * 0.2}>
                     <div
                       style={{
                         background: "var(--p-card-bg)",
@@ -791,7 +786,7 @@ export default async function PortfolioPage({
             className="py-12 px-6"
           >
             <div className="max-w-5xl mx-auto">
-              <FadeUp delay={0.2}>
+              <FadeUp delay={0.1}>
                 <p
                   style={{ color: "var(--p-text-muted)" }}
                   className="text-center text-sm mb-8 uppercase tracking-widest"
@@ -801,7 +796,7 @@ export default async function PortfolioPage({
               </FadeUp>
               <div className="flex flex-wrap justify-center items-center gap-8">
                 {portfolio.clients.map((client: any, index: number) => (
-                  <FadeUp key={client.id} delay={index * 0.3}>
+                  <FadeUp key={client.id} delay={index * 0.2}>
                     {client.websiteUrl ? (
                       <a
                         href={client.websiteUrl}
@@ -854,7 +849,7 @@ export default async function PortfolioPage({
             className="py-20 px-6"
           >
             <div className="max-w-5xl mx-auto">
-              <FadeUp delay={0.2}>
+              <FadeUp delay={0.1}>
                 <h2
                   style={{
                     color: "var(--p-text)",
@@ -871,7 +866,7 @@ export default async function PortfolioPage({
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {portfolio.testimonials.map(
                   (testimonial: any, index: number) => (
-                    <FadeUp key={testimonial.id} delay={index * 0.2}>
+                    <FadeUp key={testimonial.id} delay={index * 0.1}>
                       <div
                         style={{
                           background: "var(--p-card-bg)",
@@ -939,7 +934,7 @@ export default async function PortfolioPage({
             className="py-20 px-6"
           >
             <div className="max-w-3xl mx-auto">
-              <FadeUp delay={0.2}>
+              <FadeUp delay={0.1}>
                 <h2
                   style={{
                     color: "var(--p-text)",
@@ -956,7 +951,7 @@ export default async function PortfolioPage({
                   Schedule a meeting directly
                 </p>
               </FadeUp>
-              <FadeUp delay={0.4}>
+              <FadeUp delay={0.2}>
                 <BookingWidget username={username} />
               </FadeUp>
             </div>
@@ -966,7 +961,7 @@ export default async function PortfolioPage({
         {(portfolio.email || portfolio.phone || portfolio.location) && (
           <section style={{ background: "var(--p-bg)" }} className="py-20 px-6">
             <div className="max-w-3xl mx-auto">
-              <FadeUp delay={0.2}>
+              <FadeUp delay={0.1}>
                 <h2
                   style={{
                     color: "var(--p-text)",
@@ -981,7 +976,7 @@ export default async function PortfolioPage({
                 </p>
               </FadeUp>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                <FadeUp delay={0.4}>
+                <FadeUp delay={0.2}>
                   <div className="space-y-4">
                     {portfolio.email && (
                       <div>
@@ -1034,7 +1029,7 @@ export default async function PortfolioPage({
                     )}
                   </div>
                 </FadeUp>
-                <FadeUp delay={0.4}>
+                <FadeUp delay={0.2}>
                   <ContactForm portfolioId={portfolio.id} />
                 </FadeUp>
               </div>
