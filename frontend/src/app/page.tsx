@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 import { LanguageSwitcher } from "@/components/shared/LanguageSwitcher";
 import moazImage from "../../public/moaz_portfolio.png";
 type Locale = "en" | "ar" | "de";
-
+import Image from "next/image";
 async function getMessages(locale: Locale) {
   return (await import(`../../messages/${locale}.json`)).default;
 }
@@ -200,7 +200,7 @@ export default async function LandingPage() {
               name: "Informatics Engineer - Moaz Tello",
               role: "React Developer",
               href: "https://www.eng-moaz-tello.com",
-              image: { moazImage },
+              image: moazImage,
             },
             {
               bg: "#f8f4ef",
@@ -236,12 +236,13 @@ export default async function LandingPage() {
                   {label}
                 </span>
               </div> */}
-              <div
+              {/* <div
                 className="h-32 md:h-36 flex items-center justify-center relative"
                 style={
                   image
                     ? {
-                        backgroundImage: `url(${image})`,
+                        // backgroundImage: `url(${image})`,
+                        backgroundImage: `url(${typeof image === "object" ? image.src : image})`,
                         backgroundSize: "cover",
                         backgroundPosition: "center",
                       }
@@ -257,6 +258,31 @@ export default async function LandingPage() {
                 >
                   {label}
                 </span>
+              </div> */}
+
+              <div className="h-32 md:h-36 flex items-center justify-center relative overflow-hidden">
+                {image && (
+                  <Image
+                    src={image}
+                    alt={name}
+                    fill
+                    className="object-cover object-center"
+                  />
+                )}
+                {!image && (
+                  <div
+                    style={{ backgroundColor: bg }}
+                    className={`absolute inset-0`}
+                  />
+                )}
+                {!image && (
+                  <span
+                    className="font-serif text-lg italic relative z-10"
+                    style={{ color: image ? "#fff" : accent }}
+                  >
+                    {label}
+                  </span>
+                )}
               </div>
               <div className="p-4 flex justify-between items-center bg-white dark:bg-gray-900">
                 <div>
@@ -409,6 +435,7 @@ export default async function LandingPage() {
         </div>
       </section>
       {/* CTA */}
+      //this is the best choise that can be done withoutthinking about the results and the respolnsabelity 
       <section className="bg-gray-950 px-4 md:px-10 py-16 md:py-20 text-center">
         <h2 className="font-serif text-2xl sm:text-3xl md:text-5xl text-white mb-4">
           {t(messages, "cta.title")}
