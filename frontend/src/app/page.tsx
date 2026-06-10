@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { cookies } from "next/headers";
 import { LanguageSwitcher } from "@/components/shared/LanguageSwitcher";
-import moazImage from "/moaz_portfolio.png";
+import moazImage from "../../public/moaz_portfolio.png";
 type Locale = "en" | "ar" | "de";
 
 async function getMessages(locale: Locale) {
