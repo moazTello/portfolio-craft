@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { cookies } from "next/headers";
 import { LanguageSwitcher } from "@/components/shared/LanguageSwitcher";
-
+import moazImage from "@/../public/moaz_portfolio.png";
 type Locale = "en" | "ar" | "de";
 
 async function getMessages(locale: Locale) {
@@ -200,7 +200,7 @@ export default async function LandingPage() {
               name: "Informatics Engineer - Moaz Tello",
               role: "React Developer",
               href: "https://www.eng-moaz-tello.com",
-              image: "/images/examples/moaz-preview.jpg",
+              image: { moazImage },
             },
             {
               bg: "#f8f4ef",
@@ -209,7 +209,7 @@ export default async function LandingPage() {
               name: "Coming",
               role: "UI/UX Designer",
               href: null,
-              image: "/images/examples/moaz-preview.jpg",
+              image: null,
             },
             {
               bg: "#EEF2FF",
@@ -218,7 +218,7 @@ export default async function LandingPage() {
               name: "Coming Soon",
               role: "Business Consultant",
               href: null,
-              image: "/images/examples/moaz-preview.jpg",
+              image: null,
             },
           ].map(({ bg, accent, label, name, role, href, image }) => (
             <div
