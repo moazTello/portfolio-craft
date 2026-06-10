@@ -435,7 +435,6 @@ export default async function LandingPage() {
         </div>
       </section>
       {/* CTA */}
-      //this is the best choise that can be done withoutthinking about the results and the respolnsabelity 
       <section className="bg-gray-950 px-4 md:px-10 py-16 md:py-20 text-center">
         <h2 className="font-serif text-2xl sm:text-3xl md:text-5xl text-white mb-4">
           {t(messages, "cta.title")}
