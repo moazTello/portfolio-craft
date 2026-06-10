@@ -5,7 +5,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001/v1";
 async function getPortfolio(username: string) {
   try {
     const res = await fetch(`${API_URL}/portfolios/public/${username}`, {
-      next: { revalidate: 3600 } // cache ساعة بدل no-store
+      next: { revalidate: 3600 }
     });
     if (!res.ok) return null;
     return res.json();
@@ -20,9 +20,9 @@ export const contentType = 'image/png'
 export default async function OGImage({ 
   params 
 }: { 
-  params: Promise<{ username: string }> // ← Promise
+  params: Promise<{ username: string }>
 }) {
-  const { username } = await params      // ← await
+  const { username } = await params
   const portfolio = await getPortfolio(username)
   
   if (!portfolio) {

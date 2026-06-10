@@ -200,6 +200,7 @@ export default async function LandingPage() {
               name: "Informatics Engineer - Moaz Tello",
               role: "React Developer",
               href: "https://www.eng-moaz-tello.com",
+              image: "/images/examples/moaz-preview.jpg",
             },
             {
               bg: "#f8f4ef",
@@ -208,6 +209,7 @@ export default async function LandingPage() {
               name: "Coming",
               role: "UI/UX Designer",
               href: null,
+              image: "/images/examples/moaz-preview.jpg",
             },
             {
               bg: "#EEF2FF",
@@ -216,19 +218,42 @@ export default async function LandingPage() {
               name: "Coming Soon",
               role: "Business Consultant",
               href: null,
+              image: "/images/examples/moaz-preview.jpg",
             },
-          ].map(({ bg, accent, label, name, role, href }) => (
+          ].map(({ bg, accent, label, name, role, href, image }) => (
             <div
               key={name}
               className="border border-gray-100 dark:border-gray-800 rounded-2xl overflow-hidden"
             >
-              <div
+              {/* <div
                 className="h-32 md:h-36 flex items-center justify-center"
                 style={{ background: bg }}
               >
                 <span
                   className="font-serif text-lg italic"
                   style={{ color: accent }}
+                >
+                  {label}
+                </span>
+              </div> */}
+              <div
+                className="h-32 md:h-36 flex items-center justify-center relative"
+                style={
+                  image
+                    ? {
+                        backgroundImage: `url(${image})`,
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                      }
+                    : { background: bg }
+                }
+              >
+                {image && (
+                  <div className="absolute inset-0 bg-black/40" /> // overlay عشان النص يقرأ
+                )}
+                <span
+                  className="font-serif text-lg italic relative z-10"
+                  style={{ color: image ? "#fff" : accent }}
                 >
                   {label}
                 </span>
