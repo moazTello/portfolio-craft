@@ -8,6 +8,45 @@ function getToken() {
   return localStorage.getItem("token") ?? "";
 }
 
+const MOTIVATIONAL_MESSAGES = [
+  {
+    id: "welcome",
+    label: "Welcome & Get Started",
+    subject: "🎉 Welcome to PortfolioCraft!",
+    body: `Hi {name},\n\nWelcome to PortfolioCraft! We're excited to have you on board.\n\nYour professional portfolio is just a few steps away. Start by:\n✅ Adding your projects\n✅ Picking a theme\n✅ Publishing your portfolio\n\nYour portfolio link: portfolio-craft.com/{username}\n\nLet's build something great together!\n\nThe PortfolioCraft Team`,
+  },
+  {
+    id: "upgrade",
+    label: "Upgrade to Pro",
+    subject: "⚡ Unlock your full potential with Pro",
+    body: `Hi {name},\n\nYou've taken the first step — now take it further!\n\nWith PortfolioCraft Pro you get:\n🎨 6 premium themes\n🌐 Custom domain\n📝 Blog system\n📊 Advanced analytics\n\nUpgrade now for just $5/month:\nportfolio-craft.com/dashboard/settings/billing\n\nThe PortfolioCraft Team`,
+  },
+  {
+    id: "publish",
+    label: "Reminder to Publish",
+    subject: "🚀 Your portfolio is almost ready!",
+    body: `Hi {name},\n\nWe noticed your portfolio isn't published yet.\n\nPublishing takes just one click — and once it's live, employers and clients can find you!\n\nGo publish now:\nportfolio-craft.com/dashboard/portfolio\n\nThe PortfolioCraft Team`,
+  },
+  {
+    id: "tips",
+    label: "Portfolio Tips",
+    subject: "💡 5 tips to make your portfolio stand out",
+    body: `Hi {name},\n\nHere are 5 quick tips to make your portfolio shine:\n\n1️⃣ Add a professional photo\n2️⃣ Write a clear, specific subtitle (e.g. "React Developer with 3 years experience")\n3️⃣ Feature your 3 best projects\n4️⃣ Add client testimonials\n5️⃣ Enable booking if you offer services\n\nView your portfolio:\nportfolio-craft.com/{username}\n\nThe PortfolioCraft Team`,
+  },
+  {
+    id: "business",
+    label: "Upgrade to Business",
+    subject: "🏆 Take your portfolio to the next level",
+    body: `Hi {name},\n\nReady to unlock everything PortfolioCraft has to offer?\n\nWith Business plan:\n📅 Booking system\n🤝 Clients showcase\n🏆 Achievements section\n📄 PDF CV export\n🎨 All 12 premium themes\n\nUpgrade for just $12/month:\nportfolio-craft.com/dashboard/settings/billing\n\nThe PortfolioCraft Team`,
+  },
+  {
+    id: "custom",
+    label: "✏️ Write custom message...",
+    subject: "",
+    body: "",
+  },
+];
+
 const PLANS = ["FREE", "PRO", "BUSINESS"];
 // const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'
 const SITE_URL = (
@@ -25,6 +64,14 @@ export default function AdminPage() {
   const [planModal, setPlanModal] = useState<any>(null);
   const [selectedPlan, setSelectedPlan] = useState("PRO");
   const [selectedMonths, setSelectedMonths] = useState(1);
+
+  const [messageModal, setMessageModal] = useState<any>(null);
+  const [selectedMessage, setSelectedMessage] = useState(
+    MOTIVATIONAL_MESSAGES[0].id,
+  );
+  const [customSubject, setCustomSubject] = useState("");
+  const [customBody, setCustomBody] = useState("");
+  const [sendingMessage, setSendingMessage] = useState(false);
 
   useEffect(() => {
     // Check if admin
@@ -168,6 +215,37 @@ export default function AdminPage() {
       return "bg-blue-500/20 text-blue-300 border border-blue-500/30";
     return "bg-gray-500/20 text-gray-400 border border-gray-600";
   };
+
+  async function sendMessage(user: any) {
+    setSendingMessage(true);
+    try {
+      const template = MOTIVATIONAL_MESSAGES.find(
+        (m) => m.id === selectedMessage,
+      )!;
+      const isCustom = selectedMessage === "custom";
+
+      const subject = isCustom ? customSubject : template.subject;
+      const body = isCustom
+        ? customBody
+        : template.body
+            .replace(/{name}/g, user.name)
+            .replace(/{username}/g, user.portfolio?.username ?? "");
+
+      const res = await api.post("/admin/send-message", {
+        userId: user.id,
+        subject,
+        body,
+      });
+
+      if (!res.ok) throw new Error();
+      toast.success(`Message sent to ${user.name}!`);
+      setMessageModal(null);
+    } catch {
+      toast.error("Something went wrong");
+    } finally {
+      setSendingMessage(false);
+    }
+  }
 
   return (
     <div className="max-w-7xl mx-auto">
@@ -347,6 +425,19 @@ export default function AdminPage() {
                         >
                           Delete
                         </button>
+
+                        <button
+                          onClick={() => {
+                            setMessageModal(user);
+                            setSelectedMessage(MOTIVATIONAL_MESSAGES[0].id);
+                            setCustomSubject("");
+                            setCustomBody("");
+                          }}
+                          disabled={updatingId === user.id}
+                          className="text-xs bg-green-600 text-white px-2 py-1 rounded hover:bg-green-700 transition"
+                        >
+                          ✉️
+                        </button>
                       </div>
                     </td>
                   </tr>
@@ -381,6 +472,104 @@ export default function AdminPage() {
         </div>
       </div>
 
+      {messageModal && (
+        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4">
+          <div className="bg-gray-900 border border-gray-700 rounded-2xl p-6 w-full max-w-lg">
+            <h2 className="text-white font-semibold text-lg mb-1">
+              Send Message
+            </h2>
+            <p className="text-gray-400 text-sm mb-6">
+              {messageModal.name} ·{" "}
+              <span className="text-gray-500">{messageModal.email}</span>
+            </p>
+
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm text-gray-400 mb-2">
+                  Message Template
+                </label>
+                <select
+                  value={selectedMessage}
+                  onChange={(e) => setSelectedMessage(e.target.value)}
+                  className="w-full bg-gray-800 border border-gray-700 text-white rounded-lg px-4 py-2.5 text-sm focus:outline-none"
+                >
+                  {MOTIVATIONAL_MESSAGES.map((m) => (
+                    <option key={m.id} value={m.id}>
+                      {m.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {selectedMessage === "custom" ? (
+                <>
+                  <div>
+                    <label className="block text-sm text-gray-400 mb-2">
+                      Subject
+                    </label>
+                    <input
+                      value={customSubject}
+                      onChange={(e) => setCustomSubject(e.target.value)}
+                      placeholder="Email subject..."
+                      className="w-full bg-gray-800 border border-gray-700 text-white rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm text-gray-400 mb-2">
+                      Message
+                    </label>
+                    <textarea
+                      value={customBody}
+                      onChange={(e) => setCustomBody(e.target.value)}
+                      rows={6}
+                      placeholder="Write your message..."
+                      className="w-full bg-gray-800 border border-gray-700 text-white rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    />
+                  </div>
+                </>
+              ) : (
+                <div className="bg-gray-800 rounded-lg p-4">
+                  <p className="text-xs text-gray-500 mb-1 font-medium">
+                    {
+                      MOTIVATIONAL_MESSAGES.find(
+                        (m) => m.id === selectedMessage,
+                      )?.subject
+                    }
+                  </p>
+                  <pre className="text-xs text-gray-400 whitespace-pre-wrap leading-relaxed">
+                    {MOTIVATIONAL_MESSAGES.find((m) => m.id === selectedMessage)
+                      ?.body.replace(/{name}/g, messageModal.name)
+                      .replace(
+                        /{username}/g,
+                        messageModal.portfolio?.username ?? "username",
+                      )}
+                  </pre>
+                </div>
+              )}
+            </div>
+
+            <div className="flex gap-3 mt-6">
+              <button
+                onClick={() => sendMessage(messageModal)}
+                disabled={
+                  sendingMessage ||
+                  (selectedMessage === "custom" &&
+                    (!customSubject || !customBody))
+                }
+                className="flex-1 bg-green-600 text-white py-2.5 rounded-lg text-sm font-medium hover:bg-green-700 transition disabled:opacity-50"
+              >
+                {sendingMessage ? "Sending..." : "✉️ Send Email"}
+              </button>
+              <button
+                onClick={() => setMessageModal(null)}
+                className="flex-1 bg-gray-800 text-gray-300 py-2.5 rounded-lg text-sm hover:bg-gray-700 transition"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       {/* Plan Modal */}
       {planModal && (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">

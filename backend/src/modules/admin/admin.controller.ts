@@ -3,6 +3,7 @@ import {
   Get,
   Patch,
   Delete,
+  Post,
   Body,
   Param,
   Query,
@@ -75,5 +76,16 @@ export class AdminController {
   @ApiOperation({ summary: 'Delete user' })
   deleteUser(@Param('id') id: string) {
     return this.adminService.deleteUser(id);
+  }
+
+  @Post('send-message')
+  async sendMessage(
+    @Body() body: { userId: string; subject: string; body: string },
+  ) {
+    return this.adminService.sendMessageToUser(
+      body.userId,
+      body.subject,
+      body.body,
+    );
   }
 }
