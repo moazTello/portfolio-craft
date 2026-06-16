@@ -134,17 +134,17 @@ export default async function LandingPage() {
       <section className="px-4 md:px-10 py-14 md:py-16 bg-gray-50 dark:bg-gray-900 border-y border-gray-100 dark:border-gray-800">
         <div className="max-w-3xl mx-auto text-center">
           <p className="text-xs font-medium text-indigo-600 uppercase tracking-widest mb-2">
-            See it in action
+            {t(messages, "video.label")}
           </p>
           <h2 className="font-serif text-2xl md:text-3xl text-gray-950 dark:text-white mb-8">
-            Build your portfolio in 5 minutes
+            {t(messages, "video.title")}
           </h2>
           <div
             className="relative rounded-2xl overflow-hidden shadow-xl"
             style={{ paddingBottom: "56.25%" }}
           >
             <iframe
-              src="https://www.youtube.com/embed/watch?v=H_fnXrvrxh0&t=26s"
+              src="https://www.youtube.com/embed/H_fnXrvrxh0?start=26"
               title="PortfolioCraft Demo"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
@@ -219,8 +219,8 @@ export default async function LandingPage() {
               bg: "#0f172a",
               accent: "#7C3AED",
               label: "Creative Dev",
-              name: "Informatics Engineer - Moaz Tello",
-              role: "React Developer",
+              name: t(messages, "examples.moazName"),
+              role: t(messages, "examples.moazRole"),
               href: "https://www.eng-moaz-tello.com",
               image: moazImage,
             },

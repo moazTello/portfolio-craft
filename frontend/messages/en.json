@@ -29,12 +29,14 @@
     "analytics": { "title": "Analytics", "desc": "See who's visiting your portfolio and track your growth over time." },
     "blog": { "title": "Built-in blog", "desc": "Share your thoughts and expertise with a fully featured blog section." }
   },
-  "examples": {
-    "label": "Examples",
-    "title": "See what people build",
-    "subtitle": "Real portfolios from real professionals across different fields.",
-    "soon": "Soon"
-  },
+ "examples": {
+  "label": "Examples",
+  "title": "See what people build",
+  "subtitle": "Real portfolios from real professionals across different fields.",
+  "soon": "Soon",
+  "moazRole": "React Developer",
+  "moazName": "Informatics Engineer - Moaz Tello"
+},
   "pricing": {
     "label": "Pricing",
     "title": "Simple, transparent pricing",
@@ -64,5 +66,9 @@
     "privacy": "Privacy Policy",
     "terms": "Terms of Service",
     "copy": "© 2026 PortfolioCraft"
-  }
+  },
+  "video": {
+  "label": "See it in action",
+  "title": "Build your portfolio in 5 minutes"
+}
 }
