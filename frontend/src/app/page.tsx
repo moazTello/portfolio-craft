@@ -130,7 +130,29 @@ export default async function LandingPage() {
           ))}
         </div>
       </section>
-
+      {/* Video Section */}
+      <section className="px-4 md:px-10 py-14 md:py-16 bg-gray-50 dark:bg-gray-900 border-y border-gray-100 dark:border-gray-800">
+        <div className="max-w-3xl mx-auto text-center">
+          <p className="text-xs font-medium text-indigo-600 uppercase tracking-widest mb-2">
+            See it in action
+          </p>
+          <h2 className="font-serif text-2xl md:text-3xl text-gray-950 dark:text-white mb-8">
+            Build your portfolio in 5 minutes
+          </h2>
+          <div
+            className="relative rounded-2xl overflow-hidden shadow-xl"
+            style={{ paddingBottom: "56.25%" }}
+          >
+            <iframe
+              src="https://www.youtube.com/embed/watch?v=H_fnXrvrxh0&t=26s"
+              title="PortfolioCraft Demo"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="absolute inset-0 w-full h-full"
+            />
+          </div>
+        </div>
+      </section>
       {/* Features */}
       <section
         id="features"

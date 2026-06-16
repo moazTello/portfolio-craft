@@ -9,7 +9,9 @@ function getToken() {
   return localStorage.getItem("token") ?? "";
 }
 // const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'
-const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.portfolio-craft.com').replace(/\/$/, '')
+const SITE_URL = (
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.portfolio-craft.com"
+).replace(/\/$/, "");
 export default function DashboardPage() {
   // const ready = usePortfolioGuard();
   // if (!ready) return <LoadingSkeleton rows={4} />;
@@ -226,6 +228,27 @@ export default function DashboardPage() {
               <p className="text-xs text-gray-400 mt-1">{action.desc}</p>
             </a>
           ))}
+        </div>
+      </div>
+      {/* Welcome Video */}
+      <div className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-xl p-6 mb-6">
+        <h2 className="text-base font-medium text-gray-900 dark:text-white mb-1">
+          🎬 Getting Started
+        </h2>
+        <p className="text-sm text-gray-500 mb-4">
+          Watch this quick video to set up your portfolio in minutes
+        </p>
+        <div
+          className="relative rounded-xl overflow-hidden"
+          style={{ paddingBottom: "56.25%" }}
+        >
+          <iframe
+            src="https://www.youtube.com/embed/watch?v=H_fnXrvrxh0&t=26s"
+            title="PortfolioCraft Tutorial"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="absolute inset-0 w-full h-full"
+          />
         </div>
       </div>
     </div>
