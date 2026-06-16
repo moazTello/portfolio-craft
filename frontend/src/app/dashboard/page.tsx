@@ -243,7 +243,7 @@ export default function DashboardPage() {
           style={{ paddingBottom: "56.25%" }}
         >
           <iframe
-            src="https://www.youtube.com/embed/watch?v=H_fnXrvrxh0&t=26s"
+            src="https://www.youtube.com/embed/H_fnXrvrxh0?start=26"
             title="PortfolioCraft Tutorial"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
