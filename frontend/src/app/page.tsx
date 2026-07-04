@@ -131,7 +131,7 @@ export default async function LandingPage() {
         </div>
       </section>
       {/* Video Section */}
-      <section className="px-4 md:px-10 py-14 md:py-16 bg-gray-50 dark:bg-gray-900 border-y border-gray-100 dark:border-gray-800">
+      {/* <section className="px-4 md:px-10 py-14 md:py-16 bg-gray-50 dark:bg-gray-900 border-y border-gray-100 dark:border-gray-800">
         <div className="max-w-3xl mx-auto text-center">
           <p className="text-xs font-medium text-indigo-600 uppercase tracking-widest mb-2">
             {t(messages, "video.label")}
@@ -152,7 +152,7 @@ export default async function LandingPage() {
             />
           </div>
         </div>
-      </section>
+      </section> */}
       {/* Features */}
       <section
         id="features"

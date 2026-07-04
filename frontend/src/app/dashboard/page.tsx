@@ -231,7 +231,7 @@ export default function DashboardPage() {
         </div>
       </div>
       {/* Welcome Video */}
-      <div className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-xl p-6 mb-6">
+      {/* <div className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-xl p-6 mb-6">
         <h2 className="text-base font-medium text-gray-900 dark:text-white mb-1">
           🎬 Getting Started
         </h2>
@@ -250,7 +250,7 @@ export default function DashboardPage() {
             className="absolute inset-0 w-full h-full"
           />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
