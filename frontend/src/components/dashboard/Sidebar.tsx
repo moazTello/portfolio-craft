@@ -10,14 +10,12 @@ import { toast } from "sonner";
 const navItems = [
   { label: "Dashboard", href: "/dashboard", icon: "▦" },
 
-  // الأساسيات
   { label: "Portfolio", href: "/dashboard/portfolio", icon: "◉" },
   { label: "Projects", href: "/dashboard/projects", icon: "◈" },
   { label: "Experience", href: "/dashboard/experience", icon: "◷" },
   { label: "Skills", href: "/dashboard/skills", icon: "◎" },
   { label: "Certificates", href: "/dashboard/certificates", icon: "◻" },
 
-  // المحتوى الإضافي
   { label: "Blog", href: "/dashboard/blog", icon: "✍️" },
   { label: "Gallery", href: "/dashboard/gallery", icon: "🖼" },
   { label: "Services", href: "/dashboard/services", icon: "🛠" },
@@ -25,17 +23,14 @@ const navItems = [
   { label: "Achievements", href: "/dashboard/achievements", icon: "🏆" },
   { label: "Testimonials", href: "/dashboard/testimonials", icon: "◔" },
 
-  // التفاعل
   { label: "Messages", href: "/dashboard/messages", icon: "✉️" },
   { label: "Booking", href: "/dashboard/booking", icon: "📅" },
   { label: "Business Cards", href: "/dashboard/business-cards", icon: "🎴" },
 
-  // البيانات والإدارة
   { label: "Analytics", href: "/dashboard/analytics", icon: "◐" },
   { label: "Billing", href: "/dashboard/settings/billing", icon: "$" },
   { label: "Settings", href: "/dashboard/settings", icon: "⚙︎" },
 ];
-//this is the most aggressive symbol in the IRS
 // const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.portfolio-craft.com').replace(/\/$/, '')
 export default function Sidebar() {
@@ -74,7 +69,6 @@ export default function Sidebar() {
     const publishHandler = (e: any) => setPublished(e.detail.published);
     window.addEventListener("portfolio-status-changed", publishHandler);
 
-    // أضف هذا
     const usernameHandler = (e: any) => setUsername(e.detail.username);
     window.addEventListener("portfolio-username-changed", usernameHandler);
 
@@ -106,7 +100,6 @@ export default function Sidebar() {
 
   return (
     <>
-      {/* Mobile topbar */}
       {/* <div className="md:hidden fixed top-0 left-0 right-0 z-50 bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800 px-4 py-3 flex items-center justify-between">
         <span className="text-lg font-semibold text-gray-900 dark:text-white">
           Portfolio<span className="text-indigo-600">Craft</span>
@@ -215,7 +208,6 @@ export default function Sidebar() {
         </button>
       </div>
 
-      {/* Mobile overlay */}
       {open && (
         <div
           className={`md:hidden fixed inset-0 z-30 bg-black/50 transition-opacity duration-300 ${
@@ -227,7 +219,6 @@ export default function Sidebar() {
         />
       )}
 
-      {/* Sidebar */}
       <aside
         className={`
         fixed top-0 left-0 h-screen z-40 bg-white dark:bg-gray-900 border-r border-gray-100 dark:border-gray-800 flex flex-col
@@ -236,7 +227,6 @@ export default function Sidebar() {
         ${open ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
       `}
       >
-        {/* Logo */}
         {/* <div className="px-5 py-5 border-b border-gray-100 dark:border-gray-800">
           <span className="text-lg font-semibold text-gray-900 dark:text-white">
             Portfolio<span className="text-indigo-600">Craft</span>
@@ -338,7 +328,6 @@ export default function Sidebar() {
           </Link>
         </div>
 
-        {/* Nav */}
         <nav className="flex-1 py-4 overflow-y-auto">
           {/* {navItems.map((item) => {
             const active = pathname === item.href;
@@ -382,8 +371,6 @@ export default function Sidebar() {
             );
           })}
         </nav>
-
-        {/* Preview Button */}
         {username && (
           <div className="px-4 py-3 border-t border-gray-100 dark:border-gray-800">
             {isAdmin && (
@@ -412,8 +399,6 @@ export default function Sidebar() {
             )}
           </div>
         )}
-
-        {/* Bottom */}
         <div className="px-5 py-4 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between">
           <button
             onClick={logout}

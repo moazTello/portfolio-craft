@@ -79,7 +79,6 @@ export class UsersService {
     return this.prisma.user.delete({ where: { id } });
   }
     async updateAvatar(id: string, avatarBase64: string) {
-    // ارفع على Cloudinary
     const avatarUrl = await this.uploadService.uploadImage(
       avatarBase64,
       'portfoliocraft/avatars'

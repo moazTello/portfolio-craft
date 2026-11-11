@@ -35,7 +35,6 @@ export function PortfolioThemeProvider({
     document.body.style.background = c.background;
     document.body.style.color = c.text;
 
-    // Load fonts
     const fonts = [...new Set([theme.fonts.heading, theme.fonts.body])];
     const link = document.createElement("link");
     link.rel = "stylesheet";

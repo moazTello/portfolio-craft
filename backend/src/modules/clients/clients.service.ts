@@ -26,8 +26,6 @@ export class ClientsService {
   async create(userId: string, data: { name: string; logoUrl?: string; websiteUrl?: string }) {
     const portfolio = await this.getPortfolio(userId)
     const count = await this.prisma.client.count({ where: { portfolioId: portfolio.id } })
-
-    // ارفع اللوغو على Cloudinary
     let logoUrl = data.logoUrl
     if (data.logoUrl?.startsWith('data:')) {
       logoUrl = await this.uploadService.uploadImage(
@@ -44,14 +42,10 @@ export class ClientsService {
   async update(userId: string, id: string, data: { name?: string; logoUrl?: string; websiteUrl?: string }) {
     const portfolio = await this.getPortfolio(userId)
 
-    // ارفع اللوغو الجديد على Cloudinary
     let logoUrl = data.logoUrl
     if (data.logoUrl?.startsWith('data:')) {
-      // احذف القديم
       const old = await this.prisma.client.findUnique({ where: { id } })
       if (old?.logoUrl) await this.uploadService.deleteImage(old.logoUrl)
-
-      // ارفع الجديد
       logoUrl = await this.uploadService.uploadImage(
         data.logoUrl,
         'portfoliocraft/clients'
@@ -66,8 +60,6 @@ export class ClientsService {
 
   async delete(userId: string, id: string) {
     const portfolio = await this.getPortfolio(userId)
-
-    // احذف اللوغو من Cloudinary
     const client = await this.prisma.client.findUnique({ where: { id } })
     if (client?.logoUrl) await this.uploadService.deleteImage(client.logoUrl)
 

@@ -129,7 +129,6 @@ export default function CertificatesPage() {
   if (loading) return <LoadingSkeleton rows={3} />;
   return (
     <div>
-      {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-2xl font-semibold text-gray-900">Certificates</h1>
@@ -149,7 +148,6 @@ export default function CertificatesPage() {
         </button>
       </div>
 
-      {/* Form */}
       {showForm && (
         <div className="bg-white border border-gray-100 rounded-xl p-6 mb-6">
           <h2 className="text-base font-medium text-gray-900 mb-4">
@@ -272,7 +270,6 @@ export default function CertificatesPage() {
         </div>
       )}
 
-      {/* Certificates List */}
       {loading ? (
         // <p className="text-gray-400 text-sm">Loading...</p>
         <LoadingSkeleton rows={3} />

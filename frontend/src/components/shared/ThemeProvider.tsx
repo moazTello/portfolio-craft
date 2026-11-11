@@ -34,7 +34,6 @@
 //     root.style.setProperty('--p-tag-bg', c.tagBg)
 //     root.style.setProperty('--p-tag-text', c.tagText)
 
-//     // Load Google Fonts
 //     const fonts = [theme.fonts.heading, theme.fonts.body].filter(Boolean)
 //     const params = fonts.map(f => `family=${encodeURIComponent(f)}:wght@400;500;600;700`).join('&')
 //     const link = document.createElement('link')

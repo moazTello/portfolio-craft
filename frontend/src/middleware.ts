@@ -12,7 +12,6 @@ export function middleware(request: NextRequest) {
   const host = request.headers.get("host") ?? "";
   const pathname = request.nextUrl.pathname;
 
-  // Custom domain handling
   if (!MAIN_DOMAINS.some((d) => host.includes(d))) {
     if (pathname === "/robots.txt" || pathname === "/sitemap.xml") {
       return NextResponse.next();
@@ -24,7 +23,6 @@ export function middleware(request: NextRequest) {
     }
   }
 
-  // Dashboard protection
   const token = request.cookies.get("token")?.value;
   if (pathname.startsWith("/dashboard") && !token) {
     return NextResponse.redirect(new URL("/login", request.url));

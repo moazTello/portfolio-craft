@@ -228,7 +228,6 @@ export function BookingWidget({ username }: Props) {
             />
           </div>
 
-          {/* Summary */}
           <div
             style={{
               background: "var(--p-surface)",

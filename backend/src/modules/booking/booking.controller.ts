@@ -60,8 +60,6 @@ class CreatePublicBookingDto {
   notes?: string
 }
 
-// ─── Dashboard Routes ────────────────────────────────────
-
 @ApiTags('Booking')
 @Controller('booking')
 @UseGuards(JwtAuthGuard)
@@ -116,8 +114,6 @@ export class BookingController {
     return this.bookingService.deleteBooking(user.id, id)
   }
 }
-
-// ─── Public Routes ───────────────────────────────────────
 
 @ApiTags('Booking Public')
 @Controller('public/booking')

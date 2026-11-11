@@ -44,7 +44,6 @@ class SendMessageDto {
 @ApiTags('Messages')
 @Controller('messages')
 export class MessagesController {
-  // constructor(private readonly messagesService: MessagesService) {}
   constructor(
     private readonly messagesService: MessagesService,
     private readonly prisma: PrismaService,

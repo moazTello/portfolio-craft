@@ -22,7 +22,6 @@ function SimpleChart({ data }: { data: { date: string; views: number }[] }) {
             className="flex-1 flex flex-col items-center justify-end group relative"
             style={{ height: '100%' }}
           >
-            {/* Bar */}
             <div
               className="w-full bg-indigo-500 hover:bg-indigo-600 rounded-sm transition-all cursor-pointer"
               style={{
@@ -31,7 +30,6 @@ function SimpleChart({ data }: { data: { date: string; views: number }[] }) {
                 minHeight: day.views > 0 ? '4px' : '2px',
               }}
             />
-            {/* Tooltip */}
             {day.views > 0 && (
               <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition whitespace-nowrap z-10 pointer-events-none">
                 {day.date}: {day.views} views
@@ -40,8 +38,6 @@ function SimpleChart({ data }: { data: { date: string; views: number }[] }) {
           </div>
         ))}
       </div>
-
-      {/* Max label */}
       <div className="absolute top-0 left-0 text-xs text-gray-400">{max}</div>
     </div>
   )
@@ -71,14 +67,12 @@ export default function AnalyticsPage() {
   if (loading) return <LoadingSkeleton rows={3} />;
   return (
     <div>
-      {/* Header */}
       <div className="mb-8">
         <h1 className="text-2xl font-semibold text-gray-900">Analytics</h1>
         <p className="text-sm text-gray-500 mt-1">
           Track your portfolio performance
         </p>
       </div>
-      {/* Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
         <div className="bg-white border border-gray-100 rounded-xl p-5">
           <p className="text-xs text-gray-500 mb-1">Total Views</p>
@@ -102,7 +96,6 @@ export default function AnalyticsPage() {
           <p className="text-xs text-gray-400 mt-1">All time</p>
         </div>
       </div>
-      {/* Chart */}
       <div className="bg-white border border-gray-100 rounded-xl p-6 mb-6">
         <div className="flex items-center justify-between mb-6 gap-4">
           <h2 className="text-base font-medium text-gray-900">
@@ -128,7 +121,6 @@ export default function AnalyticsPage() {
           </div>
         )}
       </div>
-      {/* Top Sections */}
       {summary?.topSections?.length > 0 && (
         <div className="bg-white border border-gray-100 rounded-xl p-6">
           <h2 className="text-base font-medium text-gray-900 mb-4">
@@ -151,7 +143,6 @@ export default function AnalyticsPage() {
           </div>
         </div>
       )}
-      {/* Empty state */}
       {summary?.totalViews === 0 && (
         <div className="bg-indigo-50 border border-indigo-100 rounded-xl p-6 mt-6">
           <h3 className="text-sm font-medium text-indigo-900 mb-1">

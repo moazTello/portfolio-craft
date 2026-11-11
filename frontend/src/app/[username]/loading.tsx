@@ -1,7 +1,6 @@
 export default function Loading() {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">
-      {/* Hero skeleton */}
       <div className="py-24 px-6 bg-linear-to-br from-indigo-50 to-white dark:from-gray-900 dark:to-gray-950">
         <div className="max-w-3xl mx-auto text-center animate-pulse">
           <div className="h-12 bg-gray-200 dark:bg-gray-800 rounded-xl w-64 mx-auto mb-4" />
@@ -14,8 +13,6 @@ export default function Loading() {
           </div>
         </div>
       </div>
-
-      {/* Projects skeleton */}
       <div className="py-20 px-6 bg-gray-50 dark:bg-gray-900">
         <div className="max-w-5xl mx-auto animate-pulse">
           <div className="h-8 bg-gray-200 dark:bg-gray-800 rounded w-32 mb-2" />

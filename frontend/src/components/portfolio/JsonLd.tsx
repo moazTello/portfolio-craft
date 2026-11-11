@@ -20,10 +20,9 @@ export function JsonLd({
   //   email: portfolio.email,
   //   telephone: portfolio.phone,
   //   url: `${SITE_URL}/${username}`,
-  //   image: portfolio.user?.avatarUrl, // ← أضف الصورة
+  //   image: portfolio.user?.avatarUrl,
   //   address: portfolio.location
   //     ? {
-  //         // ← أضف الموقع
   //         "@type": "PostalAddress",
   //         addressLocality: portfolio.location,
   //       }

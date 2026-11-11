@@ -37,7 +37,6 @@ export default function RegisterPage() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.message);
 
-      // بدل localStorage وredirect
       toast.success("Account created! Please check your email to verify.");
       router.push("/login");
       // localStorage.setItem("token", data.accessToken);
@@ -120,7 +119,6 @@ export default function RegisterPage() {
           Sign in
         </Link>
       </p>
-      {/* OAuth Buttons */}
       <div className="mt-6">
         <div className="relative">
           <div className="absolute inset-0 flex items-center">

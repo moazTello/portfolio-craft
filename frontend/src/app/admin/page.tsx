@@ -249,7 +249,6 @@ export default function AdminPage() {
 
   return (
     <div className="max-w-7xl mx-auto">
-      {/* Stats */}
       {stats && (
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
           {[
@@ -269,7 +268,6 @@ export default function AdminPage() {
         </div>
       )}
 
-      {/* Plan Breakdown */}
       {stats?.planBreakdown && (
         <div className="bg-gray-900 border border-gray-800 rounded-xl p-5 mb-6">
           <h2 className="text-sm font-medium text-gray-400 mb-3">
@@ -290,7 +288,6 @@ export default function AdminPage() {
         </div>
       )}
 
-      {/* Users Table */}
       <div className="bg-gray-900 border border-gray-800 rounded-xl overflow-hidden">
         <div className="px-6 py-4 border-b border-gray-800 flex items-center justify-between gap-4">
           <h2 className="text-white font-semibold">Users ({total})</h2>
@@ -446,8 +443,6 @@ export default function AdminPage() {
             </tbody>
           </table>
         </div>
-
-        {/* Pagination */}
         <div className="px-6 py-4 border-t border-gray-800 flex items-center justify-between">
           <p className="text-xs text-gray-500">
             Showing {Math.min((page - 1) * 15 + 1, total)}–
@@ -570,7 +565,6 @@ export default function AdminPage() {
           </div>
         </div>
       )}
-      {/* Plan Modal */}
       {planModal && (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
           <div className="bg-gray-900 border border-gray-700 rounded-2xl p-6 w-full max-w-md">

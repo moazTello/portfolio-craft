@@ -19,10 +19,6 @@ async function getPortfolio(username: string) {
     return null;
   }
 }
-
-// ─────────────────────────────────────────────────────────
-// SHARED TYPES
-// ─────────────────────────────────────────────────────────
 interface TemplateProps {
   portfolio: any;
   username: string;
@@ -37,12 +33,6 @@ function fmt(date: string, opts?: Intl.DateTimeFormatOptions) {
     opts ?? { year: "numeric", month: "short" },
   );
 }
-
-// ─────────────────────────────────────────────────────────
-// 6. ARTISTIC — Yellow/gold left accent bar, two-column
-// Left: name+title in bold yellow header, experience list
-// Right: summary, skills, certs
-// ─────────────────────────────────────────────────────────
 export function ArtisticTemplate({
   portfolio,
   username,
@@ -62,7 +52,6 @@ export function ArtisticTemplate({
         background: "#fff",
       }}
     >
-      {/* Left column */}
       <aside
         style={{
           width: "220px",
@@ -93,7 +82,6 @@ export function ArtisticTemplate({
           </p>
         </div>
         <div style={{ padding: "16px" }}>
-          {/* Contact */}
           <div style={{ marginBottom: "14px" }}>
             {portfolio.phone && (
               <p style={{ margin: "3px 0", fontSize: "10px" }}>
@@ -116,7 +104,6 @@ export function ArtisticTemplate({
               </p>
             )}
           </div>
-          {/* Experience */}
           {portfolio.experiences?.length > 0 && (
             <div style={{ marginBottom: "14px" }}>
               <h2
@@ -171,7 +158,6 @@ export function ArtisticTemplate({
               ))}
             </div>
           )}
-          {/* Education */}
           {portfolio.education?.length > 0 && (
             <div>
               <h2
@@ -212,7 +198,6 @@ export function ArtisticTemplate({
           )}
         </div>
       </aside>
-      {/* Right column */}
       <div style={{ flex: 1, padding: "24px 24px 24px 20px" }}>
         {portfolio.aboutText && (
           <section style={{ marginBottom: "16px" }}>
@@ -353,10 +338,6 @@ export function ArtisticTemplate({
     </main>
   );
 }
-
-// ─────────────────────────────────────────────────────────
-// 7. BLOOM — Dark background header with avatar circle, white body
-// ─────────────────────────────────────────────────────────
 export function BloomTemplate({
   portfolio,
   username,
@@ -376,7 +357,6 @@ export function BloomTemplate({
         margin: "0 auto",
       }}
     >
-      {/* Header */}
       <header
         style={{
           background: "#1a1a2e",
@@ -713,10 +693,6 @@ export function BloomTemplate({
     </main>
   );
 }
-
-// ─────────────────────────────────────────────────────────
-// 8. TIMELESS — Clean two column, no sidebar, section headers with thin lines
-// ─────────────────────────────────────────────────────────
 export function TimelessTemplate({
   portfolio,
   username,
@@ -1076,10 +1052,6 @@ export function TimelessTemplate({
     </main>
   );
 }
-
-// ─────────────────────────────────────────────────────────
-// 9. IMPACT — Dark left sidebar (contact+skills), white right
-// ─────────────────────────────────────────────────────────
 export function ImpactTemplate({
   portfolio,
   username,
@@ -1098,7 +1070,6 @@ export function ImpactTemplate({
         color: "#1a1a1a",
       }}
     >
-      {/* Dark sidebar */}
       <aside
         style={{
           width: "200px",
@@ -1300,7 +1271,6 @@ export function ImpactTemplate({
           </div>
         )}
       </aside>
-      {/* Right */}
       <div style={{ flex: 1, padding: "24px 24px 24px 20px" }}>
         <header style={{ marginBottom: "18px" }}>
           <h1
@@ -1488,10 +1458,6 @@ export function ImpactTemplate({
     </main>
   );
 }
-
-// ─────────────────────────────────────────────────────────
-// 10. EXPERT — Teal left sidebar, clean professional
-// ─────────────────────────────────────────────────────────
 export function ExpertTemplate({
   portfolio,
   username,
@@ -1907,10 +1873,6 @@ export function ExpertTemplate({
     </main>
   );
 }
-
-// ─────────────────────────────────────────────────────────
-// 11. ELITE — Dark hero image banner, white body, clean typeset
-// ─────────────────────────────────────────────────────────
 export function EliteTemplate({
   portfolio,
   username,
@@ -2284,10 +2246,6 @@ export function EliteTemplate({
     </main>
   );
 }
-
-// ─────────────────────────────────────────────────────────
-// 12. ELEVATE — Warm neutral, dot-skill ratings, two columns
-// ─────────────────────────────────────────────────────────
 export function ElevateTemplate({
   portfolio,
   username,
@@ -2606,10 +2564,6 @@ export function ElevateTemplate({
     </main>
   );
 }
-
-// ─────────────────────────────────────────────────────────
-// 13. MODULAR — Right dark sidebar, left main content
-// ─────────────────────────────────────────────────────────
 export function ModularTemplate({
   portfolio,
   username,
@@ -2627,7 +2581,6 @@ export function ModularTemplate({
         fontSize: "11px",
       }}
     >
-      {/* Left main */}
       <div
         style={{
           flex: 1,
@@ -2841,7 +2794,6 @@ export function ModularTemplate({
           </p>
         </footer>
       </div>
-      {/* Right dark sidebar */}
       <aside
         style={{
           width: "200px",
@@ -3046,10 +2998,6 @@ export function ModularTemplate({
     </main>
   );
 }
-
-// ─────────────────────────────────────────────────────────
-// 14. CLASSIC — Traditional two-col, thin serif dividers
-// ─────────────────────────────────────────────────────────
 export function ClassicTemplate({
   portfolio,
   username,
@@ -3379,10 +3327,6 @@ export function ClassicTemplate({
     </main>
   );
 }
-
-// ─────────────────────────────────────────────────────────
-// 15. LUXE — Large photo left, colored section headers, avatar circle with city photo bg
-// ─────────────────────────────────────────────────────────
 export function LuxeTemplate({
   portfolio,
   username,
@@ -3807,10 +3751,6 @@ export function LuxeTemplate({
     </main>
   );
 }
-
-// ─────────────────────────────────────────────────────────
-// 16. CONTEMPORARY — Dot skill ratings right column, clean left
-// ─────────────────────────────────────────────────────────
 export function ContemporaryTemplate({
   portfolio,
   username,
@@ -4129,9 +4069,6 @@ export function ContemporaryTemplate({
   );
 }
 
-// ─────────────────────────────────────────────────────────
-// 17. FUNCTIONAL — Sidebar with avatar + contact, dot skills
-// ─────────────────────────────────────────────────────────
 export function FunctionalTemplate({
   portfolio,
   username,
@@ -4149,7 +4086,6 @@ export function FunctionalTemplate({
         fontSize: "11px",
       }}
     >
-      {/* Right sidebar */}
       <aside
         style={{
           width: "200px",
@@ -4322,7 +4258,6 @@ export function FunctionalTemplate({
           </div>
         )}
       </aside>
-      {/* Left main */}
       <div style={{ flex: 1, padding: "24px 24px 24px 28px", order: 1 }}>
         <header style={{ marginBottom: "18px" }}>
           <h1
@@ -4554,10 +4489,6 @@ export function FunctionalTemplate({
     </main>
   );
 }
-
-// ─────────────────────────────────────────────────────────
-// 18. ENTERPRISE — Blue left sidebar, white right, corporate
-// ─────────────────────────────────────────────────────────
 export function EnterpriseTemplate({
   portfolio,
   username,
@@ -4921,10 +4852,6 @@ export function EnterpriseTemplate({
     </main>
   );
 }
-
-// ─────────────────────────────────────────────────────────
-// 19. ENGAGE — Teal/green left sidebar with bar skills, white right
-// ─────────────────────────────────────────────────────────
 export function EngageTemplate({
   portfolio,
   username,
@@ -5344,10 +5271,6 @@ export function EngageTemplate({
     </main>
   );
 }
-
-// ─────────────────────────────────────────────────────────
-// 20. PROFESSIONAL — Two columns, dot skill bars, neutral
-// ─────────────────────────────────────────────────────────
 export function ProfessionalTemplate({
   portfolio,
   username,
@@ -5725,10 +5648,6 @@ export function ProfessionalTemplate({
     </main>
   );
 }
-
-// ─────────────────────────────────────────────────────────
-// 21. STREAMLINE — Crimson right sidebar, white left
-// ─────────────────────────────────────────────────────────
 export function StreamlineTemplate({
   portfolio,
   username,
@@ -5977,7 +5896,6 @@ export function StreamlineTemplate({
           </p>
         </footer>
       </div>
-      {/* Right crimson sidebar */}
       <aside
         style={{
           width: "210px",
@@ -6194,10 +6112,6 @@ export function StreamlineTemplate({
     </main>
   );
 }
-
-// ─────────────────────────────────────────────────────────
-// 22. CONFIDENT — Full dark background resume
-// ─────────────────────────────────────────────────────────
 export function ConfidentTemplate({
   portfolio,
   username,
@@ -6617,10 +6531,6 @@ export function ConfidentTemplate({
     </main>
   );
 }
-
-// ─────────────────────────────────────────────────────────
-// 23. PRESTIGE — White, two panel, dot skills right sidebar
-// ─────────────────────────────────────────────────────────
 export function PrestigeTemplate({
   portfolio,
   username,
@@ -7102,7 +7012,6 @@ function ModernTemplate({
         fontSize: "12px",
       }}
     >
-      {/* Sidebar */}
       <aside
         style={{
           width: "240px",
@@ -7273,7 +7182,6 @@ function ModernTemplate({
           </div>
         )}
       </aside>
-      {/* Main Content */}
       <div style={{ flex: 1, padding: "32px 28px" }}>
         {portfolio.aboutText && (
           <section style={{ marginBottom: "20px" }}>
@@ -7376,7 +7284,6 @@ function ModernTemplate({
             ))}
           </section>
         )}
-        {/* Services — left column */}
         {portfolio.services?.length > 0 && (
           <div style={{ marginBottom: "20px" }}>
             <h2
@@ -7439,7 +7346,6 @@ function ModernTemplate({
             </div>
           </div>
         )}
-        {/* Clients — right column */}
         {portfolio.clients?.length > 0 && (
           <div style={{ marginBottom: "20px" }}>
             <h2
@@ -7719,9 +7625,6 @@ function ModernTemplate({
     </main>
   );
 }
-// ─────────────────────────────────────────────────────────
-// 2. EXECUTIVE — Dark header with gold accents
-// ─────────────────────────────────────────────────────────
 function ExecutiveTemplate({
   portfolio,
   username,
@@ -7739,7 +7642,6 @@ function ExecutiveTemplate({
         fontSize: "12px",
       }}
     >
-      {/* Dark Header */}
       <header
         style={{
           background: "#1a1a2e",
@@ -7902,7 +7804,6 @@ function ExecutiveTemplate({
                 ))}
               </section>
             )}
-            {/* Services — left column */}
             {portfolio.services?.length > 0 && (
               <div style={{ marginBottom: "20px" }}>
                 <h2
@@ -7965,8 +7866,6 @@ function ExecutiveTemplate({
                 </div>
               </div>
             )}
-
-            {/* Clients — right column */}
             {portfolio.clients?.length > 0 && (
               <div style={{ marginBottom: "20px" }}>
                 <h2
@@ -8317,9 +8216,6 @@ function ExecutiveTemplate({
     </main>
   );
 }
-// ─────────────────────────────────────────────────────────
-// 3. MINIMAL — Ultra clean typography
-// ─────────────────────────────────────────────────────────
 function MinimalTemplate({
   portfolio,
   username,
@@ -8521,7 +8417,6 @@ function MinimalTemplate({
             </div>
           </section>
         )}
-        {/* Services — left column */}
         {portfolio.services?.length > 0 && (
           <div style={{ marginBottom: "20px" }}>
             <h2
@@ -8584,8 +8479,6 @@ function MinimalTemplate({
             </div>
           </div>
         )}
-
-        {/* Clients — right column */}
         {portfolio.clients?.length > 0 && (
           <div style={{ marginBottom: "20px" }}>
             <h2
@@ -8825,9 +8718,6 @@ function MinimalTemplate({
     </main>
   );
 }
-// ─────────────────────────────────────────────────────────
-// 4. CREATIVE — Bold dark with colored accents
-// ─────────────────────────────────────────────────────────
 function CreativeTemplate({
   portfolio,
   username,
@@ -8845,7 +8735,6 @@ function CreativeTemplate({
         fontSize: "12px",
       }}
     >
-      {/* Header */}
       <header
         style={{
           padding: "40px",
@@ -8908,7 +8797,6 @@ function CreativeTemplate({
           gap: "32px",
         }}
       >
-        {/* Left */}
         <div>
           {portfolio.aboutText && (
             <section style={{ marginBottom: "24px" }}>
@@ -9069,7 +8957,6 @@ function CreativeTemplate({
             </div>
           )}
 
-          {/* Clients — right column */}
           {portfolio.clients?.length > 0 && (
             <div style={{ marginBottom: "20px" }}>
               <h2
@@ -9186,7 +9073,6 @@ function CreativeTemplate({
             </section>
           )}
         </div>
-        {/* Right */}
         <div>
           {portfolio.skills?.length > 0 && (
             <section style={{ marginBottom: "24px" }}>
@@ -9435,9 +9321,6 @@ function CreativeTemplate({
     </main>
   );
 }
-// ─────────────────────────────────────────────────────────
-// 5. ELEGANT — Serif with classic styling
-// ─────────────────────────────────────────────────────────
 function ElegantTemplate({
   portfolio,
   username,
@@ -9457,7 +9340,6 @@ function ElegantTemplate({
         lineHeight: "1.6",
       }}
     >
-      {/* Header */}
       <header
         style={{
           textAlign: "center",
@@ -9617,7 +9499,6 @@ function ElegantTemplate({
               ))}
             </section>
           )}
-          {/* Services — left column */}
           {portfolio.services?.length > 0 && (
             <div style={{ marginBottom: "20px" }}>
               <h2
@@ -9681,7 +9562,6 @@ function ElegantTemplate({
             </div>
           )}
 
-          {/* Clients — right column */}
           {portfolio.clients?.length > 0 && (
             <div style={{ marginBottom: "20px" }}>
               <h2
@@ -10000,9 +9880,6 @@ function ElegantTemplate({
   );
 }
 
-// ─────────────────────────────────────────────────────────
-// UPDATED PAGE COMPONENT — supports all 23 templates
-// ─────────────────────────────────────────────────────────
 export default async function PrintTemplatePage({
   params,
 }: {

@@ -55,7 +55,6 @@
 //     fonts: { heading: "Inter", body: "Inter" },
 //   },
 
-//   // ─── PRO ───
 //   {
 //     id: "midnight",
 //     name: "Midnight",
@@ -375,7 +374,6 @@ export interface Theme {
 }
 
 export const themes: Theme[] = [
-  // ─── FREE ───
   {
     id: "default",
     name: "Classic",
@@ -402,7 +400,6 @@ export const themes: Theme[] = [
     fonts: { heading: "Inter", body: "Inter" },
   },
 
-  // ─── PRO ───
   {
     id: "midnight",
     name: "Midnight",
@@ -529,7 +526,6 @@ export const themes: Theme[] = [
     fonts: { heading: "IBM Plex Sans", body: "IBM Plex Sans" },
   },
 
-  // ─── BUSINESS (القديمة محسّنة) ───
   {
     id: "sunset",
     name: "Sunset",
@@ -681,7 +677,6 @@ export const themes: Theme[] = [
     fonts: { heading: "Exo 2", body: "Open Sans" },
   },
 
-  // ─── BUSINESS (الجديدة) ───
   {
     id: "cosmos",
     name: "Cosmos",

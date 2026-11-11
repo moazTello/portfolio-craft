@@ -59,7 +59,6 @@ export default function ServicesPage() {
   useEffect(() => {
     if (!ready) return;
     fetchServices();
-    // جيب الـ plan
     api
       .get("/auth/me")
       .then((r) => r.json())
@@ -124,7 +123,6 @@ export default function ServicesPage() {
 
   if (!ready || loading) return <LoadingSkeleton rows={3} />;
 
-  // Free plan lock
   if (userPlan === "FREE") {
     return (
       <div className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-xl p-12 text-center">
@@ -147,7 +145,6 @@ export default function ServicesPage() {
 
   return (
     <div>
-      {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <div>
           <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">
@@ -170,8 +167,6 @@ export default function ServicesPage() {
           + Add Service
         </button>
       </div>
-
-      {/* Counter — Pro only */}
       {userPlan === "PRO" && (
         <div className="mb-6">
           <div className="flex items-center justify-between mb-1">
@@ -197,15 +192,12 @@ export default function ServicesPage() {
           </div>
         </div>
       )}
-
-      {/* Form */}
       {showForm && (
         <div className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-xl p-6 mb-6">
           <h2 className="text-base font-medium text-gray-900 dark:text-white mb-4">
             {editingId ? "Edit Service" : "New Service"}
           </h2>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            {/* Icon Picker */}
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Icon
@@ -229,7 +221,6 @@ export default function ServicesPage() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {/* Title */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                   Title *
@@ -246,7 +237,6 @@ export default function ServicesPage() {
                 )}
               </div>
 
-              {/* Price — Business only */}
               {userPlan === "BUSINESS" ? (
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
@@ -272,8 +262,6 @@ export default function ServicesPage() {
                 </div>
               )}
             </div>
-
-            {/* Description */}
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 Description
@@ -285,8 +273,6 @@ export default function ServicesPage() {
                 className="w-full border border-gray-200 dark:border-gray-700 dark:bg-gray-800 dark:text-white rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
             </div>
-
-            {/* Featured — Business only */}
             {userPlan === "BUSINESS" && (
               <div className="flex items-center gap-2">
                 <input
@@ -331,8 +317,6 @@ export default function ServicesPage() {
           </form>
         </div>
       )}
-
-      {/* Services Grid */}
       {services.length === 0 ? (
         <div className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-xl p-12 text-center">
           <p className="text-4xl mb-4">🛠️</p>

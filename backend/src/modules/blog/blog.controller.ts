@@ -46,10 +46,8 @@ class CreateBlogPostDto {
   @ApiPropertyOptional()
   @IsBoolean()
   @IsOptional()
-  published?: boolean; // ← تأكد موجود
+  published?: boolean; 
 }
-
-// ─── Dashboard Routes ────────────────────────────────────
 
 @ApiTags('Blog')
 @Controller('blog')
@@ -94,7 +92,6 @@ export class BlogController {
   }
 }
 
-// ─── Public Routes ───────────────────────────────────────
 
 @ApiTags('Blog Public')
 @Controller('public/blog')

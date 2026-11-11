@@ -16,7 +16,7 @@ export class AnalyticsController {
   //   return this.analyticsService.trackEvent(body.portfolioId, body)
   // }
   @Post('event')
-  @Throttle({ short: { limit: 30, ttl: 60000 } }) // max 30 events per minute
+  @Throttle({ short: { limit: 30, ttl: 60000 } }) 
   @ApiOperation({ summary: 'Track event (public)' })
   trackEvent(
     @Body() body: { portfolioId: string; eventType: string; section?: string },

@@ -58,7 +58,7 @@ export interface PdfTemplate {
   id: string;
   name: string;
   description: string;
-  preview: string; // CSS gradient for preview
+  preview: string; 
   accentColor: string;
   style: "modern" | "classic" | "minimal" | "bold" | "elegant";
 }

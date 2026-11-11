@@ -11,7 +11,6 @@ import { CurrentUser } from '../../common/decorators/current-user.decorator';
 @ApiBearerAuth()
 export class ExportController {
   constructor(private readonly exportService: ExportService) {}
-  //هي بدها ميموري بالباك
   // @Post('pdf')
   // @ApiOperation({ summary: 'Export portfolio as PDF (Business plan only)' })
   // async exportPdf(@CurrentUser() user: any, @Res() res: Response) {

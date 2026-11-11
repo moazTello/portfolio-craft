@@ -64,7 +64,6 @@ export function AvatarUploader({ currentAvatar, name, onUpdate }: Props) {
       const url = URL.createObjectURL(file);
 
       img.onload = () => {
-        // حساب الأبعاد الجديدة مع الحفاظ على النسبة
         let width = img.width;
         let height = img.height;
 
@@ -73,7 +72,6 @@ export function AvatarUploader({ currentAvatar, name, onUpdate }: Props) {
           width = maxWidth;
         }
 
-        // رسم الصورة على Canvas
         const canvas = document.createElement("canvas");
         canvas.width = width;
         canvas.height = height;
@@ -81,7 +79,6 @@ export function AvatarUploader({ currentAvatar, name, onUpdate }: Props) {
         const ctx = canvas.getContext("2d")!;
         ctx.drawImage(img, 0, 0, width, height);
 
-        // تحويل لـ base64 مع ضغط
         const base64 = canvas.toDataURL("image/jpeg", quality);
 
         URL.revokeObjectURL(url);
@@ -96,7 +93,6 @@ export function AvatarUploader({ currentAvatar, name, onUpdate }: Props) {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    // Check size — max 5MB قبل الضغط
     if (file.size > 5 * 1024 * 1024) {
       toast.error("Image must be less than 5MB");
       return;
@@ -105,7 +101,6 @@ export function AvatarUploader({ currentAvatar, name, onUpdate }: Props) {
     setLoading(true);
 
     try {
-      // ضغط الصورة قبل الرفع
       const originalSize = (file.size / 1024).toFixed(1);
       const base64 = await compressImage(file, 400, 0.8);
       const compressedSize = ((base64.length * 0.75) / 1024).toFixed(1);
@@ -135,7 +130,6 @@ export function AvatarUploader({ currentAvatar, name, onUpdate }: Props) {
   }
   return (
     <div className="flex items-center gap-6">
-      {/* Avatar preview */}
       <div className="relative">
         {currentAvatar ? (
           <img
@@ -155,7 +149,6 @@ export function AvatarUploader({ currentAvatar, name, onUpdate }: Props) {
         )}
       </div>
 
-      {/* Upload button */}
       <div>
         <label className="cursor-pointer bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg text-sm hover:bg-gray-50 dark:hover:bg-gray-800 transition">
           {loading ? "Uploading..." : "Change Photo"}

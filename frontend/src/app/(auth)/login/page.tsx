@@ -109,7 +109,6 @@ export default function LoginPage() {
           Sign up
         </Link>
       </p>
-      {/* OAuth Buttons */}
       <div className="mt-6">
         <div className="relative">
           <div className="absolute inset-0 flex items-center">

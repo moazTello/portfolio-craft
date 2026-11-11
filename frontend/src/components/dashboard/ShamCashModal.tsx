@@ -49,7 +49,6 @@ export function ShamCashModal({ plan, onClose }: Props) {
       }}
     >
       <div className="bg-white dark:bg-gray-900 rounded-2xl w-full max-w-md shadow-2xl flex flex-col max-h-[90vh]">
-        {/* Header */}
         <div className="bg-linear-to-r from-green-600 to-green-500 px-6 py-4 flex items-center justify-between rounded-t-2xl shrink-0">
           <div>
             <h2 className="text-white font-bold text-lg">ShamCash Payment</h2>
@@ -65,11 +64,9 @@ export function ShamCashModal({ plan, onClose }: Props) {
           </button>
         </div>
 
-        {/* Scrollable Content */}
         <div className="overflow-y-auto flex-1 rounded-b-2xl">
           {step === "qr" ? (
             <div className="p-6">
-              {/* Steps */}
               <div className="flex items-center gap-2 mb-6">
                 {["Scan & Pay", "Fill Info", "Done"].map((s, i) => (
                   <div key={s} className="flex items-center gap-2">
@@ -92,7 +89,6 @@ export function ShamCashModal({ plan, onClose }: Props) {
                 ))}
               </div>
 
-              {/* QR Code */}
               <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-4 text-center mb-4">
                 <p className="text-xs text-gray-500 mb-3">
                   Scan with ShamCash app
@@ -133,7 +129,6 @@ export function ShamCashModal({ plan, onClose }: Props) {
                   ShamCash app to help us identify your payment.
                 </p>
               </div>
-              {/* Info */}
               <div className="space-y-3 mb-6">
                 <div>
                   <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">
@@ -170,7 +165,6 @@ export function ShamCashModal({ plan, onClose }: Props) {
                 </div>
               </div>
 
-              {/* Notice */}
               <div className="bg-amber-50 dark:bg-amber-950 border border-amber-200 dark:border-amber-800 rounded-lg p-3 mb-4">
                 <p className="text-xs text-amber-700 dark:text-amber-400">
                   ⏱ Your account will be activated within{" "}
@@ -178,7 +172,6 @@ export function ShamCashModal({ plan, onClose }: Props) {
                 </p>
               </div>
 
-              {/* Submit */}
               <button
                 onClick={submitRequest}
                 disabled={loading}
@@ -187,7 +180,6 @@ export function ShamCashModal({ plan, onClose }: Props) {
                 {loading ? "Sending..." : "✓ I've sent the payment"}
               </button>
 
-              {/* WhatsApp */}
               <a
                 href={`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(`Hi! I want to upgrade to ${plan} plan on PortfolioCraft. Amount: ${PRICES[plan]}/month`)}`}
                 target="_blank"
@@ -197,7 +189,6 @@ export function ShamCashModal({ plan, onClose }: Props) {
                 In a hurry? Contact us on WhatsApp
               </a>
 
-              {/* Cancel */}
               <button
                 onClick={onClose}
                 className="w-full text-xs text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition py-1"
@@ -206,7 +197,6 @@ export function ShamCashModal({ plan, onClose }: Props) {
               </button>
             </div>
           ) : (
-            /* Success */
             <div className="p-6 text-center">
               <div className="text-6xl mb-4">✅</div>
               <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">

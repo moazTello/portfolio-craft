@@ -40,7 +40,6 @@ export class AuthService {
       verificationToken,
     });
 
-    // Send verification email
     await this.email.sendVerificationEmail(
       user.email,
       user.name,
@@ -140,13 +139,11 @@ export class AuthService {
     oauthId: string;
     avatarUrl?: string;
   }) {
-    // ابحث بالـ email أول
     let user = await this.prisma.user.findUnique({
       where: { email: data.email },
     });
 
     if (user) {
-      // حدّث الـ OAuth info إذا كان موجود
       user = await this.prisma.user.update({
         where: { id: user.id },
         data: {
@@ -158,7 +155,6 @@ export class AuthService {
         },
       });
     } else {
-      // أنشئ مستخدم جديد
       user = await this.prisma.user.create({
         data: {
           email: data.email,
@@ -184,12 +180,12 @@ export class AuthService {
 
     const accessToken = this.jwt.sign(payload, {
       secret: this.config.get('JWT_SECRET'),
-      expiresIn: '30m', // ← قصير للأمان
+      expiresIn: '30m',
     });
 
     const refreshToken = this.jwt.sign(payload, {
       secret: this.config.get('JWT_REFRESH_SECRET'),
-      expiresIn: '30d', // ← طويل للراحة
+      expiresIn: '30d',
     });
 
     return { accessToken, refreshToken };

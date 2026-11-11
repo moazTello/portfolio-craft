@@ -45,14 +45,14 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('register')
-  @Throttle({ short: { limit: 3, ttl: 60000 } }) // max 3 registers per minute
+  @Throttle({ short: { limit: 3, ttl: 60000 } })
   @ApiOperation({ summary: 'Register new user' })
   register(@Body() dto: RegisterDto) {
     return this.authService.register(dto);
   }
 
   @Post('login')
-  @Throttle({ short: { limit: 5, ttl: 60000 } }) // max 5 logins per minute
+  @Throttle({ short: { limit: 5, ttl: 60000 } }) 
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Login' })
   login(@Body() dto: LoginDto) {
@@ -60,7 +60,7 @@ export class AuthController {
   }
 
   @Post('forgot-password')
-  @Throttle({ short: { limit: 3, ttl: 60000 } }) // max 3 per minute
+  @Throttle({ short: { limit: 3, ttl: 60000 } }) 
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Forgot password' })
   forgotPassword(@Body() dto: ForgotPasswordDto) {
@@ -68,14 +68,14 @@ export class AuthController {
   }
 
   @Get('verify-email')
-  @SkipThrottle() // no limit on verify
+  @SkipThrottle() 
   @ApiOperation({ summary: 'Verify email' })
   verifyEmail(@Query('token') token: string) {
     return this.authService.verifyEmail(token);
   }
 
   @Get('me')
-  @SkipThrottle() // no limit on me
+  @SkipThrottle() 
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Get current user' })
@@ -91,7 +91,6 @@ export class AuthController {
     return this.authService.resetPassword(dto.token, dto.newPassword);
   }
 
-  // Google
   @Get('google')
   @UseGuards(AuthGuard('google'))
   @ApiOperation({ summary: 'Login with Google' })
@@ -108,7 +107,6 @@ export class AuthController {
     );
   }
 
-  // GitHub
   @Get('github')
   @UseGuards(AuthGuard('github'))
   @ApiOperation({ summary: 'Login with GitHub' })

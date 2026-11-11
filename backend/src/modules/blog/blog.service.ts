@@ -11,7 +11,6 @@ export class BlogService {
     private prisma: PrismaService,
     private uploadService: UploadService,
   ) {}
-  // ─── Private helpers ───────────────────────────────────
   private slugify(title: string): string {
     return title
       .toLowerCase()
@@ -36,7 +35,6 @@ export class BlogService {
     const words = content.trim().split(/\s+/).length;
     return Math.max(1, Math.ceil(words / 200));
   }
-  // ─── Dashboard (authenticated) ─────────────────────────
   async findAll(userId: string) {
     return this.prisma.blogPost.findMany({
       where: { userId },
@@ -84,7 +82,6 @@ export class BlogService {
     if (!data.title) throw new Error('Title is required');
     if (!data.content) throw new Error('Content is required');
 
-    // ارفع الـ cover image على Cloudinary
     let coverImage = data.coverImage;
     if (data.coverImage?.startsWith('data:')) {
       coverImage = await this.uploadService.uploadImage(
@@ -130,13 +127,10 @@ export class BlogService {
     });
     if (!post) throw new NotFoundException('Post not found');
 
-    // ارفع الـ cover image الجديدة على Cloudinary
     let coverImage = data.coverImage;
     if (data.coverImage?.startsWith('data:')) {
-      // احذف القديمة
       if (post.coverImage)
         await this.uploadService.deleteImage(post.coverImage);
-      // ارفع الجديدة
       coverImage = await this.uploadService.uploadImage(
         data.coverImage,
         'portfoliocraft/blog',
@@ -160,7 +154,6 @@ export class BlogService {
     });
     if (!post) throw new NotFoundException('Post not found');
 
-    // احذف الـ cover image من Cloudinary
     if (post.coverImage) await this.uploadService.deleteImage(post.coverImage);
 
     return this.prisma.blogPost.delete({ where: { id } });
@@ -171,8 +164,6 @@ export class BlogService {
       where: { portfolio: { username } },
     });
     if (!user) throw new NotFoundException('User not found');
-
-    // تحقق من الخطة
     const isPro = user.plan === 'PRO' || user.plan === 'BUSINESS';
     if (!isPro) throw new NotFoundException('Blog not available');
 

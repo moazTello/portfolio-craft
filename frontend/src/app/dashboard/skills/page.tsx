@@ -18,7 +18,6 @@ const schema = z.object({
 type FormValues = z.infer<typeof schema>;
 
 const categories = [
-  // Software & Development
   "Frontend",
   "Backend",
   "Database",
@@ -32,7 +31,6 @@ const categories = [
   "Game Development",
   "Blockchain",
 
-  // Design & Creative
   "UI/UX Design",
   "Graphic Design",
   "Motion Design",
@@ -41,14 +39,12 @@ const categories = [
   "Video Editing",
   "Architecture Design",
 
-  // Engineering
   "Civil Engineering",
   "Mechanical Engineering",
   "Electrical Engineering",
   "Structural Engineering",
   "Environmental Engineering",
 
-  // Business & Management
   "Project Management",
   "Marketing",
   "Sales",
@@ -57,7 +53,6 @@ const categories = [
   "HR",
   "Business Analysis",
 
-  // Legal
   "Corporate Law",
   "Criminal Law",
   "Civil Law",
@@ -65,25 +60,21 @@ const categories = [
   "International Law",
   "Real Estate Law",
 
-  // Healthcare
   "Medicine",
   "Dentistry",
   "Pharmacy",
   "Nursing",
   "Psychology",
 
-  // Education & Research
   "Teaching",
   "Research",
   "Data Analysis",
   "Statistics",
 
-  // Languages
   "Translation",
   "Content Writing",
   "Copywriting",
 
-  // Other
   "Other",
 ]
 
@@ -186,7 +177,6 @@ export default function SkillsPage() {
     setShowForm(true);
   }
 
-  // Group skills by category
   const grouped = skills.reduce((acc: any, skill: any) => {
     if (!acc[skill.category]) acc[skill.category] = [];
     acc[skill.category].push(skill);
@@ -196,7 +186,6 @@ export default function SkillsPage() {
   if (loading) return <LoadingSkeleton rows={3} />;
   return (
     <div>
-      {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-2xl font-semibold text-gray-900">Skills</h1>
@@ -214,14 +203,12 @@ export default function SkillsPage() {
         </button>
       </div>
 
-      {/* Form */}
       {showForm && (
         <div className="bg-white border border-gray-100 rounded-xl p-6 mb-6">
           <h2 className="text-base font-medium text-gray-900 mb-4">
             {editingId ? "Edit Skill" : "New Skill"}
           </h2>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            {/* Form grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label
@@ -322,7 +309,6 @@ export default function SkillsPage() {
         </div>
       )}
 
-      {/* Skills List */}
       {loading ? (
         // <p className="text-gray-400 text-sm">Loading...</p>
         <LoadingSkeleton rows={3} />

@@ -11,7 +11,6 @@ export class ExportService {
   ) {}
 
   //   async exportPdf(userId: string) {
-  //     // تحقق من الخطة
   //     const user = await this.prisma.user.findUnique({ where: { id: userId } });
   //     if (user?.plan !== 'BUSINESS') {
   //       throw new ForbiddenException(
@@ -19,7 +18,6 @@ export class ExportService {
   //       );
   //     }
 
-  //     // جيب الـ username
   //     const portfolio = await this.prisma.portfolio.findUnique({
   //       where: { userId },
   //     });
@@ -28,7 +26,6 @@ export class ExportService {
   //     const frontendUrl = this.config.get('FRONTEND_URL');
   //     const url = `${frontendUrl}/${portfolio.username}?mode=print`;
 
-  //     // شغّل Puppeteer
   //     const browser = await puppeteer.launch({
   //       headless: true,
   //       args: ['--no-sandbox', '--disable-setuid-sandbox'],
@@ -39,7 +36,6 @@ export class ExportService {
   //       await page.setViewport({ width: 1200, height: 800 });
   //       await page.goto(url, { waitUntil: 'networkidle0', timeout: 30000 });
 
-  //       // انتظر تحميل الصور والـ animations
   //       await new Promise((resolve) => setTimeout(resolve, 2000));
 
   //       const pdf = await page.pdf({

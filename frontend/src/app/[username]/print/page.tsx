@@ -468,7 +468,6 @@ export default async function PrintPage({
         lineHeight: "1.5",
       }}
     >
-      {/* Header */}
       <div
         style={{
           display: "flex",
@@ -531,7 +530,6 @@ export default async function PrintPage({
         )}
       </div>
 
-      {/* Two Column Layout */}
       <div
         style={{
           display: "grid",
@@ -539,9 +537,7 @@ export default async function PrintPage({
           gap: "32px",
         }}
       >
-        {/* LEFT COLUMN */}
         <div>
-          {/* Summary */}
           {portfolio.aboutText && (
             <div style={{ marginBottom: "20px" }}>
               <h2
@@ -562,8 +558,6 @@ export default async function PrintPage({
               </p>
             </div>
           )}
-
-          {/* Experience */}
           {portfolio.experiences?.length > 0 && (
             <div style={{ marginBottom: "20px" }}>
               <h2
@@ -646,8 +640,6 @@ export default async function PrintPage({
               ))}
             </div>
           )}
-
-          {/* Projects */}
           {portfolio.projects?.length > 0 && (
             <div style={{ marginBottom: "20px" }}>
               <h2
@@ -733,7 +725,6 @@ export default async function PrintPage({
             </div>
           )}
 
-          {/* Testimonials */}
           {portfolio.testimonials?.length > 0 && (
             <div style={{ marginBottom: "20px" }}>
               <h2
@@ -786,10 +777,7 @@ export default async function PrintPage({
             </div>
           )}
         </div>
-
-        {/* RIGHT COLUMN */}
         <div>
-          {/* Online */}
           {(portfolio.github || portfolio.linkedin || portfolio.website) && (
             <div style={{ marginBottom: "20px" }}>
               <h2
@@ -877,8 +865,6 @@ export default async function PrintPage({
               </div>
             </div>
           )}
-
-          {/* Skills */}
           {portfolio.skills?.length > 0 && (
             <div style={{ marginBottom: "20px" }}>
               <h2
@@ -913,8 +899,6 @@ export default async function PrintPage({
               </div>
             </div>
           )}
-
-          {/* Certificates */}
           {portfolio.certificates?.length > 0 && (
             <div style={{ marginBottom: "20px" }}>
               <h2
@@ -958,8 +942,6 @@ export default async function PrintPage({
           )}
         </div>
       </div>
-
-      {/* Footer */}
       <div
         style={{
           marginTop: "20px",

@@ -73,7 +73,6 @@ export default function EditBlogPostPage() {
   if (loading) return <LoadingSkeleton rows={4} />;
   return (
     <div className="max-w-3xl mx-auto">
-      {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <button
           onClick={() => router.push("/dashboard/blog")}
@@ -112,7 +111,6 @@ export default function EditBlogPostPage() {
           )}
         </div>
       </div>
-      {/* Status */}
       <div
         className={`text-xs px-3 py-1.5 rounded-lg mb-4 inline-block ${
           published
@@ -122,7 +120,6 @@ export default function EditBlogPostPage() {
       >
         {published ? "● Published" : "○ Draft"}
       </div>
-      {/* Editor */}
       <div className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-xl overflow-hidden">
         <div className="p-6 border-b border-gray-100 dark:border-gray-800">
           <input

@@ -13,7 +13,6 @@ export class BookingService {
     private config: ConfigService,
   ) {}
 
-  // ─── Availability ───────────────────────────────────────
   private async checkBusinessPlan(userId: string) {
     const user = await this.prisma.user.findUnique({ where: { id: userId } });
     if (user?.plan !== 'BUSINESS') {
@@ -50,7 +49,6 @@ export class BookingService {
     });
     if (!portfolio) throw new NotFoundException('Portfolio not found');
 
-    // Delete existing and recreate
     await this.prisma.availability.deleteMany({
       where: { portfolioId: portfolio.id },
     });
@@ -84,9 +82,6 @@ export class BookingService {
       data,
     });
   }
-
-  // ─── Bookings ───────────────────────────────────────────
-
   async getBookings(userId: string, status?: string) {
     await this.checkBusinessPlan(userId);
     return this.prisma.booking.findMany({
@@ -119,9 +114,6 @@ export class BookingService {
     if (!booking) throw new NotFoundException('Booking not found');
     return this.prisma.booking.delete({ where: { id } });
   }
-
-  // ─── Public ─────────────────────────────────────────────
-
   async getPublicAvailability(username: string) {
     const portfolio = await this.prisma.portfolio.findUnique({
       where: { username, published: true },
@@ -158,16 +150,12 @@ export class BookingService {
 
     const duration = portfolio.bookingDuration ?? 60;
     const buffer = portfolio.bookingBuffer ?? 0;
-
-    // Generate slots
     const slots: string[] = [];
     const [startH, startM] = dayAvailability.startTime.split(':').map(Number);
     const [endH, endM] = dayAvailability.endTime.split(':').map(Number);
 
     let current = startH * 60 + startM;
     const end = endH * 60 + endM;
-
-    // Get existing bookings for this date
     const startOfDay = new Date(date);
     startOfDay.setHours(0, 0, 0, 0);
     const endOfDay = new Date(date);
@@ -187,8 +175,6 @@ export class BookingService {
         .padStart(2, '0');
       const minutes = (current % 60).toString().padStart(2, '0');
       const timeStr = `${hours}:${minutes}`;
-
-      // Check if slot is taken
       const slotStart = new Date(date);
       slotStart.setHours(Math.floor(current / 60), current % 60, 0, 0);
 
@@ -256,7 +242,7 @@ export class BookingService {
   ) {
     const portfolio = await this.prisma.portfolio.findUnique({
       where: { username, published: true },
-      include: { user: true }, // ← أضف include
+      include: { user: true },
     });
     if (!portfolio || !portfolio.bookingEnabled) {
       throw new BadRequestException('Booking not available');
@@ -282,8 +268,6 @@ export class BookingService {
         status: 'PENDING',
       },
     });
-
-    // Telegram notification لصاحب البورتفوليو
     const ownerChatId = portfolio.user?.telegramChatId;
     if (ownerChatId) {
       const botToken = this.config.get('TELEGRAM_BOT_TOKEN');

@@ -37,7 +37,6 @@ export class MessagesService {
       const isPro =
         portfolio.user.plan === 'PRO' || portfolio.user.plan === 'BUSINESS';
 
-      // إيميل بس للـ Pro و Business
       if (isPro) {
         await this.email
           .sendContactNotification(
@@ -50,8 +49,6 @@ export class MessagesService {
           )
           .catch(() => {});
       }
-
-      // تيليغرام للجميع
       if (portfolio.user.telegramChatId) {
         const text = `
         📬 <b>New message on your portfolio!</b>

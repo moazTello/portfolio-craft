@@ -6,7 +6,6 @@ export function ServerStatus() {
   const [offline, setOffline] = useState(false);
 
   useEffect(() => {
-    // Listen for custom offline event
     const handler = () => setOffline(true);
     const onlineHandler = () => setOffline(false);
 

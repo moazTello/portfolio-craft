@@ -16,11 +16,9 @@ function OAuthCallbackContent() {
       return;
     }
 
-    // احفظ في localStorage
     localStorage.setItem("token", token);
     if (refresh) localStorage.setItem("refreshToken", refresh);
 
-    // احفظ في cookie عشان الـ middleware يشوفه
     document.cookie = `token=${token}; path=/; max-age=${7 * 24 * 60 * 60}; SameSite=Lax`;
 
     setTimeout(() => {

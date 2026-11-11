@@ -166,7 +166,6 @@ export default function BusinessCardsPage() {
 
   return (
     <div>
-      {/* Header */}
       <div className="mb-8">
         <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">
           Business Cards
@@ -177,9 +176,7 @@ export default function BusinessCardsPage() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {/* Left — Design Picker */}
         <div className="space-y-6">
-          {/* Design Selection */}
           <div className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-xl p-6">
             <h2 className="text-base font-medium text-gray-900 dark:text-white mb-4">
               Choose Design
@@ -195,7 +192,6 @@ export default function BusinessCardsPage() {
                       : "border-transparent"
                   }`}
                 >
-                  {/* Mini Card Preview */}
                   <div
                     className="h-20 flex items-center justify-center"
                     style={{ background: d.bg, border: d.border }}
@@ -219,7 +215,6 @@ export default function BusinessCardsPage() {
                       >
                         {d.desc}
                       </div>
-                      {/* Mini QR */}
                       <div
                         style={{
                           width: "20px",
@@ -255,7 +250,6 @@ export default function BusinessCardsPage() {
             </div>
           </div>
 
-          {/* Quantity */}
           <div className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-xl p-6">
             <h2 className="text-base font-medium text-gray-900 dark:text-white mb-4">
               Quantity
@@ -281,9 +275,7 @@ export default function BusinessCardsPage() {
           </div>
         </div>
 
-        {/* Right — Preview + Order */}
         <div className="space-y-6">
-          {/* Card Preview */}
           <div className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-xl p-6">
             <h2 className="text-base font-medium text-gray-900 dark:text-white mb-4">
               Preview
@@ -296,7 +288,6 @@ export default function BusinessCardsPage() {
                 minHeight: "160px",
               }}
             >
-              {/* Accent line */}
               <div
                 style={{
                   position: "absolute",
@@ -341,8 +332,6 @@ export default function BusinessCardsPage() {
                   <div>{portfolio?.location || "Your City"}</div>
                 </div>
               </div>
-
-              {/* QR hint */}
               <div
                 style={{
                   position: "absolute",
@@ -403,7 +392,6 @@ export default function BusinessCardsPage() {
             </div>
           </div>
 
-          {/* Order Summary */}
           <div className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-xl p-6">
             <h2 className="text-base font-medium text-gray-900 dark:text-white mb-4">
               Order Summary
@@ -442,8 +430,6 @@ export default function BusinessCardsPage() {
           </div>
         </div>
       </div>
-
-      {/* Order Form Modal */}
       {showOrder && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 w-full max-w-md">
@@ -500,8 +486,6 @@ export default function BusinessCardsPage() {
                 />
               </div>
             </div>
-
-            {/* ShamCash Info */}
             <div className="bg-green-50 dark:bg-green-950 border border-green-100 dark:border-green-900 rounded-xl p-4 mb-4">
               <p className="text-sm font-medium text-green-700 dark:text-green-400 mb-1">
                 Payment via ShamCash

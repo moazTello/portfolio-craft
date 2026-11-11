@@ -97,7 +97,6 @@ export default function EditPortfolioPage() {
 
   async function onSubmit(values: FormValues) {
     try {
-      // احذف الـ fields الفاضية
       const payload = Object.fromEntries(
         Object.entries({
           ...values,
@@ -169,7 +168,6 @@ export default function EditPortfolioPage() {
   if (!ready || loading) return <LoadingSkeleton rows={4} />;
   return (
     <div className="max-w-4xl">
-      {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4">
         <div>
           <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">
@@ -202,7 +200,6 @@ export default function EditPortfolioPage() {
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-        {/* Hero */}
         <div className="bg-white border border-gray-100 rounded-xl p-6">
           <h2 className="text-base font-medium text-gray-900 mb-4">
             Hero Section
@@ -239,7 +236,6 @@ export default function EditPortfolioPage() {
           </div>
         </div>
 
-        {/* About */}
         <div className="bg-white border border-gray-100 rounded-xl p-6">
           <h2 className="text-base font-medium text-gray-900 mb-4">About Me</h2>
           <textarea
@@ -250,8 +246,6 @@ export default function EditPortfolioPage() {
             className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
         </div>
-
-        {/* Contact */}
         <div className="bg-white border border-gray-100 rounded-xl p-6">
           <h2 className="text-base font-medium text-gray-900 mb-4">
             Contact Info
@@ -308,8 +302,6 @@ export default function EditPortfolioPage() {
             </div>
           </div>
         </div>
-
-        {/* Social Links */}
         <div className="bg-white border border-gray-100 rounded-xl p-6">
           <h2 className="text-base font-medium text-gray-900 mb-4">
             Social Links
@@ -425,8 +417,6 @@ export default function EditPortfolioPage() {
             })}
           </div>
         </div>
-
-        {/* SEO */}
         <div className="bg-white border border-gray-100 rounded-xl p-6">
           <h2 className="text-base font-medium text-gray-900 mb-1">
             SEO Settings 
@@ -461,8 +451,6 @@ export default function EditPortfolioPage() {
             </div>
           </div>
         </div>
-
-        {/* CV Template — Business only */}
         {userPlan === "BUSINESS" && (
           <div className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-xl p-6">
             <h2 className="text-base font-medium text-gray-900 dark:text-white mb-1">
@@ -487,9 +475,7 @@ export default function EditPortfolioPage() {
                       : "border-transparent hover:border-gray-300 dark:hover:border-gray-600"
                   }`}
                 >
-                  {/* Preview gradient */}
                   <div style={{ background: tmpl.preview, height: "56px" }} />
-                  {/* Info */}
                   <div className="bg-gray-50 dark:bg-gray-800 px-2 py-2">
                     <p className="text-xs font-semibold text-gray-900 dark:text-white">
                       {tmpl.name}
@@ -501,8 +487,6 @@ export default function EditPortfolioPage() {
                 </button>
               ))}
             </div>
-
-            {/* Preview Links */}
             <div className="flex flex-wrap gap-3 mt-4">
               {pdfTemplates.map((tmpl) => (
                 <a
@@ -521,7 +505,6 @@ export default function EditPortfolioPage() {
             </div>
           </div>
         )}
-        {/* Save Button */}
         <div className="flex gap-3 pb-8">
           <button
             type="submit"

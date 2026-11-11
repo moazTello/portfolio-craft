@@ -29,7 +29,6 @@ export class UploadService {
 
   async deleteImage(url: string): Promise<void> {
     try {
-      // استخرج الـ public_id من الـ URL
       const parts = url.split('/')
       const filename = parts[parts.length - 1].split('.')[0]
       const folder = parts[parts.length - 2]

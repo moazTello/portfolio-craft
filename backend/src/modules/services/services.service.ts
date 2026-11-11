@@ -64,7 +64,6 @@ export class ServicesService {
       );
     }
 
-    // Business only — price و featured
     const cleanData = { ...data };
     if (user?.plan !== 'BUSINESS') {
       delete cleanData.price;

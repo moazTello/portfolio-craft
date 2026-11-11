@@ -31,7 +31,6 @@ async function fetchWithTimeout(url: string, options: RequestInit = {}) {
       throw new Error("Too many requests");
     }
     if (res.status === 401) {
-      // حاول تجدد الـ token
       const refreshToken = localStorage.getItem("refreshToken");
       if (refreshToken && !isRefreshing) {
         isRefreshing = true;
@@ -45,14 +44,12 @@ async function fetchWithTimeout(url: string, options: RequestInit = {}) {
             const data = await refreshRes.json();
             localStorage.setItem("token", data.accessToken);
             isRefreshing = false;
-            // أعد المحاولة بالـ token الجديد
             return fetchWithTimeout(url, options);
           }
         } catch {
           isRefreshing = false;
         }
       }
-      // فشل التجديد — سجّل خروج
       toast.error("Session expired. Please login again.");
       localStorage.removeItem("token");
       localStorage.removeItem("refreshToken");

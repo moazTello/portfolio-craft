@@ -55,7 +55,6 @@ export default function DashboardPage() {
         setPortfolio(portfolioData);
         setHasPortfolio(true);
 
-        // Fetch stats
         return Promise.all([
           // fetch("http://localhost:3001/v1/analytics/mine/summary", {
           //   headers: { Authorization: `Bearer ${getToken()}` },
@@ -102,7 +101,6 @@ export default function DashboardPage() {
     return <LoadingSkeleton rows={3} />;
   }
 
-  // No portfolio yet
   if (!hasPortfolio) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] text-center">
@@ -127,7 +125,6 @@ export default function DashboardPage() {
 
   return (
     <div>
-      {/* Header */}
       <div className="mb-8">
         <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">
           Welcome back, {user.name} 👋
@@ -137,7 +134,6 @@ export default function DashboardPage() {
         </p>
       </div>
 
-      {/* Portfolio URL */}
       {portfolio && (
         <div className="bg-indigo-50 dark:bg-indigo-950 border border-indigo-100 dark:border-indigo-900 rounded-xl p-4 mb-6 flex items-center justify-between">
           <div>
@@ -157,8 +153,6 @@ export default function DashboardPage() {
           </div>
         </div>
       )}
-
-      {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
         <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-100 dark:border-gray-800 p-5">
           <p className="text-xs text-gray-500 mb-1">Portfolio Views</p>
@@ -194,7 +188,6 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      {/* Quick Actions */}
       <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-100 dark:border-gray-800 p-6">
         <h2 className="text-base font-medium text-gray-900 dark:text-white mb-4">
           Quick Actions
@@ -230,7 +223,6 @@ export default function DashboardPage() {
           ))}
         </div>
       </div>
-      {/* Welcome Video */}
       {/* <div className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-xl p-6 mb-6">
         <h2 className="text-base font-medium text-gray-900 dark:text-white mb-1">
           🎬 Getting Started

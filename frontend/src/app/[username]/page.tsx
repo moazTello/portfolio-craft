@@ -29,26 +29,34 @@ async function getPortfolio(username: string) {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ username: string }>
+  params: Promise<{ username: string }>;
 }): Promise<Metadata> {
-  const { username } = await params
-  const portfolio = await getPortfolio(username)
-  if (!portfolio) return { title: 'Portfolio Not Found' }
+  const { username } = await params;
+  const portfolio = await getPortfolio(username);
+  if (!portfolio) return { title: "Portfolio Not Found" };
 
-  const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.portfolio-craft.com').replace(/\/$/, '')
-  const portfolioUrl = `${SITE_URL}/${username}`
-  const title = portfolio.seoTitle ?? `${portfolio.heroTitle} | ${portfolio.heroSubtitle}`
-  const description = portfolio.seoDescription ?? portfolio.aboutText?.slice(0, 160) ?? `${portfolio.heroTitle} - Professional Portfolio`
+  const SITE_URL = (
+    process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.portfolio-craft.com"
+  ).replace(/\/$/, "");
+  const portfolioUrl = `${SITE_URL}/${username}`;
+  const title =
+    portfolio.seoTitle ?? `${portfolio.heroTitle} | ${portfolio.heroSubtitle}`;
+  const description =
+    portfolio.seoDescription ??
+    portfolio.aboutText?.slice(0, 160) ??
+    `${portfolio.heroTitle} - Professional Portfolio`;
 
   const keywords = [
     portfolio.heroTitle,
     portfolio.heroSubtitle,
     ...(portfolio.skills?.map((s: any) => s.name) ?? []),
-    portfolio.location ?? '',
-    'portfolio',
-    'professional portfolio',
-    'PortfolioCraft',
-  ].filter(Boolean).join(', ')
+    portfolio.location ?? "",
+    "portfolio",
+    "professional portfolio",
+    "PortfolioCraft",
+  ]
+    .filter(Boolean)
+    .join(", ");
 
   return {
     title,
@@ -56,27 +64,27 @@ export async function generateMetadata({
     keywords,
     authors: [{ name: portfolio.heroTitle, url: portfolioUrl }],
     creator: portfolio.heroTitle,
-    metadataBase: new URL('https://www.portfolio-craft.com'),
+    metadataBase: new URL("https://www.portfolio-craft.com"),
     alternates: {
       canonical: portfolioUrl,
     },
     openGraph: {
       title,
       description,
-      type: 'profile',
+      type: "profile",
       url: portfolioUrl,
-      siteName: 'PortfolioCraft',
-      firstName: portfolio.heroTitle?.split(' ')[0],
-      lastName: portfolio.heroTitle?.split(' ').slice(1).join(' '),
+      siteName: "PortfolioCraft",
+      firstName: portfolio.heroTitle?.split(" ")[0],
+      lastName: portfolio.heroTitle?.split(" ").slice(1).join(" "),
       images: portfolio.ogImage
         ? [{ url: portfolio.ogImage, width: 1200, height: 630, alt: title }]
-        : [{ url: '/og-image.png', width: 1200, height: 630, alt: title }],
+        : [{ url: "/og-image.png", width: 1200, height: 630, alt: title }],
     },
     twitter: {
-      card: 'summary_large_image',
+      card: "summary_large_image",
       title,
       description,
-      images: portfolio.ogImage ? [portfolio.ogImage] : ['/og-image.png'],
+      images: portfolio.ogImage ? [portfolio.ogImage] : ["/og-image.png"],
     },
     robots: {
       index: true,
@@ -84,15 +92,15 @@ export async function generateMetadata({
       googleBot: {
         index: true,
         follow: true,
-        'max-snippet': -1,
-        'max-image-preview': 'large',
+        "max-snippet": -1,
+        "max-image-preview": "large",
       },
     },
     other: {
-      'article:modified_time': portfolio.updatedAt,
-      'profile:username': username,
+      "article:modified_time": portfolio.updatedAt,
+      "profile:username": username,
     },
-  }
+  };
 }
 
 export default async function PortfolioPage({
@@ -104,10 +112,9 @@ export default async function PortfolioPage({
   const portfolio = await getPortfolio(username);
   if (!portfolio) notFound();
   if (portfolio.notPublished) {
-    // تحقق إذا كان صاحب البورتفوليو
     const cookieStore = await cookies();
     const token = cookieStore.get("token")?.value;
-    const isOwner = token ? true : false; // لو عنده token غالباً هو صاحبه
+    const isOwner = token ? true : false;
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 dark:bg-gray-950 text-center px-6">
         <div className="text-5xl mb-4">🔒</div>
@@ -184,7 +191,6 @@ export default async function PortfolioPage({
         }}
       >
         <JsonLd portfolio={portfolio} username={username} />
-        {/* Nav */}
         {/* <nav
           style={{
             borderBottom: "1px solid var(--p-border)",
@@ -194,7 +200,6 @@ export default async function PortfolioPage({
         >
           <DarkModeToggle />
         </nav> */}
-        {/* Hero */}
         <section
           style={{
             background: `linear-gradient(135deg, var(--p-hero-from), var(--p-hero-to))`,
@@ -202,13 +207,12 @@ export default async function PortfolioPage({
           className="py-24 px-6"
         >
           <div className="max-w-3xl mx-auto text-center">
-            {/* Avatar */}
             {portfolio.user?.avatarUrl && (
               <FadeUp>
                 <img
                   src={portfolio.user.avatarUrl}
                   alt={portfolio.heroTitle}
-                  className="w-24 h-24 rounded-full object-cover mx-auto mb-6 border-4 shadow-md"
+                  className="w-36 h-36 md:w-24 md:h-24 rounded-full object-cover mx-auto mb-6 border-4 shadow-md"
                   style={{ borderColor: "var(--p-border)" }}
                 />
               </FadeUp>
@@ -314,7 +318,6 @@ export default async function PortfolioPage({
             </FadeUp>
           </div>
         </section>
-        {/* Projects */}
         {portfolio.projects?.length > 0 && (
           <section
             style={{ background: "var(--p-section-bg)" }}
@@ -461,7 +464,6 @@ export default async function PortfolioPage({
             </div>
           </section>
         )}
-        {/* Skills */}
         {portfolio.skills?.length > 0 && (
           <section style={{ background: "var(--p-bg)" }} className="py-20 px-6">
             <div className="max-w-3xl mx-auto">
@@ -486,7 +488,6 @@ export default async function PortfolioPage({
             </div>
           </section>
         )}
-        {/* Experience */}
         {portfolio.experiences?.length > 0 && (
           <section
             style={{ background: "var(--p-section-bg)" }}
@@ -567,7 +568,6 @@ export default async function PortfolioPage({
             </div>
           </section>
         )}
-        {/* Certificates */}
         {portfolio.certificates?.length > 0 && (
           <section style={{ background: "var(--p-bg)" }} className="py-20 px-6">
             <div className="max-w-5xl mx-auto">
@@ -843,7 +843,6 @@ export default async function PortfolioPage({
             </div>
           </section>
         )}
-        {/* Testimonials */}
         {portfolio.testimonials?.length > 0 && (
           <section
             style={{ background: "var(--p-section-bg)" }}
@@ -958,7 +957,6 @@ export default async function PortfolioPage({
             </div>
           </section>
         )}
-        {/* Contact */}
         {(portfolio.email || portfolio.phone || portfolio.location) && (
           <section style={{ background: "var(--p-bg)" }} className="py-20 px-6">
             <div className="max-w-3xl mx-auto">
@@ -1038,7 +1036,6 @@ export default async function PortfolioPage({
           </section>
         )}
 
-        {/* Footer */}
         <footer
           style={{
             borderTop: "1px solid var(--p-border)",

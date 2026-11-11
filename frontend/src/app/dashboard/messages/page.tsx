@@ -71,7 +71,6 @@ export default function MessagesPage() {
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {/* Messages List */}
           <div className="md:col-span-1 space-y-2">
             {messages.map((msg) => (
               <div
@@ -107,7 +106,6 @@ export default function MessagesPage() {
             ))}
           </div>
 
-          {/* Message Detail */}
           <div className="md:col-span-2">
             {selected ? (
               <div className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-xl p-6">

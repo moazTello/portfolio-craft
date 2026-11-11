@@ -135,9 +135,6 @@ export default async function PrintTemplatePage({
     </>
   );
 }
-// ─────────────────────────────────────────────────────────
-// SHARED TYPES
-// ─────────────────────────────────────────────────────────
 interface TemplateProps {
   portfolio: any;
   username: string;
@@ -145,9 +142,7 @@ interface TemplateProps {
   githubUsername?: string;
   linkedinUsername?: string;
 }
-// ─────────────────────────────────────────────────────────
-// 1. MODERN — Two column with colored left sidebar
-// ─────────────────────────────────────────────────────────
+
 function ModernTemplate({
   portfolio,
   username,
@@ -165,7 +160,6 @@ function ModernTemplate({
         fontSize: "12px",
       }}
     >
-      {/* Sidebar */}
       <aside
         style={{
           width: "240px",
@@ -439,7 +433,6 @@ function ModernTemplate({
             ))}
           </section>
         )}
-        {/* Services — left column */}
         {portfolio.services?.length > 0 && (
           <div style={{ marginBottom: "20px" }}>
             <h2
@@ -502,7 +495,6 @@ function ModernTemplate({
             </div>
           </div>
         )}
-        {/* Clients — right column */}
         {portfolio.clients?.length > 0 && (
           <div style={{ marginBottom: "20px" }}>
             <h2
@@ -782,9 +774,7 @@ function ModernTemplate({
     </main>
   );
 }
-// ─────────────────────────────────────────────────────────
-// 2. EXECUTIVE — Dark header with gold accents
-// ─────────────────────────────────────────────────────────
+
 function ExecutiveTemplate({
   portfolio,
   username,
@@ -802,7 +792,6 @@ function ExecutiveTemplate({
         fontSize: "12px",
       }}
     >
-      {/* Dark Header */}
       <header
         style={{
           background: "#1a1a2e",
@@ -965,7 +954,6 @@ function ExecutiveTemplate({
                 ))}
               </section>
             )}
-            {/* Services — left column */}
             {portfolio.services?.length > 0 && (
               <div style={{ marginBottom: "20px" }}>
                 <h2
@@ -1028,8 +1016,6 @@ function ExecutiveTemplate({
                 </div>
               </div>
             )}
-
-            {/* Clients — right column */}
             {portfolio.clients?.length > 0 && (
               <div style={{ marginBottom: "20px" }}>
                 <h2
@@ -1380,9 +1366,6 @@ function ExecutiveTemplate({
     </main>
   );
 }
-// ─────────────────────────────────────────────────────────
-// 3. MINIMAL — Ultra clean typography
-// ─────────────────────────────────────────────────────────
 function MinimalTemplate({
   portfolio,
   username,
@@ -1648,7 +1631,6 @@ function MinimalTemplate({
           </div>
         )}
 
-        {/* Clients — right column */}
         {portfolio.clients?.length > 0 && (
           <div style={{ marginBottom: "20px" }}>
             <h2
@@ -1888,9 +1870,6 @@ function MinimalTemplate({
     </main>
   );
 }
-// ─────────────────────────────────────────────────────────
-// 4. CREATIVE — Bold dark with colored accents
-// ─────────────────────────────────────────────────────────
 function CreativeTemplate({
   portfolio,
   username,
@@ -1908,7 +1887,6 @@ function CreativeTemplate({
         fontSize: "12px",
       }}
     >
-      {/* Header */}
       <header
         style={{
           padding: "40px",
@@ -1971,7 +1949,6 @@ function CreativeTemplate({
           gap: "32px",
         }}
       >
-        {/* Left */}
         <div>
           {portfolio.aboutText && (
             <section style={{ marginBottom: "24px" }}>
@@ -2068,7 +2045,6 @@ function CreativeTemplate({
               ))}
             </section>
           )}
-          {/* Services — left column */}
           {portfolio.services?.length > 0 && (
             <div style={{ marginBottom: "20px" }}>
               <h2
@@ -2131,8 +2107,6 @@ function CreativeTemplate({
               </div>
             </div>
           )}
-
-          {/* Clients — right column */}
           {portfolio.clients?.length > 0 && (
             <div style={{ marginBottom: "20px" }}>
               <h2
@@ -2249,7 +2223,6 @@ function CreativeTemplate({
             </section>
           )}
         </div>
-        {/* Right */}
         <div>
           {portfolio.skills?.length > 0 && (
             <section style={{ marginBottom: "24px" }}>
@@ -2498,9 +2471,6 @@ function CreativeTemplate({
     </main>
   );
 }
-// ─────────────────────────────────────────────────────────
-// 5. ELEGANT — Serif with classic styling
-// ─────────────────────────────────────────────────────────
 function ElegantTemplate({
   portfolio,
   username,
@@ -2520,7 +2490,6 @@ function ElegantTemplate({
         lineHeight: "1.6",
       }}
     >
-      {/* Header */}
       <header
         style={{
           textAlign: "center",
@@ -2680,7 +2649,6 @@ function ElegantTemplate({
               ))}
             </section>
           )}
-          {/* Services — left column */}
           {portfolio.services?.length > 0 && (
             <div style={{ marginBottom: "20px" }}>
               <h2
@@ -2743,8 +2711,6 @@ function ElegantTemplate({
               </div>
             </div>
           )}
-
-          {/* Clients — right column */}
           {portfolio.clients?.length > 0 && (
             <div style={{ marginBottom: "20px" }}>
               <h2

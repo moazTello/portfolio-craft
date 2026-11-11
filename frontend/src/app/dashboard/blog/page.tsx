@@ -16,7 +16,6 @@ export default function BlogPage() {
   useEffect(() => {
     if (!ready) return;
 
-    // تحقق من الخطة
     api
       .get("/auth/me")
       .then((r) => r.json())
@@ -57,7 +56,6 @@ export default function BlogPage() {
     }
   }
   if (!ready || loading) return <LoadingSkeleton rows={4} />;
-  // إذا FREE — أظهر upgrade page
   if (userPlan === "FREE") {
     return (
       <div className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-xl p-12 text-center">
@@ -79,7 +77,6 @@ export default function BlogPage() {
   }
   return (
     <div>
-      {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">
@@ -94,7 +91,6 @@ export default function BlogPage() {
           + New Post
         </button>
       </div>
-      {/* Posts */}
       {posts.length === 0 ? (
         <div className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-xl p-12 text-center">
           <p className="text-4xl mb-4">✍️</p>

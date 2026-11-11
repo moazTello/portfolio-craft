@@ -28,7 +28,7 @@ const DEFAULT_AVAILABILITY = DAYS.map((_, i) => ({
   dayOfWeek: i,
   startTime: "09:00",
   endTime: "17:00",
-  isActive: i >= 1 && i <= 5, // Mon-Fri
+  isActive: i >= 1 && i <= 5,
 }));
 
 export default function BookingPage() {
@@ -165,7 +165,6 @@ export default function BookingPage() {
   }
   return (
     <div>
-      {/* Header */}
       <div className="flex items-start justify-between mb-6 gap-4">
         <div>
           <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">
@@ -197,7 +196,6 @@ export default function BookingPage() {
         </div>
       </div>
 
-      {/* Tabs */}
       <div className="flex gap-1 bg-gray-100 dark:bg-gray-800 rounded-xl p-1 mb-6 w-fit">
         {(["bookings", "settings"] as const).map((t) => (
           <button
@@ -219,8 +217,6 @@ export default function BookingPage() {
           </button>
         ))}
       </div>
-
-      {/* Bookings Tab */}
       {tab === "bookings" && (
         <div>
           {/* Status Filter */}
@@ -355,11 +351,8 @@ export default function BookingPage() {
           )}
         </div>
       )}
-
-      {/* Settings Tab */}
       {tab === "settings" && (
         <div className="space-y-6">
-          {/* Duration & Buffer */}
           <div className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-xl p-6">
             <h2 className="text-base font-medium text-gray-900 dark:text-white mb-4">
               Appointment Settings
@@ -399,8 +392,6 @@ export default function BookingPage() {
               </div>
             </div>
           </div>
-
-          {/* Availability */}
           <div className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-xl p-6">
             <h2 className="text-base font-medium text-gray-900 dark:text-white mb-4">
               Weekly Availability
@@ -408,7 +399,6 @@ export default function BookingPage() {
             <div className="space-y-3">
               {availability.map((slot) => (
                 <div key={slot.dayOfWeek} className="flex items-center gap-3 flex-wrap">
-                  {/* Toggle */}
                   <button
                     onClick={() =>
                       updateSlot(slot.dayOfWeek, "isActive", !slot.isActive)
@@ -425,15 +415,11 @@ export default function BookingPage() {
                       }`}
                     />
                   </button>
-
-                  {/* Day */}
                   <span
                     className={`text-sm w-20 shrink-0 ${slot.isActive ? "text-gray-900 dark:text-white font-medium" : "text-gray-400"}`}
                   >
                     {DAYS[slot.dayOfWeek]}
                   </span>
-
-                  {/* Times */}
                   {slot.isActive ? (
                     <div className="flex items-center gap-2">
                       <input
@@ -465,8 +451,6 @@ export default function BookingPage() {
               ))}
             </div>
           </div>
-
-          {/* Save */}
           <button
             onClick={saveSettings}
             disabled={saving}

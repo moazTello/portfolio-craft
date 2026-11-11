@@ -125,7 +125,6 @@ export default function GalleryPage() {
 
   return (
     <div>
-      {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">Gallery</h1>
@@ -155,7 +154,6 @@ export default function GalleryPage() {
         />
       </div>
 
-      {/* Usage Bar */}
       {stats && (
         <div className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-xl p-4 mb-6">
           <div className="flex items-center justify-between mb-2">
@@ -191,7 +189,6 @@ export default function GalleryPage() {
         </div>
       )}
 
-      {/* Empty State */}
       {images.length === 0 ? (
         <div
           onClick={() => stats?.canAdd && fileRef.current?.click()}
@@ -219,9 +216,7 @@ export default function GalleryPage() {
                 onClick={() => setLightbox(img.imageUrl)}
               />
 
-              {/* Overlay */}
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition flex flex-col justify-between p-3 opacity-0 group-hover:opacity-100">
-                {/* Top actions */}
                 <div className="flex justify-end gap-2">
                   <button
                     onClick={() => {
@@ -241,13 +236,11 @@ export default function GalleryPage() {
                   </button>
                 </div>
 
-                {/* Bottom caption */}
                 {img.caption && (
                   <p className="text-white text-xs font-medium truncate">{img.caption}</p>
                 )}
               </div>
 
-              {/* Category badge */}
               {img.category && (
                 <div className="absolute top-2 left-2">
                   <span className="text-xs bg-black/50 text-white px-2 py-0.5 rounded-full backdrop-blur-sm">
@@ -257,8 +250,6 @@ export default function GalleryPage() {
               )}
             </div>
           ))}
-
-          {/* Upload more */}
           {stats?.canAdd && (
             <div
               onClick={() => fileRef.current?.click()}
@@ -272,8 +263,6 @@ export default function GalleryPage() {
           )}
         </div>
       )}
-
-      {/* Edit Modal */}
       {editingId && (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4"
           onClick={e => { if (e.target === e.currentTarget) setEditingId(null) }}>
@@ -316,8 +305,6 @@ export default function GalleryPage() {
           </div>
         </div>
       )}
-
-      {/* Lightbox */}
       {lightbox && (
         <div
           className="fixed inset-0 bg-black/90 flex items-center justify-center z-50 p-4"

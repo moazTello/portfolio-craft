@@ -53,7 +53,7 @@ export default function AchievementsPage() {
         title: values.title,
         description: values.description || undefined,
         date: values.date || undefined,
-        imageUrl: selectedIcon, // ← دايماً من الـ state
+        imageUrl: selectedIcon,
       };
 
       const res = await (editingId
@@ -111,7 +111,7 @@ export default function AchievementsPage() {
   }
   function startEdit(achievement: any) {
     setEditingId(achievement.id);
-    setSelectedIcon(achievement.imageUrl ?? "🏆"); // ← تأكد
+    setSelectedIcon(achievement.imageUrl ?? "🏆");
     reset({
       title: achievement.title,
       description: achievement.description ?? "",
@@ -122,7 +122,6 @@ export default function AchievementsPage() {
   if (!ready || loading) return <LoadingSkeleton rows={3} />;
   return (
     <div>
-      {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">
@@ -144,14 +143,12 @@ export default function AchievementsPage() {
           + Add Achievement
         </button>
       </div>
-      {/* Form */}
       {showForm && (
         <div className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-xl p-6 mb-6">
           <h2 className="text-base font-medium text-gray-900 dark:text-white mb-4">
             {editingId ? "Edit Achievement" : "New Achievement"}
           </h2>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            {/* Icon Picker */}
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Icon
@@ -238,7 +235,6 @@ export default function AchievementsPage() {
           </form>
         </div>
       )}
-      {/* Achievements List */}
       {achievements.length === 0 ? (
         <div className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-xl p-12 text-center">
           <p className="text-4xl mb-4">🏆</p>

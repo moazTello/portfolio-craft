@@ -57,7 +57,6 @@ export default async function LandingPage() {
       className="font-sans text-gray-900 dark:text-white bg-white dark:bg-gray-950"
       dir={isRtl ? "rtl" : "ltr"}
     >
-      {/* Nav */}
       <nav className="flex items-center justify-between px-4 md:px-10 py-4 border-b border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-950">
         <div className="font-serif text-lg md:text-xl text-gray-900 dark:text-white">
           Portfolio<span className="text-indigo-600">Craft</span>
@@ -84,7 +83,6 @@ export default async function LandingPage() {
         </div>
       </nav>
 
-      {/* Hero */}
       <section className="px-4 md:px-10 py-16 md:py-20 text-center bg-linear-to-b from-indigo-50 dark:from-indigo-950 to-white dark:to-gray-950 border-b border-gray-100 dark:border-gray-800">
         <div className="inline-block bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300 text-xs font-medium px-3 py-1 rounded-full mb-5 uppercase tracking-wide">
           {t(messages, "hero.badge")}
@@ -130,7 +128,6 @@ export default async function LandingPage() {
           ))}
         </div>
       </section>
-      {/* Video Section */}
       {/* <section className="px-4 md:px-10 py-14 md:py-16 bg-gray-50 dark:bg-gray-900 border-y border-gray-100 dark:border-gray-800">
         <div className="max-w-3xl mx-auto text-center">
           <p className="text-xs font-medium text-indigo-600 uppercase tracking-widest mb-2">
@@ -153,7 +150,6 @@ export default async function LandingPage() {
           </div>
         </div>
       </section> */}
-      {/* Features */}
       <section
         id="features"
         className="px-4 md:px-10 py-14 md:py-16 bg-white dark:bg-gray-950"
@@ -199,7 +195,6 @@ export default async function LandingPage() {
         </div>
       </section>
       <hr className="border-gray-100 dark:border-gray-800" />
-      {/* Examples */}
       <section
         id="examples"
         className="px-4 md:px-10 py-14 md:py-16 bg-white dark:bg-gray-950"
@@ -334,7 +329,6 @@ export default async function LandingPage() {
         </div>
       </section>
       <hr className="border-gray-100 dark:border-gray-800" />
-      {/* Pricing */}
       <section
         id="pricing"
         className="px-4 md:px-10 py-14 md:py-16 bg-white dark:bg-gray-950"
@@ -426,7 +420,6 @@ export default async function LandingPage() {
         </div>
       </section>
       <hr className="border-gray-100 dark:border-gray-800" />
-      {/* FAQ */}
       <section
         id="faq"
         className="px-4 md:px-10 py-14 md:py-16 bg-white dark:bg-gray-950"
@@ -456,7 +449,6 @@ export default async function LandingPage() {
           ))}
         </div>
       </section>
-      {/* CTA */}
       <section className="bg-gray-950 px-4 md:px-10 py-16 md:py-20 text-center">
         <h2 className="font-serif text-2xl sm:text-3xl md:text-5xl text-white mb-4">
           {t(messages, "cta.title")}
@@ -471,7 +463,6 @@ export default async function LandingPage() {
           {t(messages, "cta.button")}
         </Link>
       </section>
-      {/* Footer */}
       <footer className="px-4 md:px-10 py-6 border-t border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-950 flex flex-col sm:flex-row justify-between items-center gap-4">
         <div className="font-serif text-base text-gray-900 dark:text-white">
           Portfolio<span className="text-indigo-600">Craft</span>

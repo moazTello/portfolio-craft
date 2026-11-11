@@ -60,7 +60,6 @@ export class GalleryService {
       );
     }
 
-    // ارفع على Cloudinary إذا كانت base64
     let imageUrl = data.imageUrl;
     if (data.imageUrl.startsWith('data:')) {
       imageUrl = await this.uploadService.uploadImage(
@@ -81,14 +80,10 @@ export class GalleryService {
   ) {
     const { portfolio } = await this.getPortfolioAndUser(userId);
 
-    // ارفع على Cloudinary إذا كانت base64 جديدة
     let imageUrl = data.imageUrl;
     if (data.imageUrl?.startsWith('data:')) {
-      // احذف القديمة
       const old = await this.prisma.galleryImage.findUnique({ where: { id } });
       if (old?.imageUrl) await this.uploadService.deleteImage(old.imageUrl);
-
-      // ارفع الجديدة
       imageUrl = await this.uploadService.uploadImage(
         data.imageUrl,
         'portfoliocraft/gallery',
@@ -103,8 +98,6 @@ export class GalleryService {
 
   async delete(userId: string, id: string) {
     const { portfolio } = await this.getPortfolioAndUser(userId);
-
-    // احذف من Cloudinary
     const image = await this.prisma.galleryImage.findUnique({ where: { id } });
     if (image?.imageUrl) {
       await this.uploadService.deleteImage(image.imageUrl);

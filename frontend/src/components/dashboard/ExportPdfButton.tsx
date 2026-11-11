@@ -30,7 +30,6 @@ export function ExportPdfButton({ plan }: { plan: string }) {
   //       throw new Error(data.message);
   //     }
 
-  //     // Download the PDF
   //     const blob = await res.blob();
   //     const url = URL.createObjectURL(blob);
   //     const a = document.createElement("a");

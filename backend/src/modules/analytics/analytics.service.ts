@@ -36,17 +36,12 @@ export class AnalyticsService {
 
     const [totalViews, totalClicks, topSections, recentViews] =
       await Promise.all([
-        // Total views
         this.prisma.analyticsEvent.count({
           where: { portfolioId: portfolio.id, eventType: 'page_view' },
         }),
-
-        // Total contact clicks
         this.prisma.analyticsEvent.count({
           where: { portfolioId: portfolio.id, eventType: 'contact_click' },
         }),
-
-        // Top sections
         this.prisma.analyticsEvent.groupBy({
           by: ['section'],
           where: { portfolioId: portfolio.id, section: { not: null } },
@@ -54,8 +49,6 @@ export class AnalyticsService {
           orderBy: { _count: { section: 'desc' } },
           take: 5,
         }),
-
-        // Views last 30 days
         this.prisma.analyticsEvent.count({
           where: {
             portfolioId: portfolio.id,
@@ -92,14 +85,12 @@ export class AnalyticsService {
   //     orderBy: { occurredAt: 'asc' },
   //   });
 
-  //   // Group by day
   //   const grouped: Record<string, number> = {};
   //   events.forEach((event) => {
   //     const day = event.occurredAt.toISOString().split('T')[0];
   //     grouped[day] = (grouped[day] ?? 0) + 1;
   //   });
 
-  //   // Fill missing days
   //   const result: { date: string; views: number }[] = [];
   //   for (let i = 29; i >= 0; i--) {
   //     const date = new Date();
@@ -127,7 +118,6 @@ export class AnalyticsService {
 //     orderBy: { occurredAt: 'asc' },
 //   })
 
-//   // Group by day using local date string
 //   const grouped: Record<string, number> = {}
 //   events.forEach(event => {
 //     // استخدم toISOString بس خذ الـ date part بس
@@ -135,7 +125,6 @@ export class AnalyticsService {
 //     grouped[day] = (grouped[day] ?? 0) + 1
 //   })
 
-//   // Fill missing days
 //   const result: { date: string; views: number }[] = []
 //   for (let i = 29; i >= 0; i--) {
 //     const date = new Date()
@@ -165,7 +154,6 @@ async getTimeseries(userId: string) {
 
   console.log('Total events found:', events.length)
 
-  // Group by day
   const grouped: Record<string, number> = {}
   events.forEach(event => {
     const d = new Date(event.occurredAt)
@@ -175,7 +163,6 @@ async getTimeseries(userId: string) {
 
   console.log('Grouped:', grouped)
 
-  // Fill 30 days
   const result: { date: string; views: number }[] = []
   for (let i = 29; i >= 0; i--) {
     const d = new Date()

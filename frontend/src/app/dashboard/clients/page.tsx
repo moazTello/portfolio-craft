@@ -155,7 +155,6 @@ export default function ClientsPage() {
   }
   return (
     <div>
-      {/* Header */}
       <div className="flex items-start justify-between mb-8 gap-4">
         <div>
           <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">
@@ -179,14 +178,12 @@ export default function ClientsPage() {
         </button>
       </div>
 
-      {/* Form */}
       {showForm && (
         <div className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-xl p-6 mb-6">
           <h2 className="text-base font-medium text-gray-900 dark:text-white mb-4">
             {editingId ? "Edit Client" : "New Client"}
           </h2>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            {/* Logo Upload */}
             <div>
               <label
                 htmlFor="client-logo"
@@ -308,7 +305,6 @@ export default function ClientsPage() {
         </div>
       )}
 
-      {/* Clients Grid */}
       {clients.length === 0 ? (
         <div className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-xl p-12 text-center">
           <p className="text-4xl mb-4">🤝</p>
@@ -351,7 +347,6 @@ export default function ClientsPage() {
                 </a>
               )}
 
-              {/* Actions on hover */}
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 dark:group-hover:bg-white/5 rounded-xl transition flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100">
                 <button
                   onClick={() => startEdit(client)}
@@ -371,7 +366,6 @@ export default function ClientsPage() {
         </div>
       )}
 
-      {/* Public section hint */}
       <p className="text-xs text-gray-400 mt-6 text-center">
         Clients logos will appear as a scrolling strip on your public portfolio
       </p>

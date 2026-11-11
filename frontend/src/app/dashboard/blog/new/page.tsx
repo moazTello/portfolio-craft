@@ -56,7 +56,6 @@ export default function NewBlogPostPage() {
 
   return (
     <div className="max-w-3xl mx-auto">
-      {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <button
           onClick={() => router.push("/dashboard/blog")}
@@ -84,10 +83,7 @@ export default function NewBlogPostPage() {
           </button>
         </div>
       </div>
-
-      {/* Editor */}
       <div className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-xl overflow-hidden">
-        {/* Title */}
         <div className="p-6 border-b border-gray-100 dark:border-gray-800">
           <input
             value={title}
@@ -96,8 +92,6 @@ export default function NewBlogPostPage() {
             className="w-full text-2xl font-bold text-gray-900 dark:text-white bg-transparent focus:outline-none placeholder-gray-300"
           />
         </div>
-
-        {/* Excerpt */}
         <div className="px-6 py-4 border-b border-gray-100 dark:border-gray-800">
           <input
             value={excerpt}
@@ -106,8 +100,6 @@ export default function NewBlogPostPage() {
             className="w-full text-sm text-gray-500 bg-transparent focus:outline-none placeholder-gray-300"
           />
         </div>
-
-        {/* Content */}
         <div className="p-6">
           <textarea
             value={content}
@@ -117,8 +109,6 @@ export default function NewBlogPostPage() {
             className="w-full text-sm text-gray-700 dark:text-gray-300 bg-transparent focus:outline-none placeholder-gray-300 resize-none leading-relaxed font-mono"
           />
         </div>
-
-        {/* Tags */}
         <div className="px-6 py-4 border-t border-gray-100 dark:border-gray-800">
           <input
             value={tags}

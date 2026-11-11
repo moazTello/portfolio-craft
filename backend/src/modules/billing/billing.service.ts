@@ -165,14 +165,12 @@ export class BillingService {
           (periodEnd * 1000 - Date.now()) / (1000 * 60 * 60 * 24),
         );
 
-        // إذا بقي 7 أيام أو أقل
         if (daysUntilEnd <= 7) {
           const user = await this.prisma.user.findFirst({
             where: { stripeSubscriptionId: subscription.id },
           });
 
           if (user) {
-            // ابعت إيميل تحذير
             try {
               const { Resend } = await import('resend');
               const resend = new Resend(this.config.get('RESEND_API_KEY'));
@@ -202,7 +200,6 @@ export class BillingService {
               console.error('Warning email error:', e);
             }
 
-            // ابعت Telegram للأدمن
             try {
               const botToken = this.config.get('TELEGRAM_BOT_TOKEN');
               const chatId = this.config.get('TELEGRAM_CHAT_ID');
@@ -246,7 +243,6 @@ export class BillingService {
           user.stripeSubscriptionId,
         );
 
-        // الـ property الجديدة في Stripe API
         const periodEnd =
           (subscription as any).current_period_end ??
           subscription.items?.data[0]?.current_period_end;
@@ -313,7 +309,6 @@ export class BillingService {
     const response = await this.paypalClient.execute(request);
 
     if (response.result.status === 'COMPLETED') {
-      // Get plan from description
       const description = response.result.purchase_units[0]?.description ?? '';
       const plan = description.includes('BUSINESS') ? 'BUSINESS' : 'PRO';
 
@@ -339,13 +334,11 @@ export class BillingService {
       method: string;
     },
   ) {
-    // Send notification email to admin
     const adminEmail =
       this.config.get('ADMIN_EMAIL') ?? 'admin@portfoliocraft.com';
 
     await this.prisma.user.findUnique({ where: { id: userId } });
 
-    // Send email to admin
     try {
       const { Resend } = await import('resend');
       const resend = new Resend(this.config.get('RESEND_API_KEY'));
@@ -378,7 +371,6 @@ export class BillingService {
     } catch (e) {
       console.error('Email error:', e);
     }
-    // Send Telegram notification to admin
     try {
       const botToken = this.config.get('TELEGRAM_BOT_TOKEN');
       const chatId = this.config.get('TELEGRAM_CHAT_ID');

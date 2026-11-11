@@ -104,15 +104,12 @@ export class PortfolioService {
   }
 
   async updateUsername(userId: string, username: string) {
-    // تحقق إن الـ username صالح
     const valid = /^[a-z0-9_-]{3,30}$/.test(username);
     if (!valid) {
       throw new BadRequestException(
         'Username must be 3-30 characters, lowercase letters, numbers, _ or - only',
       );
     }
-
-    // تحقق إنه مو مأخوذ
     const existing = await this.prisma.portfolio.findUnique({
       where: { username },
     });
@@ -130,8 +127,6 @@ export class PortfolioService {
       where: { userId },
       data: { published },
     });
-
-    // أبلغ Google بالـ sitemap لما ينشر
     if (published) {
       fetch(
         'https://www.google.com/ping?sitemap=https://www.portfolio-craft.com/sitemap.xml',
@@ -144,7 +139,7 @@ export class PortfolioService {
     const portfolio = await this.prisma.portfolio.findUnique({
       where: { username },
       include: {
-        user: { select: { avatarUrl: true, plan: true } }, // ← أضف plan
+        user: { select: { avatarUrl: true, plan: true } }, 
         projects: { orderBy: { displayOrder: 'asc' } },
         skills: { orderBy: { displayOrder: 'asc' } },
         experiences: { orderBy: { displayOrder: 'asc' } },
@@ -160,7 +155,6 @@ export class PortfolioService {
     if (!portfolio) throw new NotFoundException('Portfolio not found');
     if (!portfolio.published) return { notPublished: true, username };
 
-    // بعد ما عرّفنا portfolio
     const plan = portfolio.user?.plan ?? 'FREE';
     const isPro = plan === 'PRO' || plan === 'BUSINESS';
     const isBusiness = plan === 'BUSINESS';
@@ -271,20 +265,15 @@ export class PortfolioService {
     }
 
     if (domain) {
-      // تنظيف الدومين أول
       const cleanDomain = domain
         .toLowerCase()
         .replace(/^https?:\/\//, '')
         .replace(/\/$/, '')
         .trim();
-
-      // تحقق من الصيغة
       const domainRegex = /^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$/;
       if (!domainRegex.test(cleanDomain)) {
         throw new BadRequestException('Invalid domain format');
       }
-
-      // تحقق إنه مو مأخوذ
       const existing = await this.prisma.portfolio.findFirst({
         where: { customDomain: cleanDomain, NOT: { userId } },
       });
@@ -314,10 +303,7 @@ export class PortfolioService {
 
   async verifyDomain(userId: string) {
     const user = await this.prisma.user.findUnique({ where: { id: userId } });
-
-    // تحقق من الخطة أول
     if (user?.plan === 'FREE') {
-      // احذف الدومين إذا كان موجود
       const portfolio = await this.prisma.portfolio.findUnique({
         where: { userId },
       });
@@ -347,7 +333,7 @@ export class PortfolioService {
           r.includes('portfoliocraft.com') ||
           r.includes('vercel.app') ||
           r.includes('vercel-dns.com') ||
-          r.includes('vercel-dns-'), // ← أضف هذا
+          r.includes('vercel-dns-'),
       );
 
       return {
@@ -356,7 +342,6 @@ export class PortfolioService {
         cname: records[0] ?? null,
       };
     } catch {
-      // إذا ما قدر يحل الـ DNS — جرب HTTP check
       try {
         const res = await fetch(`https://${portfolio.customDomain}`, {
           method: 'HEAD',

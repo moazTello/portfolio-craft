@@ -132,7 +132,7 @@ export default function BillingPage() {
     try {
       const res = await api.post("/billing/paypal/create", {
         plan: planId,
-        interval: interval, // ← أضف
+        interval: interval, 
       });
       const data = await res.json();
       if (data.approvalUrl) window.location.href = data.approvalUrl;
@@ -186,7 +186,6 @@ export default function BillingPage() {
 
   return (
     <div>
-      {/* Header */}
       <div className="mb-8">
         <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">
           Billing
@@ -215,7 +214,6 @@ export default function BillingPage() {
           </p>
         </div>
       )}
-      {/* Current Plan Banner */}
       <div className="bg-indigo-50 dark:bg-indigo-950 border border-indigo-100 dark:border-indigo-900 rounded-xl p-5 mb-8 flex items-center justify-between">
         <div>
           <p className="text-sm text-indigo-600 dark:text-indigo-400 font-medium">
@@ -270,7 +268,6 @@ export default function BillingPage() {
         </button>
       </div>
 
-      {/* Plans */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {plans.map((plan) => {
           // const isCurrent = currentPlan === plan.id;
@@ -372,7 +369,6 @@ export default function BillingPage() {
                           ? `Upgrade to ${plan.name}`
                           : `Switch to ${plan.name}`}
                 </button> */}
-                {/* stripe */}
               {/* <button
                 onClick={() =>
                   !isCurrent &&
@@ -408,7 +404,6 @@ export default function BillingPage() {
                         ? "Free Plan"
                         : `Upgrade to ${plan.name}`}
               </button> */}
-              {/* paypal */}
               {/* {!isCurrent && plan.id !== "FREE" && !isDowngrade && (
                 <div className="mt-2">
                   <p className="text-xs text-gray-400 text-center mb-2">

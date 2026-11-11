@@ -192,7 +192,6 @@ export default function SettingsPage() {
         <p className="text-sm text-gray-500 mt-1">Manage your account</p>
       </div>
 
-      {/* Tabs */}
       <div className="flex flex-wrap gap-1 bg-gray-100 rounded-lg p-1 mb-6">
         {tabs.map((tab) => (
           <button
@@ -209,7 +208,6 @@ export default function SettingsPage() {
         ))}
       </div>
 
-      {/* Profile Tab */}
       {activeTab === "profile" && (
         <div className="bg-white border border-gray-100 rounded-xl p-6">
           <h2 className="text-base font-medium text-gray-900 mb-4">
@@ -296,7 +294,6 @@ export default function SettingsPage() {
                 Telegram Notifications
               </label>
 
-              {/* Steps */}
               <div className="bg-blue-50 dark:bg-blue-950 border border-blue-100 dark:border-blue-900 rounded-lg p-4 mb-3">
                 <p className="text-xs font-medium text-blue-700 dark:text-blue-300 mb-2">
                   To receive Telegram notifications:
@@ -367,8 +364,6 @@ export default function SettingsPage() {
           </form>
         </div>
       )}
-
-      {/* Password Tab */}
       {activeTab === "password" && (
         <div className="bg-white border border-gray-100 rounded-xl p-6">
           <h2 className="text-base font-medium text-gray-900 mb-4">
@@ -498,11 +493,9 @@ export default function SettingsPage() {
                     setUsernameInput(val);
                     setUsernameAvailable(null);
 
-                    // امسح الـ timeout القديم
                     if (debounceRef.current) clearTimeout(debounceRef.current);
 
                     if (val.length >= 3 && val !== username) {
-                      // انتظر 500ms بعد ما يوقف الكتابة
                       debounceRef.current = setTimeout(async () => {
                         try {
                           const res = await api.get(
@@ -589,7 +582,6 @@ export default function SettingsPage() {
           </div>
         </div>
       )}
-      {/* Danger Zone Tab */}
       {activeTab === "danger" && (
         <div className="bg-white border border-red-100 rounded-xl p-6">
           <h2 className="text-base font-medium text-red-600 mb-2">
@@ -632,7 +624,6 @@ export default function SettingsPage() {
             </div>
           ) : (
             <div className="space-y-6">
-              {/* Instructions */}
               <div className="bg-blue-50 dark:bg-blue-950 border border-blue-100 dark:border-blue-900 rounded-xl p-4">
                 <p className="text-sm font-medium text-blue-700 dark:text-blue-300 mb-3">
                   How to set up your domain:
@@ -666,7 +657,6 @@ export default function SettingsPage() {
                 </p>
               </div>
 
-              {/* Namecheap Affiliate — أضف هون */}
               <div className="bg-orange-50 dark:bg-orange-950 border border-orange-100 dark:border-orange-900 rounded-xl p-4">
                 <p className="text-sm text-orange-700 dark:text-orange-300 font-medium mb-1">
                   Don't have a domain yet?
@@ -683,8 +673,6 @@ export default function SettingsPage() {
                   Buy a domain on Namecheap →
                 </a>
               </div>
-
-              {/* Domain Input */}
               <div>
                 <label
                   htmlFor="portfolio-yourdomain"
@@ -736,8 +724,6 @@ export default function SettingsPage() {
                   Enter without http:// — example: myportfolio.com
                 </p>
               </div>
-
-              {/* Verify */}
               {customDomain && (
                 <div className="border border-gray-100 dark:border-gray-800 rounded-xl p-4">
                   <div className="flex items-center justify-between mb-3">
@@ -785,8 +771,6 @@ export default function SettingsPage() {
                       Check DNS →
                     </button>
                   </div>
-
-                  {/* Remove */}
                   <button
                     onClick={async () => {
                       if (!confirm("Remove custom domain?")) return;
