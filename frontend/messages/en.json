@@ -34,8 +34,12 @@
   "title": "See what people build",
   "subtitle": "Real portfolios from real professionals across different fields.",
   "soon": "Soon",
-  "moazRole": "React Developer",
-  "moazName": "Informatics Engineer - Moaz Tello"
+  "moazRole": "Sinior Frontend Developer",
+  "moazName": "Informatics Engineer - Moaz Tello",
+  "salmanRole": "React developer",
+  "salmanName": "Informatics Engineer - Salman Al-Nazal",
+  "waleedRole": "HVAC Engineer",
+  "waleedName": "Mechanical Engineer - waleed mansoure"
 },
   "pricing": {
     "label": "Pricing",

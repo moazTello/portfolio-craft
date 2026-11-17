@@ -2,6 +2,8 @@ import Link from "next/link";
 import { cookies } from "next/headers";
 import { LanguageSwitcher } from "@/components/shared/LanguageSwitcher";
 import moazImage from "../../public/moaz_portfolio.png";
+import salman_portfolio from "../../public/salman_portfolio.png";
+import waleed_portfolio from "../../public/waleed_portfolio.png";
 type Locale = "en" | "ar" | "de";
 import Image from "next/image";
 async function getMessages(locale: Locale) {
@@ -222,20 +224,20 @@ export default async function LandingPage() {
             {
               bg: "#f8f4ef",
               accent: "#1a1a1a",
-              label: "Designer",
-              name: "Coming",
-              role: "UI/UX Designer",
-              href: null,
-              image: null,
+              label: "Creative Dev",
+              name: t(messages, "examples.salmanName"),
+              role: t(messages, "examples.salmanRole"),
+              href: "https://www.portfolio-craft.com/salmannazal",
+              image: salman_portfolio,
             },
             {
               bg: "#EEF2FF",
               accent: "#4338CA",
-              label: "Consultant",
-              name: "Coming Soon",
-              role: "Business Consultant",
-              href: null,
-              image: null,
+              label: "HVAC Engineer",
+              name: t(messages, "examples.waleedName"),
+              role: t(messages, "examples.waleedRole"),
+              href: "https://www.portfolio-craft.com/waleedmansore",
+              image: waleed_portfolio,
             },
           ].map(({ bg, accent, label, name, role, href, image }) => (
             <div
